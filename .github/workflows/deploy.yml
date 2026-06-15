@@ -6,6 +6,7 @@ name: Déploiement GitHub Pages
 on:
   push:
     branches:
+      - main
       - claude/statut-bailleur-prive-site-wrw2ma
   workflow_dispatch:
 

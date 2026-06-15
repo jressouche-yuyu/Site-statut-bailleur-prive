@@ -28,7 +28,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: claude/statut-bailleur-prive-site-wrw2ma
+          ref: main
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -56,8 +56,8 @@ jobs:
             echo "Aucune nouvelle photo."
           else
             git commit -m "Photos Pexels (automatisation)"
-            git push origin claude/statut-bailleur-prive-site-wrw2ma
+            git push origin main
             # Les commits poussés par GITHUB_TOKEN ne déclenchent pas d'autres
             # workflows : on relance donc explicitement le déploiement.
-            gh workflow run deploy.yml --ref claude/statut-bailleur-prive-site-wrw2ma
+            gh workflow run deploy.yml --ref main
           fi
