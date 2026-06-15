@@ -20,7 +20,13 @@ const latestPosts = (await getCollection('actualites', (p) => !p.data.draft))
   .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
   .slice(0, 3);
 
-const featuredGuides = guides.slice(0, 4);
+// Guides triés du plus récent au plus ancien : on met en avant les derniers,
+// et on liste les plus anciens en dessous (accès aux guides passés).
+const sortedGuides = [...guides].sort(
+  (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+);
+const featuredGuides = sortedGuides.slice(0, 6);
+const olderGuides = sortedGuides.slice(6);
 const heroPhoto = photo('home:hero');
 
 const jsonLd = [
@@ -161,10 +167,10 @@ const jsonLd = [
 
   <section class="section container">
     <div class="section-head">
-      <h2>Nos guides</h2>
+      <h2>Nos derniers guides</h2>
       <a class="see-all" href={url('/guides')}>Tous les guides →</a>
     </div>
-    <div class="grid grid-2">
+    <div class="grid grid-3">
       {
         featuredGuides.map((g) => {
           const p = photo(`guide:${g.slug}`);
@@ -182,6 +188,21 @@ const jsonLd = [
         })
       }
     </div>
+    {
+      olderGuides.length > 0 && (
+        <div class="more-guides">
+          <p class="more-guides-title">Également dans nos guides</p>
+          <ul>
+            {olderGuides.map((g) => (
+              <li>
+                <a href={url(`/guides/${g.slug}`)}>{g.title}</a>
+                <span class="more-guides-cat">{g.category}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
   </section>
 
   <section class="section container">
@@ -437,6 +458,50 @@ const jsonLd = [
   }
   .section-head h2 {
     margin: 0;
+  }
+  .more-guides {
+    margin-top: var(--space-8);
+    border-top: 1px solid var(--border);
+    padding-top: var(--space-6);
+  }
+  .more-guides-title {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--accent-ink);
+    margin: 0 0 var(--space-4);
+  }
+  .more-guides ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+  @media (min-width: 640px) {
+    .more-guides ul {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .more-guides li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin: 0;
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--border);
+  }
+  .more-guides li a {
+    font-weight: 600;
+  }
+  .more-guides-cat {
+    flex-shrink: 0;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
   }
   .see-all {
     font-weight: 600;
