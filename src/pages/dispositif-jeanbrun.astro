@@ -3,6 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Callout from '../components/Callout.astro';
 import RateTable from '../components/RateTable.astro';
+import BaremeChart from '../components/BaremeChart.astro';
+import Steps from '../components/Steps.astro';
 import Faq from '../components/Faq.astro';
 import { conditions, timeline, dispositif, formatEur } from '../data/dispositif';
 import { faq } from '../data/faq';
@@ -92,6 +94,7 @@ const jsonLd = [
         et l'effort de loyer consenti (intermédiaire, social ou très social). La
         déduction annuelle est plafonnée.
       </p>
+      <BaremeChart />
       <RateTable />
       <p>
         Concrètement, pour un appartement neuf acheté {formatEur(250000)} loué en
@@ -122,15 +125,14 @@ const jsonLd = [
       </Callout>
 
       <h2 id="comment">Comment en bénéficier, étape par étape</h2>
-      <ol class="steps">
-        {
-          howToSteps.map((s) => (
-            <li>
-              <strong>{s.title}.</strong> {s.body}
-            </li>
-          ))
-        }
-      </ol>
+      <Steps
+        steps={[
+          { icon: 'building', title: howToSteps[0].title, body: howToSteps[0].body },
+          { icon: 'percent', title: howToSteps[1].title, body: howToSteps[1].body },
+          { icon: 'calendar', title: howToSteps[2].title, body: howToSteps[2].body },
+          { icon: 'piggy', title: howToSteps[3].title, body: howToSteps[3].body },
+        ]}
+      />
 
       <h2 id="calendrier">Calendrier et adoption</h2>
       <ul class="timeline">

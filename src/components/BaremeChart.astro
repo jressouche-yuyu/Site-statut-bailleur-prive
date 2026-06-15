@@ -1,0 +1,103 @@
+---
+/**
+ * Graphique de barème (SVG, rendu serveur) : taux d'amortissement annuel par
+ * catégorie de loyer, neuf vs ancien. Visuel, léger, sans JS.
+ */
+import { loyerTiers, formatPct } from '../data/dispositif';
+
+const max = 0.06; // échelle (6 %)
+const W = 640;
+const H = 300;
+const padL = 40;
+const padB = 60;
+const padT = 20;
+const usableH = H - padB - padT;
+const groupW = (W - padL - 20) / loyerTiers.length;
+const barW = 46;
+const gap = 14;
+
+const y = (rate: number) => padT + usableH - (rate / max) * usableH;
+// Lignes de repère horizontales
+const gridVals = [0.01, 0.02, 0.03, 0.04, 0.05, 0.06];
+---
+
+<figure class="bareme">
+  <svg viewBox={`0 0 ${W} ${H}`} width="100%" role="img"
+    aria-label="Taux d'amortissement annuel du dispositif Jeanbrun par catégorie de loyer, dans le neuf et l'ancien rénové.">
+    {/* Grille */}
+    {
+      gridVals.map((g) => (
+        <g>
+          <line x1={padL} y1={y(g)} x2={W - 20} y2={y(g)} stroke="var(--border)" stroke-dasharray="3 4" />
+          <text x={padL - 8} y={y(g) + 4} text-anchor="end" class="ax">{Math.round(g * 100)}%</text>
+        </g>
+      ))
+    }
+    {
+      loyerTiers.map((t, i) => {
+        const gx = padL + 10 + i * groupW;
+        const xNeuf = gx + groupW / 2 - barW - gap / 2;
+        const xAncien = gx + groupW / 2 + gap / 2;
+        return (
+          <g>
+            <rect x={xNeuf} y={y(t.rateNeuf)} width={barW} height={padT + usableH - y(t.rateNeuf)} rx="5" fill="var(--primary)" />
+            <text x={xNeuf + barW / 2} y={y(t.rateNeuf) - 7} text-anchor="middle" class="val">{formatPct(t.rateNeuf)}</text>
+            <rect x={xAncien} y={y(t.rateAncien)} width={barW} height={padT + usableH - y(t.rateAncien)} rx="5" fill="var(--accent)" />
+            <text x={xAncien + barW / 2} y={y(t.rateAncien) - 7} text-anchor="middle" class="val">{formatPct(t.rateAncien)}</text>
+            <text x={gx + groupW / 2} y={H - 30} text-anchor="middle" class="cat">{t.label.replace('Loyer ', '')}</text>
+          </g>
+        );
+      })
+    }
+  </svg>
+  <figcaption class="legend">
+    <span><i class="sw sw-neuf"></i> Neuf</span>
+    <span><i class="sw sw-ancien"></i> Ancien rénové</span>
+  </figcaption>
+</figure>
+
+<style>
+  .bareme {
+    margin: var(--space-6) 0;
+  }
+  .bareme :global(.ax) {
+    fill: var(--text-muted);
+    font-size: 12px;
+  }
+  .bareme :global(.val) {
+    fill: var(--text);
+    font-size: 13px;
+    font-weight: 800;
+  }
+  .bareme :global(.cat) {
+    fill: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+  .legend {
+    display: flex;
+    gap: var(--space-6);
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: var(--space-2);
+  }
+  .legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .sw {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    display: inline-block;
+  }
+  .sw-neuf {
+    background: var(--primary);
+  }
+  .sw-ancien {
+    background: var(--accent);
+  }
+</style>
