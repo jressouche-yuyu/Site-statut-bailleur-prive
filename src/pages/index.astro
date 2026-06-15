@@ -16,17 +16,57 @@ import { url } from '../lib/url';
 
 const homeFaq = faq.slice(0, 6);
 
-const latestPosts = (await getCollection('actualites', (p) => !p.data.draft))
-  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
-  .slice(0, 3);
+// Flux unifié : guides + actualités fusionnés et triés du plus récent au plus
+// ancien. La home reflète ainsi automatiquement le dernier contenu publié.
+interface FeedItem {
+  kind: 'guide' | 'actu';
+  type: string;
+  title: string;
+  description: string;
+  date: Date;
+  href: string;
+  seed: string;
+  src?: string;
+  alt: string;
+  icon: 'building' | 'key' | 'chart' | 'doc';
+}
 
-// Guides triés du plus récent au plus ancien : on met en avant les derniers,
-// et on liste les plus anciens en dessous (accès aux guides passés).
-const sortedGuides = [...guides].sort(
-  (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
-);
-const featuredGuides = sortedGuides.slice(0, 6);
-const olderGuides = sortedGuides.slice(6);
+const guideItems: FeedItem[] = guides.map((g) => {
+  const p = photo(`guide:${g.slug}`);
+  return {
+    kind: 'guide', type: g.category, title: g.title, description: g.description,
+    date: new Date(g.publishedAt), href: `/guides/${g.slug}`, seed: g.slug,
+    src: p?.src ?? g.cover, alt: p?.alt ?? g.coverAlt ?? g.title, icon: categoryIcon[g.category],
+  };
+});
+const actuItems: FeedItem[] = (await getCollection('actualites', (p) => !p.data.draft)).map((p) => {
+  const ph = photo(`post:${p.id}`);
+  return {
+    kind: 'actu', type: 'Actualité', title: p.data.title, description: p.data.description,
+    date: p.data.publishedAt, href: `/actualites/${p.id}`, seed: p.id,
+    src: ph?.src ?? p.data.cover, alt: ph?.alt ?? p.data.coverAlt ?? p.data.title, icon: 'doc',
+  };
+});
+const feed = [...guideItems, ...actuItems].sort((a, b) => b.date.getTime() - a.date.getTime());
+const featured = feed[0];
+const recent = feed.slice(1, 7);
+const fmtDate = (d: Date) => d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+// Écosystème : grands acteurs (wordmarks, remplaçables par de vrais logos) et
+// principales métropoles concernées.
+const acteurs = ['Nexity', 'Bouygues Immobilier', 'Cogedim', 'Vinci Immobilier', 'Icade', 'Kaufman & Broad', 'Pichet', 'Nacarat'];
+const territoires = [
+  { ville: 'Grand Paris', dpt: '75 · 92 · 93 · 94' },
+  { ville: 'Lyon', dpt: '69' },
+  { ville: 'Toulouse', dpt: '31' },
+  { ville: 'Bordeaux', dpt: '33' },
+  { ville: 'Nantes', dpt: '44' },
+  { ville: 'Lille', dpt: '59' },
+  { ville: 'Montpellier', dpt: '34' },
+  { ville: 'Rennes', dpt: '35' },
+  { ville: 'Marseille', dpt: '13' },
+  { ville: 'Nice', dpt: '06' },
+];
 const heroPhoto = photo('home:hero');
 
 const jsonLd = [
@@ -167,68 +207,81 @@ const jsonLd = [
 
   <section class="section container">
     <div class="section-head">
-      <h2>Nos derniers guides</h2>
-      <a class="see-all" href={url('/guides')}>Tous les guides →</a>
+      <h2>Derniers contenus</h2>
+      <span class="see-all-group">
+        <a class="see-all" href={url('/guides')}>Guides</a>
+        <a class="see-all" href={url('/actualites')}>Actualités</a>
+      </span>
     </div>
-    <div class="grid grid-3">
-      {
-        featuredGuides.map((g) => {
-          const p = photo(`guide:${g.slug}`);
-          return (
-          <a class="link-card" href={url(`/guides/${g.slug}`)}>
-            <Cover src={p?.src ?? g.cover} alt={p?.alt ?? g.coverAlt ?? g.title} credit={p?.credit ?? g.coverCredit} seed={g.slug} variant="thumb" icon={categoryIcon[g.category]} />
-            <div class="link-card-body">
-              <span class="badge badge-accent">{g.category}</span>
-              <h3>{g.title}</h3>
-              <p>{g.description}</p>
-              <span class="link-card-cta">Lire le guide →</span>
-            </div>
-          </a>
-          );
-        })
-      }
-    </div>
+
     {
-      olderGuides.length > 0 && (
-        <div class="more-guides">
-          <p class="more-guides-title">Également dans nos guides</p>
-          <ul>
-            {olderGuides.map((g) => (
-              <li>
-                <a href={url(`/guides/${g.slug}`)}>{g.title}</a>
-                <span class="more-guides-cat">{g.category}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+      featured && (
+        <a class="feature-card" href={url(featured.href)}>
+          <Cover src={featured.src} alt={featured.alt} seed={featured.seed} variant="thumb" icon={featured.icon} loading="eager" class="feature-cover" />
+          <div class="feature-body">
+            <span class="badge badge-accent">{featured.kind === 'guide' ? featured.type : 'Actualité'}</span>
+            <h3>{featured.title}</h3>
+            <p>{featured.description}</p>
+            <span class="feature-meta">{fmtDate(featured.date)}</span>
+            <span class="link-card-cta">Lire →</span>
+          </div>
+        </a>
       )
     }
+
+    <div class="grid grid-3 recent-grid">
+      {
+        recent.map((it) => (
+          <a class="link-card" href={url(it.href)}>
+            <Cover src={it.src} alt={it.alt} seed={it.seed} variant="thumb" icon={it.icon} />
+            <div class="link-card-body">
+              <span class="badge badge-accent">{it.kind === 'guide' ? it.type : 'Actualité'}</span>
+              <h3>{it.title}</h3>
+              <p>{it.description}</p>
+              <span class="link-card-cta">{it.kind === 'guide' ? 'Lire le guide →' : "Lire l'article →"}</span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
   </section>
 
   <section class="section container">
     <div class="section-head">
-      <h2>Dernières actualités</h2>
-      <a class="see-all" href={url('/actualites')}>Toutes les actualités →</a>
+      <h2>Les territoires concernés</h2>
+      <a class="see-all" href={url('/guides/ou-investir-dispositif-jeanbrun-departements')}>Où investir ? →</a>
     </div>
-    <div class="grid grid-3">
+    <p class="lead" style="margin-bottom:var(--space-6)">
+      Le dispositif s'applique partout en France ; le potentiel se concentre dans
+      les grandes métropoles à forte demande locative.
+    </p>
+    <ul class="territoires">
       {
-        latestPosts.map((post) => {
-          const p = photo(`post:${post.id}`);
-          return (
-          <a class="link-card" href={url(`/actualites/${post.id}`)}>
-            <Cover src={p?.src ?? post.data.cover} alt={p?.alt ?? post.data.coverAlt ?? post.data.title} credit={p?.credit ?? post.data.coverCredit} seed={post.id} variant="thumb" icon="doc" />
-            <div class="link-card-body">
-              <time datetime={post.data.publishedAt.toISOString()} class="card-date">
-                {post.data.publishedAt.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
-              </time>
-              <h3>{post.data.title}</h3>
-              <p>{post.data.description}</p>
-              <span class="link-card-cta">Lire l'article →</span>
-            </div>
-          </a>
-          );
-        })
+        territoires.map((t) => (
+          <li>
+            <a href={url('/guides/ou-investir-dispositif-jeanbrun-departements')}>
+              <span class="terr-ville">{t.ville}</span>
+              <span class="terr-dpt">{t.dpt}</span>
+            </a>
+          </li>
+        ))
       }
+    </ul>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container">
+      <div class="section-head">
+        <h2 style="margin-top:0">Les acteurs du marché</h2>
+        <a class="see-all" href={url('/guides/acteurs-dispositif-jeanbrun-promoteurs-conseils')}>Panorama des acteurs →</a>
+      </div>
+      <p class="lead" style="margin-bottom:var(--space-6)">
+        Promoteurs et conseils positionnés sur le statut du bailleur privé.
+      </p>
+      <ul class="logos">
+        {acteurs.map((a) => <li class="logo-chip">{a}</li>)}
+      </ul>
+      <p class="logos-note">Noms cités à titre informatif — aucun lien commercial ni partenariat impliqué.</p>
     </div>
   </section>
 
@@ -459,48 +512,127 @@ const jsonLd = [
   .section-head h2 {
     margin: 0;
   }
-  .more-guides {
-    margin-top: var(--space-8);
-    border-top: 1px solid var(--border);
-    padding-top: var(--space-6);
+  .see-all-group {
+    display: inline-flex;
+    gap: var(--space-4);
   }
-  .more-guides-title {
-    font-size: 0.72rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    color: var(--accent-ink);
-    margin: 0 0 var(--space-4);
+
+  /* Carte « à la une » du flux unifié */
+  .feature-card {
+    display: grid;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    color: var(--text);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.15s ease, border-color 0.15s ease;
   }
-  .more-guides ul {
+  @media (min-width: 720px) {
+    .feature-card {
+      grid-template-columns: 1.1fr 1fr;
+    }
+  }
+  .feature-card:hover {
+    text-decoration: none;
+    border-color: var(--primary);
+    box-shadow: var(--shadow);
+  }
+  .feature-card :global(.feature-cover) {
+    border-radius: 0;
+    height: 100%;
+    min-height: 220px;
+  }
+  .feature-body {
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    align-self: center;
+  }
+  .feature-body .badge {
+    align-self: flex-start;
+  }
+  .feature-body h3 {
+    margin: 0;
+    font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  }
+  .feature-body p {
+    margin: 0;
+    color: var(--text-muted);
+  }
+  .feature-meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .recent-grid {
+    margin-top: var(--space-6);
+  }
+
+  /* Territoires */
+  .territoires {
     list-style: none;
     padding: 0;
     margin: 0;
-    display: grid;
-    gap: var(--space-3);
-  }
-  @media (min-width: 640px) {
-    .more-guides ul {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-  .more-guides li {
     display: flex;
-    align-items: baseline;
-    justify-content: space-between;
+    flex-wrap: wrap;
     gap: var(--space-3);
-    margin: 0;
-    padding-bottom: var(--space-2);
-    border-bottom: 1px solid var(--border);
   }
-  .more-guides li a {
+  .territoires li {
+    margin: 0;
+  }
+  .territoires a {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--text);
+  }
+  .territoires a:hover {
+    border-color: var(--primary);
+    text-decoration: none;
+  }
+  .terr-ville {
+    font-family: var(--font-display);
     font-weight: 600;
   }
-  .more-guides-cat {
-    flex-shrink: 0;
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+  .terr-dpt {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Bande de logos (wordmarks) */
+  .logos {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+  .logos li {
+    margin: 0;
+  }
+  .logo-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-3) var(--space-5);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    letter-spacing: 0.01em;
+  }
+  .logos-note {
+    margin: var(--space-4) 0 0;
+    font-size: 0.82rem;
     color: var(--text-muted);
   }
   .see-all {
