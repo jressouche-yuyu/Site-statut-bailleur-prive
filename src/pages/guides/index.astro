@@ -4,6 +4,7 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Cover from '../../components/Cover.astro';
 import { guides } from '../../data/guides';
 import { breadcrumbSchema, itemListSchema } from '../../lib/schema';
+import { photo } from '../../lib/photos';
 import { url } from '../../lib/url';
 
 const categoryIcon = {
@@ -46,9 +47,11 @@ const jsonLd = [
   <div class="container">
     <div class="grid grid-2 guide-grid">
       {
-        guides.map((g) => (
+        guides.map((g) => {
+          const p = photo(`guide:${g.slug}`);
+          return (
           <a class="link-card" href={url(`/guides/${g.slug}`)}>
-            <Cover src={g.cover} alt={g.coverAlt ?? g.title} credit={g.coverCredit} seed={g.slug} variant="thumb" icon={categoryIcon[g.category]} />
+            <Cover src={p?.src ?? g.cover} alt={p?.alt ?? g.coverAlt ?? g.title} credit={p?.credit ?? g.coverCredit} seed={g.slug} variant="thumb" icon={categoryIcon[g.category]} />
             <div class="link-card-body">
               <span class="badge badge-accent">{g.category}</span>
               <h2>{g.title}</h2>
@@ -57,7 +60,8 @@ const jsonLd = [
               <span class="link-card-cta">Lire le guide →</span>
             </div>
           </a>
-        ))
+          );
+        })
       }
     </div>
   </div>

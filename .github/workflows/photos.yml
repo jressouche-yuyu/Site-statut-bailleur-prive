@@ -1,0 +1,57 @@
+name: Photos Pexels (automatisation)
+
+# Récupère des photos libres de droits via l'API Pexels, les héberge dans le
+# dépôt et commite le résultat. Le push déclenche ensuite le déploiement.
+#
+# Prérequis (une seule fois) : ajouter le secret PEXELS_API_KEY
+#   Settings → Secrets and variables → Actions → New repository secret
+#   (clé gratuite : https://www.pexels.com/api/)
+#
+# Lancement : onglet Actions → « Photos Pexels » → Run workflow.
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Forcer le re-téléchargement de toutes les photos'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: claude/statut-bailleur-prive-site-wrw2ma
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Récupérer les photos Pexels
+        env:
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          FORCE: ${{ inputs.force && '1' || '0' }}
+        run: npm run photos
+
+      - name: Commiter les photos
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/images src/data/photos.json
+          if git diff --staged --quiet; then
+            echo "Aucune nouvelle photo."
+          else
+            git commit -m "Photos Pexels (automatisation)"
+            git push origin claude/statut-bailleur-prive-site-wrw2ma
+          fi

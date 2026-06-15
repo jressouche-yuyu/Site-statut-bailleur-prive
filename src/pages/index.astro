@@ -8,6 +8,7 @@ import Steps from '../components/Steps.astro';
 import Compare from '../components/Compare.astro';
 import Cover from '../components/Cover.astro';
 import { guides } from '../data/guides';
+import { photo } from '../lib/photos';
 
 const categoryIcon = {
   Comprendre: 'building',
@@ -27,6 +28,7 @@ const latestPosts = (await getCollection('actualites', (p) => !p.data.draft))
   .slice(0, 3);
 
 const featuredGuides = guides.slice(0, 4);
+const heroPhoto = photo('home:hero');
 
 const jsonLd = [
   breadcrumbSchema([{ name: 'Accueil', path: '/' }]),
@@ -56,7 +58,13 @@ const jsonLd = [
           <a class="btn btn-ghost" href={url('/simulateur')}>Simuler mon amortissement</a>
         </div>
       </div>
-      <div class="hero-art" aria-hidden="true">
+      <div class="hero-art" aria-hidden={heroPhoto ? undefined : 'true'}>
+        {heroPhoto ? (
+          <figure class="hero-photo">
+            <img src={url(heroPhoto.src)} alt={heroPhoto.alt ?? 'Immeuble résidentiel'} width="720" height="560" fetchpriority="high" />
+            {heroPhoto.credit && <figcaption>{heroPhoto.credit}</figcaption>}
+          </figure>
+        ) : (
         <svg viewBox="0 0 360 300" width="100%" role="img" aria-label="Illustration : immeuble et courbe d'amortissement fiscal">
           <defs>
             <linearGradient id="hb" x1="0" y1="0" x2="1" y2="1">
@@ -86,6 +94,7 @@ const jsonLd = [
           ))}
           <text x="186" y="76" class="art-pct">−5,5%/an</text>
         </svg>
+        )}
       </div>
     </div>
   </section>
@@ -153,9 +162,11 @@ const jsonLd = [
     </div>
     <div class="grid grid-2">
       {
-        featuredGuides.map((g) => (
+        featuredGuides.map((g) => {
+          const p = photo(`guide:${g.slug}`);
+          return (
           <a class="link-card" href={url(`/guides/${g.slug}`)}>
-            <Cover src={g.cover} alt={g.coverAlt ?? g.title} credit={g.coverCredit} seed={g.slug} variant="thumb" icon={categoryIcon[g.category]} />
+            <Cover src={p?.src ?? g.cover} alt={p?.alt ?? g.coverAlt ?? g.title} credit={p?.credit ?? g.coverCredit} seed={g.slug} variant="thumb" icon={categoryIcon[g.category]} />
             <div class="link-card-body">
               <span class="badge badge-accent">{g.category}</span>
               <h3>{g.title}</h3>
@@ -163,7 +174,8 @@ const jsonLd = [
               <span class="link-card-cta">Lire le guide →</span>
             </div>
           </a>
-        ))
+          );
+        })
       }
     </div>
   </section>
@@ -175,9 +187,11 @@ const jsonLd = [
     </div>
     <div class="grid grid-3">
       {
-        latestPosts.map((post) => (
+        latestPosts.map((post) => {
+          const p = photo(`post:${post.id}`);
+          return (
           <a class="link-card" href={url(`/actualites/${post.id}`)}>
-            <Cover src={post.data.cover} alt={post.data.coverAlt ?? post.data.title} credit={post.data.coverCredit} seed={post.id} variant="thumb" icon="doc" />
+            <Cover src={p?.src ?? post.data.cover} alt={p?.alt ?? post.data.coverAlt ?? post.data.title} credit={p?.credit ?? post.data.coverCredit} seed={post.id} variant="thumb" icon="doc" />
             <div class="link-card-body">
               <time datetime={post.data.publishedAt.toISOString()} class="card-date">
                 {post.data.publishedAt.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
@@ -187,7 +201,8 @@ const jsonLd = [
               <span class="link-card-cta">Lire l'article →</span>
             </div>
           </a>
-        ))
+          );
+        })
       }
     </div>
   </section>
@@ -286,6 +301,29 @@ const jsonLd = [
     fill: var(--accent);
     font-size: 22px;
     font-weight: 800;
+  }
+  .hero-photo {
+    position: relative;
+    margin: 0;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .hero-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+  .hero-photo figcaption {
+    position: absolute;
+    right: 6px;
+    bottom: 6px;
+    font-size: 0.68rem;
+    color: #fff;
+    background: rgba(11, 28, 51, 0.55);
+    padding: 1px 7px;
+    border-radius: 999px;
   }
   .hero-actions {
     display: flex;

@@ -6,6 +6,7 @@ import Faq from '../../components/Faq.astro';
 import Callout from '../../components/Callout.astro';
 import Cover from '../../components/Cover.astro';
 import { guides } from '../../data/guides';
+import { photo } from '../../lib/photos';
 
 const categoryIcon = {
   Comprendre: 'building',
@@ -55,7 +56,7 @@ const fmtDate = (iso: string) =>
 >
   <div class="container container-narrow">
     <Breadcrumbs items={crumbs} />
-    <Cover src={guide.cover} alt={guide.coverAlt ?? guide.title} credit={guide.coverCredit} seed={guide.slug} variant="banner" icon={categoryIcon[guide.category]} loading="eager" class="guide-cover" />
+    <Cover src={photo(`guide:${guide.slug}`)?.src ?? guide.cover} alt={photo(`guide:${guide.slug}`)?.alt ?? guide.coverAlt ?? guide.title} credit={photo(`guide:${guide.slug}`)?.credit ?? guide.coverCredit} seed={guide.slug} variant="banner" icon={categoryIcon[guide.category]} loading="eager" class="guide-cover" />
     <article class="prose">
       <span class="badge badge-accent">{guide.category}</span>
       <h1>{guide.title}</h1>

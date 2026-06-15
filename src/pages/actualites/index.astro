@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Cover from '../../components/Cover.astro';
 import { breadcrumbSchema, itemListSchema } from '../../lib/schema';
+import { photo } from '../../lib/photos';
 import { url } from '../../lib/url';
 
 const crumbs = [
@@ -44,9 +45,11 @@ const dateFmt = (d: Date) => new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long
 
     <div class="post-list">
       {
-        posts.map((post) => (
+        posts.map((post) => {
+          const p = photo(`post:${post.id}`);
+          return (
           <a class="post" href={url(`/actualites/${post.id}`)}>
-            <Cover src={post.data.cover} alt={post.data.coverAlt ?? post.data.title} credit={post.data.coverCredit} seed={post.id} variant="thumb" icon="doc" class="post-cover" />
+            <Cover src={p?.src ?? post.data.cover} alt={p?.alt ?? post.data.coverAlt ?? post.data.title} credit={p?.credit ?? post.data.coverCredit} seed={post.id} variant="thumb" icon="doc" class="post-cover" />
             <div class="post-body">
               <time datetime={post.data.publishedAt.toISOString()}>{dateFmt(post.data.publishedAt)}</time>
               <h2>{post.data.title}</h2>
@@ -54,7 +57,8 @@ const dateFmt = (d: Date) => new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long
               <span class="post-cta">Lire →</span>
             </div>
           </a>
-        ))
+          );
+        })
       }
     </div>
 
