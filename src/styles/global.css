@@ -54,6 +54,21 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Respect des préférences de mouvement réduit (accessibilité — checklist UX). */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* Anti-débordement horizontal mobile. */
 html,
 body {
@@ -91,12 +106,15 @@ h4 {
 }
 
 h1 {
-  font-size: clamp(2.1rem, 4.6vw, 3.3rem);
-  font-weight: 600;
+  font-size: clamp(2.4rem, 5.2vw, 3.9rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
 }
 
 h2 {
-  font-size: clamp(1.5rem, 3vw, 2.15rem);
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
   margin-top: var(--space-12);
 }
 
