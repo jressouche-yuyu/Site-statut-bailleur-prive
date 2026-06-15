@@ -29,6 +29,10 @@ const JSON_PATH = path.join(ROOT, 'src/data/photos.json');
  * `query` est en anglais (meilleurs résultats sur Pexels).
  */
 const ENTRIES = [
+  { key: 'guide:plafonds-loyer-ressources-dispositif-jeanbrun', dir: 'guides', name: 'plafonds-loyer-ressources', query: 'french city apartment rooftops housing' },
+  { key: 'guide:rentabilite-dispositif-jeanbrun-exemple-chiffre', dir: 'guides', name: 'rentabilite', query: 'financial calculator coins growth investment' },
+  { key: 'guide:revente-plus-value-amortissement-jeanbrun', dir: 'guides', name: 'revente-plus-value', query: 'house for sale sold sign real estate' },
+  { key: 'guide:dispositif-jeanbrun-ancien-travaux-dpe', dir: 'guides', name: 'ancien-travaux-dpe', query: 'old building renovation works paris' },
   { key: 'guide:comment-fonctionne-statut-bailleur-prive', dir: 'guides', name: 'comment-fonctionne', query: 'modern apartment building facade' },
   { key: 'guide:conditions-eligibilite-dispositif-jeanbrun', dir: 'guides', name: 'conditions-eligibilite', query: 'apartment building entrance keys' },
   { key: 'guide:neuf-ou-ancien-dispositif-jeanbrun', dir: 'guides', name: 'neuf-ou-ancien', query: 'apartment renovation construction' },

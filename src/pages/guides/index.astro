@@ -2,17 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Cover from '../../components/Cover.astro';
-import { guides } from '../../data/guides';
+import { guides, categoryIcon } from '../../data/guides';
 import { breadcrumbSchema, itemListSchema } from '../../lib/schema';
 import { photo } from '../../lib/photos';
 import { url } from '../../lib/url';
-
-const categoryIcon = {
-  Comprendre: 'building',
-  Investir: 'key',
-  Comparer: 'chart',
-  Fiscalité: 'doc',
-} as const;
 
 const crumbs = [
   { name: 'Accueil', path: '/' },

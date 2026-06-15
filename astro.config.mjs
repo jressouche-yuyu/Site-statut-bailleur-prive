@@ -9,6 +9,29 @@ import { SITE } from './src/consts';
 const site = process.env.SITE_URL || SITE.url;
 const base = process.env.BASE_PATH || '/';
 
+/**
+ * Préfixe le base-path aux liens/images racine du contenu Markdown.
+ * Sinon, un lien [x](/simulateur) renvoie un 404 sur un déploiement en
+ * sous-chemin (GitHub Pages projet).
+ */
+function rehypeBaseLinks() {
+  const prefix = base.replace(/\/$/, '');
+  return (/** @type {any} */ tree) => {
+    if (!prefix) return;
+    const visit = (/** @type {any} */ node) => {
+      if (node.type === 'element' && (node.tagName === 'a' || node.tagName === 'img')) {
+        const attr = node.tagName === 'a' ? 'href' : 'src';
+        const v = node.properties && node.properties[attr];
+        if (typeof v === 'string' && v.startsWith('/') && !v.startsWith('//')) {
+          node.properties[attr] = prefix + v;
+        }
+      }
+      (node.children || []).forEach(visit);
+    };
+    visit(tree);
+  };
+}
+
 // https://astro.build/config
 export default defineConfig({
   site,
@@ -25,6 +48,9 @@ export default defineConfig({
       },
     }),
   ],
+  markdown: {
+    rehypePlugins: [rehypeBaseLinks],
+  },
   build: {
     inlineStylesheets: 'auto',
   },

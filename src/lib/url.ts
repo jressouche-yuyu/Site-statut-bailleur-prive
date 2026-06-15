@@ -15,3 +15,15 @@ export function url(path = '/'): string {
   const p = path.startsWith('/') ? path : `/${path}`;
   return `${base}${p}`;
 }
+
+/**
+ * Préfixe le base-path aux liens/ressources racine d'un fragment HTML « brut »
+ * (contenu défini en dur, injecté via set:html). Sans ça, un href="/glossaire"
+ * renvoie un 404 sur un déploiement en sous-chemin (GitHub Pages projet).
+ */
+export function withBase(html: string): string {
+  const base = BASE.endsWith('/') ? BASE.slice(0, -1) : BASE;
+  if (!base) return html;
+  // href="/x" ou src="/x" (root-relative), pas les // (protocol-relative).
+  return html.replace(/(href|src)="\/(?!\/)/g, `$1="${base}/`);
+}

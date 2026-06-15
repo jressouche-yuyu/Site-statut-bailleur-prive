@@ -7,15 +7,8 @@ import BaremeChart from '../components/BaremeChart.astro';
 import Steps from '../components/Steps.astro';
 import Compare from '../components/Compare.astro';
 import Cover from '../components/Cover.astro';
-import { guides } from '../data/guides';
+import { guides, categoryIcon } from '../data/guides';
 import { photo } from '../lib/photos';
-
-const categoryIcon = {
-  Comprendre: 'building',
-  Investir: 'key',
-  Comparer: 'chart',
-  Fiscalité: 'doc',
-} as const;
 import { faq } from '../data/faq';
 import { dispositif, formatEur } from '../data/dispositif';
 import { breadcrumbSchema, dispositifSchema, faqSchema } from '../lib/schema';

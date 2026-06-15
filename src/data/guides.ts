@@ -27,6 +27,14 @@ export interface Guide {
   faq: { question: string; answer: string }[];
 }
 
+/** Picto associé à chaque catégorie de guide (source unique, réutilisée par les pages). */
+export const categoryIcon: Record<Guide['category'], 'building' | 'key' | 'chart' | 'doc'> = {
+  Comprendre: 'building',
+  Investir: 'key',
+  Comparer: 'chart',
+  Fiscalité: 'doc',
+};
+
 export const guides: Guide[] = [
   {
     slug: 'plafonds-loyer-ressources-dispositif-jeanbrun',

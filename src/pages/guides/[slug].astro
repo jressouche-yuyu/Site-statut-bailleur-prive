@@ -5,17 +5,10 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Faq from '../../components/Faq.astro';
 import Callout from '../../components/Callout.astro';
 import Cover from '../../components/Cover.astro';
-import { guides } from '../../data/guides';
+import { guides, categoryIcon } from '../../data/guides';
 import { photo } from '../../lib/photos';
-
-const categoryIcon = {
-  Comprendre: 'building',
-  Investir: 'key',
-  Comparer: 'chart',
-  Fiscalité: 'doc',
-} as const;
 import { articleSchema, breadcrumbSchema, faqSchema } from '../../lib/schema';
-import { url } from '../../lib/url';
+import { url, withBase } from '../../lib/url';
 
 export const getStaticPaths = (() => {
   return guides.map((guide) => ({
@@ -70,7 +63,7 @@ const fmtDate = (iso: string) =>
         guide.sections.map((section) => (
           <section>
             <h2>{section.heading}</h2>
-            <Fragment set:html={section.body} />
+            <Fragment set:html={withBase(section.body)} />
           </section>
         ))
       }

@@ -23,8 +23,8 @@ export const SITE = {
     linkedin: 'https://www.linkedin.com/company/statut-bailleur-prive',
     twitter: 'https://twitter.com/bailleurprive',
   },
-  /** Image Open Graph par défaut (chemin relatif à /public). */
-  defaultOgImage: '/og-default.svg',
+  /** Image Open Graph par défaut (PNG : les réseaux sociaux ignorent le SVG). */
+  defaultOgImage: '/og-default.png',
   /** Adresse de contact éditorial / partenariats. */
   email: 'contact@statut-bailleur-prive.fr',
 } as const;
