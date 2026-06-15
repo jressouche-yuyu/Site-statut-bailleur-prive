@@ -6,24 +6,25 @@
    ============================================================ */
 
 :root {
-  /* Palette — bleu institutionnel + vert « patrimoine » */
-  --bg: #ffffff;
-  --bg-soft: #f4f7fb;
+  /* Palette éditoriale « patrimoine » — encre profonde, papier chaud, laiton */
+  --bg: #faf8f3;
+  --bg-soft: #f1ece1;
   --surface: #ffffff;
-  --surface-2: #eef2f8;
-  --border: #dde4ee;
-  --text: #16213a;
-  --text-muted: #5a6782;
-  --primary: #1b4d8c;
-  --primary-hover: #15407a;
-  --accent: #0f9d77;
-  --accent-soft: #e6f5ef;
-  --warning: #b9770a;
-  --warning-soft: #fdf3e2;
-  --danger: #c2453b;
+  --surface-2: #f2ede2;
+  --border: #e2dccd;
+  --text: #1d2433;
+  --text-muted: #5d6472;
+  --primary: #1d2a3f;
+  --primary-hover: #2b3b54;
+  --accent: #a4742b;
+  --accent-soft: #f3e8d3;
+  --warning: #9a6212;
+  --warning-soft: #f7edda;
+  --danger: #9c3326;
 
-  /* Typo */
-  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  /* Typo — serif de presse (titres) + grotesque (texte) */
+  --font-display: 'Spectral', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
   /* Échelle d'espacement */
@@ -36,11 +37,11 @@
   --space-12: 3rem;
   --space-16: 4rem;
 
-  --radius: 14px;
-  --radius-sm: 8px;
+  --radius: 5px;
+  --radius-sm: 3px;
   --max-width: 1120px;
-  --shadow: 0 6px 24px rgba(16, 36, 74, 0.08);
-  --shadow-sm: 0 2px 8px rgba(16, 36, 74, 0.06);
+  --shadow: 0 10px 30px rgba(29, 36, 51, 0.07);
+  --shadow-sm: 0 1px 0 rgba(29, 36, 51, 0.04);
 }
 
 *,
@@ -81,24 +82,26 @@ h1,
 h2,
 h3,
 h4 {
-  line-height: 1.2;
+  font-family: var(--font-display);
+  line-height: 1.12;
   margin: 0 0 var(--space-4);
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-weight: 600;
+  letter-spacing: -0.005em;
   color: var(--text);
 }
 
 h1 {
-  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  font-size: clamp(2.1rem, 4.6vw, 3.3rem);
+  font-weight: 600;
 }
 
 h2 {
-  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-size: clamp(1.5rem, 3vw, 2.15rem);
   margin-top: var(--space-12);
 }
 
 h3 {
-  font-size: 1.2rem;
+  font-size: 1.28rem;
 }
 
 p {
@@ -160,12 +163,21 @@ strong {
 }
 
 .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  font-size: 0.72rem;
   font-weight: 700;
   color: var(--accent);
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+.eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 2px;
+  background: var(--accent);
 }
 
 .prose :is(h2, h3) {
@@ -224,9 +236,10 @@ strong {
   padding: var(--space-3) var(--space-6);
   border-radius: var(--radius-sm);
   font-weight: 600;
-  border: none;
+  letter-spacing: 0.01em;
+  border: 1px solid var(--primary);
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
 
 .btn:hover {

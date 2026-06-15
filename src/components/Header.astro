@@ -11,19 +11,11 @@ const isActive = (href: string) => {
 <header class="site-header">
   <div class="container header-inner">
     <a href={url('/')} class="brand" aria-label={`${SITE.name} — accueil`}>
-      <svg class="brand-mark" viewBox="0 0 40 40" width="30" height="30" aria-hidden="true">
-        <defs>
-          <linearGradient id="bpGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#1b4d8c" />
-            <stop offset="1" stop-color="#0f9d77" />
-          </linearGradient>
-        </defs>
-        <path d="M20 3 4 16v3h4v18h24V19h4v-3L20 3z" fill="url(#bpGrad)" />
-        <rect x="16" y="24" width="8" height="13" rx="1" fill="#fff" />
-        <rect x="13" y="19" width="5" height="4" rx="1" fill="#fff" opacity="0.85" />
-        <rect x="22" y="19" width="5" height="4" rx="1" fill="#fff" opacity="0.85" />
-      </svg>
-      <span class="brand-name">Bailleur<span class="brand-accent">Privé</span></span>
+      <span class="brand-mono" aria-hidden="true">BP</span>
+      <span class="brand-text">
+        <span class="brand-name">Bailleur Privé</span>
+        <span class="brand-sub">Le dispositif Jeanbrun décrypté</span>
+      </span>
     </a>
 
     <button
@@ -84,8 +76,9 @@ const isActive = (href: string) => {
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(250, 248, 243, 0.92);
     backdrop-filter: blur(10px);
+    border-top: 3px solid var(--primary);
     border-bottom: 1px solid var(--border);
   }
   .header-inner {
@@ -93,28 +86,50 @@ const isActive = (href: string) => {
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
-    min-height: 64px;
+    min-height: 74px;
   }
   .brand {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-2);
-    font-weight: 800;
-    font-size: 1.15rem;
+    gap: var(--space-3);
     color: var(--text);
   }
   .brand:hover {
     text-decoration: none;
   }
-  .brand-mark {
+  .brand-mono {
     flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
   }
-  .brand-accent {
-    color: var(--primary);
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.05;
+  }
+  .brand-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.3rem;
+    letter-spacing: -0.01em;
+  }
+  .brand-sub {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.13em;
+    color: var(--text-muted);
   }
   .nav-list {
     display: flex;
-    gap: var(--space-4);
+    gap: var(--space-6);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -122,7 +137,9 @@ const isActive = (href: string) => {
   .nav-list a {
     color: var(--text-muted);
     font-weight: 600;
-    font-size: 0.93rem;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
   .nav-list a:hover,
   .nav-list a[aria-current='page'] {
