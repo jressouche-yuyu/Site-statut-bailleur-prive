@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { url } from '../lib/url';
+---
+
+<BaseLayout
+  title="Page introuvable (404)"
+  description="La page demandée n'existe pas ou a été déplacée."
+  path="/404"
+  noindex={true}
+>
+  <div class="container container-narrow notfound">
+    <p class="stat">404</p>
+    <h1>Cette page est introuvable</h1>
+    <p class="lead">
+      Le lien est peut-être erroné ou la page a été déplacée. Voici quelques
+      points de repère :
+    </p>
+    <ul class="links">
+      <li><a href={url('/dispositif-jeanbrun')}>Le dispositif Jeanbrun</a></li>
+      <li><a href={url('/guides')}>Nos guides</a></li>
+      <li><a href={url('/simulateur')}>Le simulateur d'amortissement</a></li>
+      <li><a href={url('/actualites')}>Les actualités</a></li>
+      <li><a href={url('/faq')}>La FAQ</a></li>
+    </ul>
+    <p><a class="btn" href={url('/')}>Retour à l'accueil</a></p>
+  </div>
+</BaseLayout>
+
+<style>
+  .notfound {
+    padding-block: var(--space-16);
+    text-align: center;
+  }
+  .notfound .stat {
+    font-size: 4rem;
+  }
+  .links {
+    list-style: none;
+    padding: 0;
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin: var(--space-6) 0;
+    text-align: left;
+  }
+</style>

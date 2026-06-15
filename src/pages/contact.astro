@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { breadcrumbSchema } from '../lib/schema';
+import { SITE } from '../consts';
+import { url } from '../lib/url';
+
+const crumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: 'Contact', path: '/contact' },
+];
+const jsonLd = [
+  breadcrumbSchema(crumbs),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    name: `Contact — ${SITE.name}`,
+    url: `${SITE.url}/contact`,
+  },
+];
+---
+
+<BaseLayout
+  title="Contact"
+  description={`Contactez la rédaction de ${SITE.name} pour une question, une correction ou un partenariat autour du statut du bailleur privé.`}
+  path="/contact"
+  jsonLd={jsonLd}
+>
+  <div class="container container-narrow prose">
+    <Breadcrumbs items={crumbs} />
+    <p class="eyebrow">Contact</p>
+    <h1>Nous contacter</h1>
+    <p class="lead">
+      Une question sur le dispositif Jeanbrun, une erreur à signaler, une
+      proposition de <a href={url('/partenariats')}>partenariat</a> ? Écrivez-nous.
+    </p>
+
+    <div class="contact-card card">
+      <p>Par e-mail :</p>
+      <p class="email"><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+      <p class="note">
+        Nous répondons aux demandes sérieuses sous quelques jours ouvrés. Pour les
+        questions fiscales personnelles, nous vous orientons vers un professionnel :
+        nous ne fournissons pas de conseil individualisé.
+      </p>
+    </div>
+
+    <p>
+      Avant d'écrire, votre réponse se trouve peut-être déjà dans notre
+      <a href={url('/faq')}> FAQ</a> ou nos <a href={url('/guides')}>guides</a>.
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .contact-card {
+    margin: var(--space-8) 0;
+  }
+  .contact-card p {
+    margin: 0 0 var(--space-2);
+  }
+  .email {
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+  .note {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    margin-top: var(--space-4) !important;
+  }
+</style>

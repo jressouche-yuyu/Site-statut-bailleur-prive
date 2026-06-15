@@ -1,0 +1,103 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { breadcrumbSchema, itemListSchema } from '../../lib/schema';
+import { url } from '../../lib/url';
+
+const crumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: 'Actualités', path: '/actualites' },
+];
+
+const posts = (await getCollection('actualites', (p) => !p.data.draft)).sort(
+  (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime(),
+);
+
+const jsonLd = [
+  breadcrumbSchema(crumbs),
+  itemListSchema(
+    posts.map((p) => ({ name: p.data.title, path: `/actualites/${p.id}` })),
+    'Actualités du statut du bailleur privé',
+  ),
+];
+
+const dateFmt = (d: Date) => new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' }).format(d);
+---
+
+<BaseLayout
+  title="Actualités du statut du bailleur privé (dispositif Jeanbrun)"
+  description="Suivez l'actualité du dispositif Jeanbrun : adoption au budget 2026, décrets d'application, évolutions des taux et conditions du statut du bailleur privé."
+  path="/actualites"
+  jsonLd={jsonLd}
+>
+  <div class="container container-narrow">
+    <Breadcrumbs items={crumbs} />
+    <p class="eyebrow">Actualités</p>
+    <h1>L'actualité du statut du bailleur privé</h1>
+    <p class="lead">
+      Adoption, décrets d'application, évolutions du dispositif Jeanbrun : nous
+      suivons l'actualité du statut du bailleur privé et mettons nos analyses à jour.
+    </p>
+
+    <div class="post-list">
+      {
+        posts.map((post) => (
+          <a class="post" href={url(`/actualites/${post.id}`)}>
+            <time datetime={post.data.publishedAt.toISOString()}>{dateFmt(post.data.publishedAt)}</time>
+            <h2>{post.data.title}</h2>
+            <p>{post.data.description}</p>
+            <span class="post-cta">Lire →</span>
+          </a>
+        ))
+      }
+    </div>
+
+    <p class="rss-link">
+      <a href={url('/rss.xml')}>Flux RSS des actualités et guides</a>
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .post-list {
+    display: grid;
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+  }
+  .post {
+    display: block;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-6);
+    color: var(--text);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+  .post:hover {
+    text-decoration: none;
+    border-color: var(--primary);
+    box-shadow: var(--shadow);
+  }
+  .post time {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+  .post h2 {
+    margin: var(--space-2) 0;
+    font-size: 1.3rem;
+  }
+  .post p {
+    color: var(--text-muted);
+    margin: 0 0 var(--space-2);
+  }
+  .post-cta {
+    color: var(--primary);
+    font-weight: 600;
+  }
+  .rss-link {
+    margin-top: var(--space-8);
+    font-size: 0.9rem;
+  }
+</style>

@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { guides } from '../../data/guides';
+import { breadcrumbSchema, itemListSchema } from '../../lib/schema';
+import { url } from '../../lib/url';
+
+const crumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: 'Guides', path: '/guides' },
+];
+
+const jsonLd = [
+  breadcrumbSchema(crumbs),
+  itemListSchema(
+    guides.map((g) => ({ name: g.title, path: `/guides/${g.slug}` })),
+    'Guides sur le statut du bailleur privé',
+  ),
+];
+---
+
+<BaseLayout
+  title="Guides du statut du bailleur privé (dispositif Jeanbrun)"
+  description="Guides pratiques sur le dispositif Jeanbrun : fonctionnement, conditions d'éligibilité, neuf ou ancien, comparaison avec le Pinel et le LMNP. Des explications claires et à jour."
+  path="/guides"
+  jsonLd={jsonLd}
+>
+  <div class="container container-narrow">
+    <Breadcrumbs items={crumbs} />
+    <p class="eyebrow">Guides</p>
+    <h1>Comprendre et investir avec le statut du bailleur privé</h1>
+    <p class="lead">
+      Nos guides décryptent le dispositif Jeanbrun pas à pas : son fonctionnement,
+      ses conditions, et comment l'utiliser au mieux selon votre projet.
+    </p>
+  </div>
+
+  <div class="container">
+    <div class="grid grid-2 guide-grid">
+      {
+        guides.map((g) => (
+          <a class="link-card" href={url(`/guides/${g.slug}`)}>
+            <span class="badge badge-accent">{g.category}</span>
+            <h2>{g.title}</h2>
+            <p>{g.description}</p>
+            <span class="meta">{g.readingMinutes} min de lecture</span>
+            <span class="link-card-cta">Lire le guide →</span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .guide-grid {
+    margin-top: var(--space-8);
+  }
+  .link-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-6);
+    color: var(--text);
+    height: 100%;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+  }
+  .link-card:hover {
+    border-color: var(--primary);
+    text-decoration: none;
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
+  }
+  .link-card .badge {
+    align-self: flex-start;
+  }
+  .link-card h2 {
+    margin: 0;
+    font-size: 1.3rem;
+  }
+  .link-card p {
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .meta {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+  .link-card-cta {
+    margin-top: auto;
+    color: var(--primary);
+    font-weight: 600;
+  }
+</style>

@@ -1,0 +1,111 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Faq from '../../components/Faq.astro';
+import Callout from '../../components/Callout.astro';
+import { guides } from '../../data/guides';
+import { articleSchema, breadcrumbSchema, faqSchema } from '../../lib/schema';
+import { url } from '../../lib/url';
+
+export const getStaticPaths = (() => {
+  return guides.map((guide) => ({
+    params: { slug: guide.slug },
+    props: { guide },
+  }));
+}) satisfies GetStaticPaths;
+
+const { guide } = Astro.props;
+
+const crumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: 'Guides', path: '/guides' },
+  { name: guide.title, path: `/guides/${guide.slug}` },
+];
+
+// Autres guides pour le maillage interne.
+const related = guides.filter((g) => g.slug !== guide.slug).slice(0, 3);
+
+const jsonLd = [
+  breadcrumbSchema(crumbs),
+  articleSchema(guide),
+  ...(guide.faq.length ? [faqSchema(guide.faq)] : []),
+];
+
+const fmtDate = (iso: string) =>
+  new Date(iso).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<BaseLayout
+  title={guide.title}
+  description={guide.description}
+  path={`/guides/${guide.slug}`}
+  ogType="article"
+  publishedTime={new Date(guide.publishedAt).toISOString()}
+  modifiedTime={new Date(guide.lastUpdated).toISOString()}
+  jsonLd={jsonLd}
+>
+  <div class="container container-narrow">
+    <Breadcrumbs items={crumbs} />
+    <article class="prose">
+      <span class="badge badge-accent">{guide.category}</span>
+      <h1>{guide.title}</h1>
+      <p class="meta">
+        Publié le {fmtDate(guide.publishedAt)} · Mis à jour le {fmtDate(guide.lastUpdated)} ·
+        {guide.readingMinutes} min de lecture
+      </p>
+      <p class="lead">{guide.intro}</p>
+
+      {
+        guide.sections.map((section) => (
+          <section>
+            <h2>{section.heading}</h2>
+            <Fragment set:html={section.body} />
+          </section>
+        ))
+      }
+
+      <Callout title="Rappel">
+        <p>
+          Contenu informatif tenu à jour de la version adoptée fin 2025. Il ne
+          remplace pas un conseil fiscal personnalisé : vérifiez les textes en
+          vigueur avant toute décision. Voir la
+          <a href={url('/dispositif-jeanbrun')}> page de référence du dispositif</a>.
+        </p>
+      </Callout>
+    </article>
+
+    {guide.faq.length > 0 && <Faq items={guide.faq} />}
+
+    <aside class="related">
+      <h2>À lire aussi</h2>
+      <ul>
+        {related.map((g) => <li><a href={url(`/guides/${g.slug}`)}>{g.title}</a></li>)}
+        <li><a href={url('/simulateur')}>Simuler mon amortissement</a></li>
+      </ul>
+    </aside>
+  </div>
+</BaseLayout>
+
+<style>
+  .prose .meta {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+  .prose .badge {
+    margin-bottom: var(--space-3);
+  }
+  .related {
+    margin-top: var(--space-12);
+    padding: var(--space-6);
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .related h2 {
+    margin-top: 0;
+  }
+  .related ul {
+    margin: 0;
+  }
+</style>

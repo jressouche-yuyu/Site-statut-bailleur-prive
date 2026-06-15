@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { breadcrumbSchema } from '../lib/schema';
+import { SITE } from '../consts';
+
+const crumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: 'Mentions légales', path: '/mentions-legales' },
+];
+const jsonLd = [breadcrumbSchema(crumbs)];
+---
+
+<BaseLayout
+  title="Mentions légales"
+  description={`Mentions légales du site ${SITE.name}.`}
+  path="/mentions-legales"
+  noindex={true}
+  jsonLd={jsonLd}
+>
+  <div class="container container-narrow prose">
+    <Breadcrumbs items={crumbs} />
+    <h1>Mentions légales</h1>
+    <p class="lead">Dernière mise à jour : juin 2026.</p>
+
+    <h2>Éditeur du site</h2>
+    <p>
+      Le site {SITE.name} ({SITE.url}) est édité par [Raison sociale / Nom de
+      l'éditeur], [forme juridique et capital], dont le siège social est situé
+      [adresse]. SIREN : [numéro]. Directeur de la publication : [nom].
+      Contact : <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+    </p>
+
+    <h2>Hébergement</h2>
+    <p>
+      Le site est hébergé par [nom de l'hébergeur], [adresse de l'hébergeur].
+    </p>
+
+    <h2>Propriété intellectuelle</h2>
+    <p>
+      L'ensemble des contenus (textes, visuels, logo, données structurées) publiés
+      sur {SITE.name} est protégé par le droit d'auteur. Toute reproduction ou
+      réutilisation sans autorisation préalable est interdite, hors courtes
+      citations avec lien vers la source.
+    </p>
+
+    <h2>Responsabilité</h2>
+    <p>
+      Les informations diffusées sont fournies à titre indicatif et ne constituent
+      pas un conseil juridique, fiscal ou en investissement. Malgré le soin apporté
+      à leur exactitude et à leur mise à jour, {SITE.name} ne saurait être tenu
+      responsable d'erreurs, d'omissions ou de l'usage qui en serait fait. Les
+      paramètres du statut du bailleur privé sont susceptibles d'évoluer avec les
+      textes d'application.
+    </p>
+
+    <h2>Liens</h2>
+    <p>
+      Le site peut contenir des liens vers des ressources externes ou des contenus
+      partenaires. {SITE.name} n'exerce aucun contrôle sur ces sites tiers et
+      décline toute responsabilité quant à leur contenu.
+    </p>
+
+    <p class="placeholder">
+      ⚠️ Modèle à compléter avec les informations légales réelles de l'éditeur
+      avant mise en production (champs entre crochets).
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .placeholder {
+    margin-top: var(--space-8);
+    padding: var(--space-4);
+    background: var(--warning-soft);
+    border: 1px solid rgba(185, 119, 10, 0.3);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+  }
+</style>

@@ -1,0 +1,212 @@
+---
+import { SITE, NAV } from '../consts';
+import { url } from '../lib/url';
+const current = Astro.url.pathname;
+const isActive = (href: string) => {
+  const h = url(href);
+  return current === h || current.startsWith(h + '/');
+};
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href={url('/')} class="brand" aria-label={`${SITE.name} — accueil`}>
+      <svg class="brand-mark" viewBox="0 0 40 40" width="30" height="30" aria-hidden="true">
+        <defs>
+          <linearGradient id="bpGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1b4d8c" />
+            <stop offset="1" stop-color="#0f9d77" />
+          </linearGradient>
+        </defs>
+        <path d="M20 3 4 16v3h4v18h24V19h4v-3L20 3z" fill="url(#bpGrad)" />
+        <rect x="16" y="24" width="8" height="13" rx="1" fill="#fff" />
+        <rect x="13" y="19" width="5" height="4" rx="1" fill="#fff" opacity="0.85" />
+        <rect x="22" y="19" width="5" height="4" rx="1" fill="#fff" opacity="0.85" />
+      </svg>
+      <span class="brand-name">Bailleur<span class="brand-accent">Privé</span></span>
+    </a>
+
+    <button
+      type="button"
+      class="nav-toggle"
+      aria-label="Ouvrir le menu"
+      aria-expanded="false"
+      aria-controls="primary-nav"
+    >
+      <span class="burger" aria-hidden="true"></span>
+    </button>
+
+    <nav id="primary-nav" class="primary-nav" aria-label="Navigation principale">
+      <ul class="nav-list">
+        {
+          NAV.map((item) => (
+            <li>
+              <a href={url(item.href)} aria-current={isActive(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Bascule du menu burger sur mobile.
+  const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+  const nav = document.getElementById('primary-nav');
+  const header = document.querySelector('.site-header');
+
+  function setOpen(open: boolean) {
+    if (!toggle || !header) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+    header.classList.toggle('nav-open', open);
+  }
+
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    setOpen(!open);
+  });
+
+  nav?.querySelectorAll('a').forEach((a) =>
+    a.addEventListener('click', () => setOpen(false)),
+  );
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setOpen(false);
+  });
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: 64px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: var(--text);
+  }
+  .brand:hover {
+    text-decoration: none;
+  }
+  .brand-mark {
+    flex-shrink: 0;
+  }
+  .brand-accent {
+    color: var(--primary);
+  }
+  .nav-list {
+    display: flex;
+    gap: var(--space-4);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-list a {
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.93rem;
+  }
+  .nav-list a:hover,
+  .nav-list a[aria-current='page'] {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  .nav-toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  .burger,
+  .burger::before,
+  .burger::after {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .burger {
+    position: relative;
+  }
+  .burger::before,
+  .burger::after {
+    content: '';
+    position: absolute;
+  }
+  .burger::before {
+    transform: translateY(-7px);
+  }
+  .burger::after {
+    transform: translateY(7px);
+  }
+
+  @media (max-width: 860px) {
+    .nav-toggle {
+      display: inline-flex;
+    }
+    .primary-nav {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease;
+      box-shadow: var(--shadow);
+    }
+    .nav-list {
+      flex-direction: column;
+      gap: 0;
+      padding: var(--space-2) var(--space-4) var(--space-4);
+    }
+    .nav-list li {
+      margin: 0;
+    }
+    .nav-list a {
+      display: block;
+      padding: var(--space-3) var(--space-2);
+      font-size: 1.05rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .site-header.nav-open .primary-nav {
+      max-height: 80vh;
+    }
+    .site-header.nav-open .burger {
+      background: transparent;
+    }
+    .site-header.nav-open .burger::before {
+      transform: translateY(0) rotate(45deg);
+    }
+    .site-header.nav-open .burger::after {
+      transform: translateY(0) rotate(-45deg);
+    }
+  }
+</style>

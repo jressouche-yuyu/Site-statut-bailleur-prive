@@ -1,0 +1,50 @@
+---
+/**
+ * Tableau des taux d'amortissement par catégorie de loyer (neuf / ancien).
+ * Données factuelles, scannables et citables (SEO/GEO). Source unique :
+ * src/data/dispositif.ts.
+ */
+import { loyerTiers, formatPct, formatEur } from '../data/dispositif';
+---
+
+<div class="table-wrap">
+  <table>
+    <caption class="sr-only">
+      Taux d'amortissement annuel du statut du bailleur privé selon la catégorie
+      de loyer et le type de bien, et plafond annuel de déduction.
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Catégorie de loyer</th>
+        <th scope="col">Neuf</th>
+        <th scope="col">Ancien rénové</th>
+        <th scope="col">Plafond annuel de déduction</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        loyerTiers.map((tier) => (
+          <tr>
+            <th scope="row">{tier.label}</th>
+            <td><span class="rate">{formatPct(tier.rateNeuf)}</span> / an</td>
+            <td><span class="rate">{formatPct(tier.rateAncien)}</span> / an</td>
+            <td>{formatEur(tier.deductionCap)}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .rate {
+    font-weight: 800;
+    color: var(--primary);
+    font-variant-numeric: tabular-nums;
+  }
+  th[scope='row'] {
+    background: transparent;
+    font-weight: 600;
+    white-space: normal;
+  }
+</style>

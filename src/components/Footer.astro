@@ -1,0 +1,139 @@
+---
+import { SITE } from '../consts';
+import { url } from '../lib/url';
+const year = new Date().getFullYear();
+
+const cols: { title: string; links: { label: string; href: string }[] }[] = [
+  {
+    title: 'Comprendre',
+    links: [
+      { label: 'Le dispositif Jeanbrun', href: '/dispositif-jeanbrun' },
+      { label: 'Guides', href: '/guides' },
+      { label: 'Glossaire', href: '/glossaire' },
+      { label: 'FAQ', href: '/faq' },
+    ],
+  },
+  {
+    title: 'Outils & infos',
+    links: [
+      { label: "Simulateur d'amortissement", href: '/simulateur' },
+      { label: 'Actualités', href: '/actualites' },
+      { label: 'À propos', href: '/a-propos' },
+      { label: 'Partenariats', href: '/partenariats' },
+    ],
+  },
+  {
+    title: 'Le site',
+    links: [
+      { label: 'Contact', href: '/contact' },
+      { label: 'Mentions légales', href: '/mentions-legales' },
+      { label: 'Confidentialité', href: '/confidentialite' },
+    ],
+  },
+];
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <p class="footer-brand">
+        <svg viewBox="0 0 40 40" width="22" height="22" aria-hidden="true" style="vertical-align:-4px">
+          <defs>
+            <linearGradient id="bpFoot" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#1b4d8c" />
+              <stop offset="1" stop-color="#0f9d77" />
+            </linearGradient>
+          </defs>
+          <path d="M20 3 4 16v3h4v18h24V19h4v-3L20 3z" fill="url(#bpFoot)" />
+        </svg>
+        {SITE.name}
+      </p>
+      <p class="footer-tagline">{SITE.tagline}</p>
+      <p class="footer-note">
+        Média éditorial indépendant d'information sur le statut du bailleur privé
+        (dispositif Jeanbrun). Contenu informatif, ne constituant pas un conseil
+        fiscal personnalisé.
+      </p>
+    </div>
+
+    {
+      cols.map((col) => (
+        <nav aria-label={col.title}>
+          <p class="footer-col-title">{col.title}</p>
+          <ul>
+            {col.links.map((l) => (
+              <li>
+                <a href={url(l.href)}>{l.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ))
+    }
+  </div>
+  <div class="container footer-bottom">
+    <p>© {year} {SITE.name}. Tous droits réservés.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    background: var(--bg-soft);
+    margin-top: var(--space-16);
+    padding-block: var(--space-12) var(--space-6);
+  }
+  .footer-grid {
+    display: grid;
+    gap: var(--space-8);
+  }
+  @media (min-width: 720px) {
+    .footer-grid {
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+    }
+  }
+  .footer-brand {
+    font-weight: 800;
+    margin-bottom: var(--space-1);
+  }
+  .footer-tagline {
+    color: var(--text);
+    font-weight: 600;
+    margin: 0 0 var(--space-2);
+  }
+  .footer-note {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    max-width: 36ch;
+  }
+  .footer-col-title {
+    font-weight: 700;
+    margin: 0 0 var(--space-3);
+    font-size: 0.95rem;
+  }
+  .site-footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .site-footer li {
+    margin-bottom: var(--space-2);
+  }
+  .site-footer li a {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+  }
+  .site-footer li a:hover {
+    color: var(--primary);
+  }
+  .footer-bottom {
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--border);
+  }
+  .footer-bottom p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin: 0;
+  }
+</style>

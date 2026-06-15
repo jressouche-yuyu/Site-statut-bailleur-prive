@@ -1,0 +1,258 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Callout from '../components/Callout.astro';
+import RateTable from '../components/RateTable.astro';
+import Faq from '../components/Faq.astro';
+import { conditions, timeline, dispositif, formatEur } from '../data/dispositif';
+import { faq } from '../data/faq';
+import { guides } from '../data/guides';
+import {
+  breadcrumbSchema,
+  dispositifSchema,
+  faqSchema,
+  howToSchema,
+} from '../lib/schema';
+import { url } from '../lib/url';
+
+const crumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: 'Le dispositif Jeanbrun', path: '/dispositif-jeanbrun' },
+];
+
+const howToSteps = [
+  { title: 'Vérifier son éligibilité', body: "Acquérir un logement collectif (appartement) à compter du 1er janvier 2026, destiné à la location nue en résidence principale." },
+  { title: 'Choisir une catégorie de loyer', body: 'Opter pour un loyer intermédiaire, social ou très social : plus le loyer est bas, plus le taux d\'amortissement est élevé.' },
+  { title: 'Respecter les plafonds', body: 'Appliquer les plafonds de loyer et de ressources du locataire correspondant à la catégorie et à la zone.' },
+  { title: 'Louer 9 ans et amortir', body: "Maintenir la location au moins 9 ans et déduire chaque année l'amortissement (un pourcentage de 80 % du prix) de ses revenus fonciers." },
+];
+
+const pageFaq = faq;
+
+const jsonLd = [
+  breadcrumbSchema(crumbs),
+  dispositifSchema(),
+  howToSchema({
+    name: 'Comment bénéficier du statut du bailleur privé',
+    description: "Les étapes pour profiter de l'amortissement du dispositif Jeanbrun.",
+    steps: howToSteps,
+  }),
+  faqSchema(pageFaq),
+];
+---
+
+<BaseLayout
+  title="Dispositif Jeanbrun : statut du bailleur privé (taux, conditions, 2026)"
+  description="Le dispositif Jeanbrun (statut du bailleur privé) en détail : principe de l'amortissement, taux dans le neuf et l'ancien, conditions d'éligibilité, plafonds, calendrier et exemple chiffré."
+  path="/dispositif-jeanbrun"
+  jsonLd={jsonLd}
+>
+  <div class="container container-narrow">
+    <Breadcrumbs items={crumbs} />
+    <article class="prose">
+      <p class="eyebrow">Page de référence</p>
+      <h1>Le dispositif Jeanbrun (statut du bailleur privé)</h1>
+      <p class="lead">
+        Le statut du bailleur privé, surnommé <strong>dispositif Jeanbrun</strong>,
+        est le nouveau cadre fiscal de l'investissement locatif issu de la loi de
+        finances pour 2026. Son principe : amortir une partie d'un logement loué
+        nu pour réduire ses revenus fonciers imposables.
+      </p>
+
+      <p class="meta">Dernière vérification éditoriale : {new Date(dispositif.lastReviewed).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}.</p>
+
+      <Callout title="L'essentiel en 30 secondes">
+        <ul>
+          <li><strong>Quoi</strong> : un amortissement de la location nue, sur 80 % du prix du logement.</li>
+          <li><strong>Combien</strong> : de 3 % à 5,5 % par an selon le type de bien et l'effort de loyer.</li>
+          <li><strong>Conditions</strong> : appartement loué nu en résidence principale, 9 ans, loyer plafonné.</li>
+          <li><strong>Depuis quand</strong> : acquisitions à compter du 1er janvier 2026.</li>
+        </ul>
+      </Callout>
+
+      <h2 id="principe">Le principe : amortir un logement loué nu</h2>
+      <p>
+        Jusqu'à présent, seule la location meublée (régime LMNP) permettait
+        d'<a href={url('/glossaire#amortissement')}>amortir</a> un bien, c'est-à-dire de
+        déduire chaque année une fraction de sa valeur. Le dispositif Jeanbrun
+        étend cette possibilité à la <a href={url('/glossaire#location-nue')}>location nue</a>,
+        imposée dans la catégorie des <a href={url('/glossaire#revenus-fonciers')}>revenus
+        fonciers</a>. Résultat : un revenu foncier imposable plus faible, donc moins
+        d'impôt — d'autant plus que votre tranche d'imposition est élevée.
+      </p>
+      <p>
+        L'amortissement ne porte pas sur 100 % du prix : il s'applique sur
+        <strong> {Math.round(dispositif.amortizableShare * 100)} % du prix d'acquisition</strong>,
+        les 20 % restants correspondant à la valeur du terrain, non amortissable.
+      </p>
+
+      <h2 id="taux">Les taux d'amortissement</h2>
+      <p>
+        Le taux dépend de deux facteurs : le type de bien (neuf ou ancien rénové)
+        et l'effort de loyer consenti (intermédiaire, social ou très social). La
+        déduction annuelle est plafonnée.
+      </p>
+      <RateTable />
+      <p>
+        Concrètement, pour un appartement neuf acheté {formatEur(250000)} loué en
+        loyer intermédiaire : base amortissable de {formatEur(200000)},
+        amortissement annuel de {formatEur(7000)} (200 000 € × 3,5 %), sous le
+        plafond de {formatEur(8000)}. Testez votre cas avec le
+        <a href={url('/simulateur')}> simulateur d'amortissement</a>.
+      </p>
+
+      <h2 id="conditions">Les conditions d'éligibilité</h2>
+      <div class="conditions">
+        {
+          conditions.map((c) => (
+            <div class="condition">
+              <p class="condition-label">{c.label}</p>
+              <p class="condition-detail">{c.detail}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <Callout title="Particularité Jeanbrun : plus de condition de zonage" tone="info">
+        <p>
+          Contrairement au Pinel, le zonage ne conditionne plus l'éligibilité :
+          on peut investir partout en France. Le zonage sert uniquement à fixer
+          les plafonds de loyer et de ressources applicables.
+        </p>
+      </Callout>
+
+      <h2 id="comment">Comment en bénéficier, étape par étape</h2>
+      <ol class="steps">
+        {
+          howToSteps.map((s) => (
+            <li>
+              <strong>{s.title}.</strong> {s.body}
+            </li>
+          ))
+        }
+      </ol>
+
+      <h2 id="calendrier">Calendrier et adoption</h2>
+      <ul class="timeline">
+        {
+          timeline.map((t) => (
+            <li>
+              <span class="timeline-date">{t.date}</span>
+              <span class="timeline-label">{t.label}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <p>
+        Le dispositif tient son nom de <strong>Vincent Jeanbrun</strong>, ministre
+        de la Ville et du Logement, à l'origine de l'amendement gouvernemental. Il
+        s'appuie sur un rapport parlementaire de Mickaël Cosson et Marc-Philippe
+        Daubresse sur la reconstitution du parc locatif privé.
+      </p>
+
+      <Callout title="À vérifier avant d'investir" tone="warning">
+        <p>
+          Les taux, plafonds et modalités (notamment la reprise de l'amortissement
+          à la revente et l'articulation avec le déficit foncier) sont fixés par la
+          loi de finances et ses décrets. Ils peuvent évoluer : recoupez toujours
+          avec les textes officiels et un conseil professionnel avant de décider.
+        </p>
+      </Callout>
+
+      <h2 id="aller-plus-loin">Pour aller plus loin</h2>
+      <ul>
+        {guides.map((g) => <li><a href={url(`/guides/${g.slug}`)}>{g.title}</a></li>)}
+      </ul>
+    </article>
+
+    <Faq items={pageFaq} title="Questions fréquentes" />
+  </div>
+</BaseLayout>
+
+<style>
+  .prose .meta {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: calc(-1 * var(--space-2));
+  }
+  .conditions {
+    display: grid;
+    gap: var(--space-3);
+    margin: var(--space-6) 0;
+  }
+  @media (min-width: 640px) {
+    .conditions {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .condition {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-4);
+  }
+  .condition-label {
+    font-weight: 700;
+    margin: 0 0 var(--space-1);
+  }
+  .condition-detail {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+  .steps {
+    counter-reset: step;
+    list-style: none;
+    padding: 0;
+  }
+  .steps li {
+    position: relative;
+    padding-left: 2.5rem;
+    margin-bottom: var(--space-4);
+  }
+  .steps li::before {
+    counter-increment: step;
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: -2px;
+    width: 1.8rem;
+    height: 1.8rem;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+  .timeline {
+    list-style: none;
+    padding: 0;
+    border-left: 2px solid var(--border);
+    margin-left: var(--space-2);
+  }
+  .timeline li {
+    padding: 0 0 var(--space-4) var(--space-6);
+    position: relative;
+  }
+  .timeline li::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+  }
+  .timeline-date {
+    display: block;
+    font-weight: 700;
+    color: var(--primary);
+  }
+  .timeline-label {
+    color: var(--text-muted);
+  }
+</style>

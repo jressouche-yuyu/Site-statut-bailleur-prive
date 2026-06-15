@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { breadcrumbSchema } from '../lib/schema';
+import { SITE } from '../consts';
+
+const crumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: 'Confidentialité', path: '/confidentialite' },
+];
+const jsonLd = [breadcrumbSchema(crumbs)];
+---
+
+<BaseLayout
+  title="Politique de confidentialité"
+  description={`Politique de confidentialité et gestion des données personnelles du site ${SITE.name}.`}
+  path="/confidentialite"
+  noindex={true}
+  jsonLd={jsonLd}
+>
+  <div class="container container-narrow prose">
+    <Breadcrumbs items={crumbs} />
+    <h1>Politique de confidentialité</h1>
+    <p class="lead">Dernière mise à jour : juin 2026.</p>
+
+    <h2>Données collectées</h2>
+    <p>
+      {SITE.name} est un site éditorial statique. Nous ne collectons pas de compte
+      utilisateur. Les seules données personnelles traitées sont celles que vous
+      nous transmettez volontairement, par exemple lorsque vous nous écrivez à
+      <a href={`mailto:${SITE.email}`}> {SITE.email}</a> (nom, adresse e-mail,
+      contenu du message).
+    </p>
+
+    <h2>Finalités</h2>
+    <p>
+      Ces données servent uniquement à répondre à votre demande. Elles ne sont ni
+      vendues, ni cédées à des tiers à des fins commerciales.
+    </p>
+
+    <h2>Mesure d'audience et cookies</h2>
+    <p>
+      Le site peut recourir à une mesure d'audience respectueuse de la vie privée.
+      Aucun cookie publicitaire de suivi n'est déposé sans votre consentement
+      lorsque la réglementation l'exige. Vous pouvez configurer votre navigateur
+      pour refuser les cookies.
+    </p>
+
+    <h2>Vos droits</h2>
+    <p>
+      Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et
+      de suppression de vos données. Pour l'exercer, écrivez-nous à
+      <a href={`mailto:${SITE.email}`}> {SITE.email}</a>.
+    </p>
+
+    <p class="placeholder">
+      ⚠️ Modèle à adapter à la configuration réelle (outil d'analytics, hébergeur,
+      bannière cookies) avant mise en production.
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .placeholder {
+    margin-top: var(--space-8);
+    padding: var(--space-4);
+    background: var(--warning-soft);
+    border: 1px solid rgba(185, 119, 10, 0.3);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+  }
+</style>

@@ -1,0 +1,259 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Faq from '../components/Faq.astro';
+import RateTable from '../components/RateTable.astro';
+import { guides } from '../data/guides';
+import { faq } from '../data/faq';
+import { dispositif, formatEur } from '../data/dispositif';
+import { breadcrumbSchema, dispositifSchema, faqSchema } from '../lib/schema';
+import { url } from '../lib/url';
+
+const homeFaq = faq.slice(0, 6);
+
+const latestPosts = (await getCollection('actualites', (p) => !p.data.draft))
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
+  .slice(0, 3);
+
+const featuredGuides = guides.slice(0, 4);
+
+const jsonLd = [
+  breadcrumbSchema([{ name: 'Accueil', path: '/' }]),
+  dispositifSchema(homeFaq),
+  faqSchema(homeFaq),
+];
+---
+
+<BaseLayout
+  title="Statut du bailleur privé (dispositif Jeanbrun) : guide complet 2026"
+  description="Tout sur le statut du bailleur privé, alias dispositif Jeanbrun : fonctionnement de l'amortissement, taux, conditions d'éligibilité, simulateur et actualités. Guide indépendant 2026."
+  path="/"
+  jsonLd={jsonLd}
+>
+  <section class="hero">
+    <div class="container hero-inner">
+      <p class="eyebrow">Loi de finances 2026 · Mis à jour en {new Date(dispositif.lastReviewed).getFullYear()}</p>
+      <h1>Le statut du bailleur privé, expliqué clairement</h1>
+      <p class="lead">
+        Aussi appelé <strong>dispositif Jeanbrun</strong>, le statut du bailleur
+        privé permet d'<strong>amortir</strong> une partie du prix d'un logement
+        loué nu. Fonctionnement, taux, conditions et simulateur : tout est ici.
+      </p>
+      <div class="hero-actions">
+        <a class="btn" href={url('/dispositif-jeanbrun')}>Comprendre le dispositif</a>
+        <a class="btn btn-ghost" href={url('/simulateur')}>Simuler mon amortissement</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="grid grid-3 stats">
+      <div class="card stat-card">
+        <p class="stat">80 %</p>
+        <p>du prix du logement amortissable (hors quote-part terrain).</p>
+      </div>
+      <div class="card stat-card">
+        <p class="stat">jusqu'à 5,5 %</p>
+        <p>d'amortissement par an dans le neuf, selon l'effort de loyer.</p>
+      </div>
+      <div class="card stat-card">
+        <p class="stat">9 ans</p>
+        <p>d'engagement de location nue en résidence principale.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container">
+      <h2 style="margin-top:0">Les taux d'amortissement en un coup d'œil</h2>
+      <p class="lead" style="margin-bottom:var(--space-6)">
+        Plus le loyer consenti est bas, plus le taux d'amortissement est élevé.
+        L'amortissement porte sur 80 % du prix d'acquisition.
+      </p>
+      <RateTable />
+      <p class="table-note">
+        Plafonds de déduction : {formatEur(8000)} (intermédiaire), {formatEur(10000)} (social),
+        {formatEur(12000)} (très social). <a href={url('/dispositif-jeanbrun')}>Voir le détail des conditions →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="section-head">
+      <h2>Nos guides</h2>
+      <a class="see-all" href={url('/guides')}>Tous les guides →</a>
+    </div>
+    <div class="grid grid-2">
+      {
+        featuredGuides.map((g) => (
+          <a class="link-card" href={url(`/guides/${g.slug}`)}>
+            <span class="badge badge-accent">{g.category}</span>
+            <h3>{g.title}</h3>
+            <p>{g.description}</p>
+            <span class="link-card-cta">Lire le guide →</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="section-head">
+      <h2>Dernières actualités</h2>
+      <a class="see-all" href={url('/actualites')}>Toutes les actualités →</a>
+    </div>
+    <div class="grid grid-3">
+      {
+        latestPosts.map((post) => (
+          <a class="link-card" href={url(`/actualites/${post.id}`)}>
+            <time datetime={post.data.publishedAt.toISOString()} class="card-date">
+              {post.data.publishedAt.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
+            </time>
+            <h3>{post.data.title}</h3>
+            <p>{post.data.description}</p>
+            <span class="link-card-cta">Lire l'article →</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section container editorial">
+    <h2>Statut du bailleur privé : de quoi parle-t-on ?</h2>
+    <p>
+      Le <strong>statut du bailleur privé</strong>, popularisé sous le nom de
+      <strong> dispositif Jeanbrun</strong>, est une mesure de la loi de finances
+      pour 2026 destinée à relancer l'investissement locatif après l'arrêt du
+      Pinel fin 2024. Sa nouveauté : permettre au propriétaire d'un logement
+      <strong> loué nu</strong> d'en <strong>amortir</strong> une partie, c'est-à-dire
+      de déduire chaque année une fraction de sa valeur de ses revenus fonciers —
+      un avantage jusqu'ici réservé à la location meublée.
+    </p>
+    <p>
+      En contrepartie, le bailleur s'engage à louer pendant au moins neuf ans à un
+      <a href={url('/glossaire#loyer-intermediaire')}>loyer plafonné</a>. Plus
+      l'effort sur le loyer est important (intermédiaire, social ou très social),
+      plus le taux d'amortissement est élevé. Notre
+      <a href={url('/dispositif-jeanbrun')}> page de référence</a>,
+      nos <a href={url('/guides')}>guides</a> et notre
+      <a href={url('/simulateur')}> simulateur</a> vous aident à évaluer l'intérêt
+      du dispositif pour votre projet.
+    </p>
+    <p class="disclaimer">
+      Information éditoriale indépendante, à jour de la version adoptée fin 2025.
+      Les paramètres définitifs dépendent des décrets d'application : ce contenu ne
+      constitue pas un conseil fiscal personnalisé.
+    </p>
+  </section>
+
+  <div class="container">
+    <Faq items={homeFaq} title="Questions fréquentes sur le statut du bailleur privé" />
+  </div>
+</BaseLayout>
+
+<style>
+  .hero {
+    background:
+      radial-gradient(1200px 500px at 15% -10%, rgba(15, 157, 119, 0.12), transparent 60%),
+      linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border);
+    padding-block: var(--space-16);
+  }
+  .hero-inner {
+    max-width: 760px;
+  }
+  .hero h1 {
+    font-size: clamp(2.1rem, 6vw, 3.2rem);
+    margin-bottom: var(--space-4);
+  }
+  .hero .lead {
+    max-width: 56ch;
+  }
+  .hero-actions {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    margin-top: var(--space-6);
+  }
+
+  .stats {
+    margin-top: 0;
+  }
+  .stat-card p:last-child {
+    margin: var(--space-2) 0 0;
+    color: var(--text-muted);
+  }
+
+  .table-note {
+    margin-top: var(--space-4);
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  .link-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-6);
+    color: var(--text);
+    height: 100%;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+  }
+  .link-card:hover {
+    border-color: var(--primary);
+    text-decoration: none;
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
+  }
+  .link-card h3 {
+    margin: 0;
+  }
+  .link-card p {
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .link-card .badge {
+    align-self: flex-start;
+  }
+  .card-date {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+  .link-card-cta {
+    margin-top: auto;
+    color: var(--primary);
+    font-weight: 600;
+  }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-6);
+  }
+  .section-head h2 {
+    margin: 0;
+  }
+  .see-all {
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .editorial {
+    max-width: 820px;
+  }
+  .editorial p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+  .disclaimer {
+    font-size: 0.9rem !important;
+    border-top: 1px solid var(--border);
+    padding-top: var(--space-4);
+  }
+</style>

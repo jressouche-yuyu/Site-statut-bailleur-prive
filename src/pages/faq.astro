@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Faq from '../components/Faq.astro';
+import { faq } from '../data/faq';
+import { breadcrumbSchema, faqSchema } from '../lib/schema';
+import { url } from '../lib/url';
+
+const crumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: 'FAQ', path: '/faq' },
+];
+
+const jsonLd = [breadcrumbSchema(crumbs), faqSchema(faq)];
+---
+
+<BaseLayout
+  title="FAQ : statut du bailleur privé (dispositif Jeanbrun)"
+  description="Les réponses aux questions fréquentes sur le statut du bailleur privé : taux d'amortissement, conditions, différences avec le Pinel et le LMNP, plafonds, zonage."
+  path="/faq"
+  jsonLd={jsonLd}
+>
+  <div class="container container-narrow">
+    <Breadcrumbs items={crumbs} />
+    <p class="eyebrow">Questions fréquentes</p>
+    <h1>Vos questions sur le statut du bailleur privé</h1>
+    <p class="lead">
+      Les réponses claires et factuelles aux questions les plus posées sur le
+      dispositif Jeanbrun.
+    </p>
+
+    <Faq items={faq} title="" />
+
+    <p class="more">
+      Vous ne trouvez pas votre réponse ? Consultez la
+      <a href={url('/dispositif-jeanbrun')}> page de référence</a>, nos
+      <a href={url('/guides')}> guides</a> ou
+      <a href={url('/contact')}> contactez-nous</a>.
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .more {
+    margin-top: var(--space-8);
+    color: var(--text-muted);
+  }
+</style>

@@ -1,0 +1,253 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Callout from '../components/Callout.astro';
+import { loyerTiers, dispositif } from '../data/dispositif';
+import { breadcrumbSchema, howToSchema } from '../lib/schema';
+import { url } from '../lib/url';
+
+const crumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: "Simulateur d'amortissement", path: '/simulateur' },
+];
+
+// Données transmises au script client.
+const tiersData = loyerTiers.map((t) => ({
+  key: t.key,
+  label: t.label,
+  rateNeuf: t.rateNeuf,
+  rateAncien: t.rateAncien,
+  cap: t.deductionCap,
+}));
+const config = {
+  share: dispositif.amortizableShare,
+  years: dispositif.engagementYears,
+};
+
+const jsonLd = [
+  breadcrumbSchema(crumbs),
+  howToSchema({
+    name: "Simuler l'amortissement du dispositif Jeanbrun",
+    description: "Estimer l'amortissement annuel et l'économie d'impôt du statut du bailleur privé.",
+    steps: [
+      { title: "Saisir le prix d'acquisition", body: 'Indiquez le prix payé pour le logement.' },
+      { title: 'Choisir neuf ou ancien et la catégorie de loyer', body: 'Le taux d\'amortissement dépend de ces deux paramètres.' },
+      { title: 'Renseigner votre tranche marginale d\'imposition', body: 'Pour estimer l\'économie d\'impôt annuelle.' },
+    ],
+  }),
+];
+---
+
+<BaseLayout
+  title="Simulateur d'amortissement — statut du bailleur privé (Jeanbrun)"
+  description="Calculez gratuitement l'amortissement annuel et l'économie d'impôt du dispositif Jeanbrun selon le prix du logement, le type de bien et votre tranche d'imposition."
+  path="/simulateur"
+  jsonLd={jsonLd}
+>
+  <div class="container container-narrow">
+    <Breadcrumbs items={crumbs} />
+    <p class="eyebrow">Outil gratuit</p>
+    <h1>Simulateur d'amortissement (dispositif Jeanbrun)</h1>
+    <p class="lead">
+      Estimez en quelques secondes l'amortissement annuel et l'économie d'impôt
+      potentielle du statut du bailleur privé, selon votre projet.
+    </p>
+
+    <form id="sim-form" class="sim card" novalidate>
+      <div class="field">
+        <label for="price">Prix d'acquisition du logement (€)</label>
+        <input type="number" id="price" name="price" min="0" step="1000" value="250000" inputmode="numeric" />
+      </div>
+
+      <div class="field">
+        <span class="field-label">Type de bien</span>
+        <div class="radio-row" role="radiogroup" aria-label="Type de bien">
+          <label class="radio"><input type="radio" name="segment" value="neuf" checked /> Neuf</label>
+          <label class="radio"><input type="radio" name="segment" value="ancien" /> Ancien rénové</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="tier">Catégorie de loyer</label>
+        <select id="tier" name="tier">
+          {loyerTiers.map((t) => <option value={t.key}>{t.label}</option>)}
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="tmi">Tranche marginale d'imposition (TMI)</label>
+        <select id="tmi" name="tmi">
+          <option value="0">0 %</option>
+          <option value="0.11">11 %</option>
+          <option value="0.30" selected>30 %</option>
+          <option value="0.41">41 %</option>
+          <option value="0.45">45 %</option>
+        </select>
+        <p class="hint">Inclut 17,2 % de prélèvements sociaux dans l'estimation d'économie.</p>
+      </div>
+    </form>
+
+    <section class="results card" id="results" aria-live="polite">
+      <div class="result-grid">
+        <div>
+          <p class="result-label">Base amortissable (80 %)</p>
+          <p class="result-value" id="r-base">—</p>
+        </div>
+        <div>
+          <p class="result-label">Amortissement annuel</p>
+          <p class="result-value accent" id="r-annual">—</p>
+        </div>
+        <div>
+          <p class="result-label">Sur 9 ans</p>
+          <p class="result-value" id="r-total">—</p>
+        </div>
+        <div>
+          <p class="result-label">Économie d'impôt estimée / an</p>
+          <p class="result-value accent" id="r-save">—</p>
+        </div>
+      </div>
+      <p class="result-note" id="r-note"></p>
+    </section>
+
+    <Callout title="Comment lire ce résultat ?">
+      <p>
+        L'amortissement réduit votre revenu foncier imposable. L'économie d'impôt
+        dépend donc de votre TMI et des prélèvements sociaux. Ce calcul est une
+        estimation simplifiée : il ne tient pas compte de vos autres charges
+        déductibles (intérêts d'emprunt, travaux, etc.) ni des plafonds globaux.
+      </p>
+    </Callout>
+
+    <Callout title="Estimation indicative" tone="warning">
+      <p>
+        Les taux et plafonds utilisés reflètent la version du dispositif adoptée
+        fin 2025 et peuvent évoluer avec les décrets. Ce simulateur ne constitue
+        pas un conseil fiscal. Pour la méthode de calcul, voir
+        <a href={url('/guides/comment-fonctionne-statut-bailleur-prive')}> notre guide dédié</a>.
+      </p>
+    </Callout>
+  </div>
+</BaseLayout>
+
+<script define:vars={{ tiersData, config }}>
+  const eur = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+  const SOCIAL = 0.172; // prélèvements sociaux
+
+  const form = document.getElementById('sim-form');
+  const get = (id) => document.getElementById(id);
+
+  function compute() {
+    const price = Math.max(0, Number(get('price').value) || 0);
+    const segment = form.querySelector('input[name="segment"]:checked').value;
+    const tierKey = get('tier').value;
+    const tmi = Number(get('tmi').value) || 0;
+    const tier = tiersData.find((t) => t.key === tierKey);
+    if (!tier) return;
+
+    const rate = segment === 'neuf' ? tier.rateNeuf : tier.rateAncien;
+    const base = price * config.share;
+    const annualRaw = base * rate;
+    const annual = Math.min(annualRaw, tier.cap);
+    const capped = annualRaw > tier.cap;
+    const total = annual * config.years;
+    const save = annual * (tmi + SOCIAL);
+
+    get('r-base').textContent = eur.format(base);
+    get('r-annual').textContent = eur.format(annual);
+    get('r-total').textContent = eur.format(total);
+    get('r-save').textContent = eur.format(save);
+
+    const pct = (rate * 100).toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    let note = `Taux appliqué : ${pct} % / an (${tier.label}, ${segment === 'neuf' ? 'neuf' : 'ancien rénové'}).`;
+    if (capped) {
+      note += ` L'amortissement est plafonné à ${eur.format(tier.cap)} par an pour cette catégorie.`;
+    }
+    note += ` Économie estimée avec une TMI de ${(tmi * 100).toFixed(0)} % + 17,2 % de prélèvements sociaux.`;
+    get('r-note').textContent = note;
+  }
+
+  form.addEventListener('input', compute);
+  compute();
+</script>
+
+<style>
+  .sim {
+    display: grid;
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+  }
+  @media (min-width: 640px) {
+    .sim {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  label,
+  .field-label {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  input[type='number'],
+  select {
+    font: inherit;
+    padding: var(--space-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    color: var(--text);
+    width: 100%;
+  }
+  .radio-row {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+  .radio {
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .hint {
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+  .results {
+    margin-top: var(--space-6);
+    background: var(--bg-soft);
+  }
+  .result-grid {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (min-width: 640px) {
+    .result-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .result-label {
+    margin: 0 0 var(--space-1);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .result-value {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+  }
+  .result-value.accent {
+    color: var(--accent);
+  }
+  .result-note {
+    margin: var(--space-6) 0 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+</style>

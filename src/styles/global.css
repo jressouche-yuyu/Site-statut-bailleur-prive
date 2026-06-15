@@ -1,0 +1,354 @@
+/* ============================================================
+   Design system — variables, reset léger et utilitaires.
+   Thème clair, sobre et « confiance » (immobilier / fiscalité).
+   Objectif : CSS minimal, rapide à charger (Core Web Vitals),
+   sans dépendance externe.
+   ============================================================ */
+
+:root {
+  /* Palette — bleu institutionnel + vert « patrimoine » */
+  --bg: #ffffff;
+  --bg-soft: #f4f7fb;
+  --surface: #ffffff;
+  --surface-2: #eef2f8;
+  --border: #dde4ee;
+  --text: #16213a;
+  --text-muted: #5a6782;
+  --primary: #1b4d8c;
+  --primary-hover: #15407a;
+  --accent: #0f9d77;
+  --accent-soft: #e6f5ef;
+  --warning: #b9770a;
+  --warning-soft: #fdf3e2;
+  --danger: #c2453b;
+
+  /* Typo */
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Échelle d'espacement */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  --radius: 14px;
+  --radius-sm: 8px;
+  --max-width: 1120px;
+  --shadow: 0 6px 24px rgba(16, 36, 74, 0.08);
+  --shadow-sm: 0 2px 8px rgba(16, 36, 74, 0.06);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Anti-débordement horizontal mobile. */
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+body {
+  position: relative;
+}
+
+main {
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.2;
+  margin: 0 0 var(--space-4);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+h1 {
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+}
+
+h2 {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  margin-top: var(--space-12);
+}
+
+h3 {
+  font-size: 1.2rem;
+}
+
+p {
+  margin: 0 0 var(--space-4);
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul,
+ol {
+  padding-left: 1.25rem;
+}
+
+li {
+  margin-bottom: var(--space-2);
+}
+
+strong {
+  color: var(--text);
+}
+
+/* Layout helpers */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}
+
+.container-narrow {
+  max-width: 760px;
+}
+
+.section {
+  padding-block: var(--space-12);
+}
+
+.section-soft {
+  background: var(--bg-soft);
+}
+
+.lead {
+  font-size: 1.18rem;
+  color: var(--text-muted);
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: var(--space-2);
+}
+
+.prose :is(h2, h3) {
+  scroll-margin-top: 84px;
+}
+.prose ul {
+  margin-bottom: var(--space-4);
+}
+.prose a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Cards */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.card-link {
+  display: block;
+  color: inherit;
+  transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+}
+.card-link:hover {
+  text-decoration: none;
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+  border-color: var(--primary);
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-6);
+}
+
+@media (min-width: 640px) {
+  .grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--primary);
+  color: #fff;
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.btn:hover {
+  background: var(--primary-hover);
+  color: #fff;
+  text-decoration: none;
+}
+
+.btn-accent {
+  background: var(--accent);
+}
+.btn-accent:hover {
+  background: #0c855f;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.btn-ghost:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.badge-accent {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: rgba(15, 157, 119, 0.3);
+}
+
+.badge-primary {
+  background: rgba(27, 77, 140, 0.1);
+  color: var(--primary);
+  border-color: rgba(27, 77, 140, 0.25);
+}
+
+/* Stat / chiffre clé */
+.stat {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  font-size: 2rem;
+  color: var(--primary);
+  line-height: 1;
+}
+
+/* Tables */
+.table-wrap {
+  overflow-x: auto;
+  max-width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+th,
+td {
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  background: var(--bg-soft);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background: var(--bg-soft);
+}
+
+/* Visually hidden (accessibilité) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--primary);
+  color: #fff;
+  padding: var(--space-2) var(--space-4);
+  z-index: 100;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}

@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { breadcrumbSchema } from '../lib/schema';
+import { SITE } from '../consts';
+import { url } from '../lib/url';
+
+const crumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: 'À propos', path: '/a-propos' },
+];
+const jsonLd = [breadcrumbSchema(crumbs)];
+---
+
+<BaseLayout
+  title="À propos & méthodologie"
+  description={`Qui édite ${SITE.name} ? Notre ligne éditoriale, nos sources et notre méthode pour suivre le statut du bailleur privé (dispositif Jeanbrun).`}
+  path="/a-propos"
+  jsonLd={jsonLd}
+>
+  <div class="container container-narrow prose">
+    <Breadcrumbs items={crumbs} />
+    <p class="eyebrow">À propos</p>
+    <h1>Notre mission et notre méthode</h1>
+    <p class="lead">
+      {SITE.name} est un média éditorial indépendant dédié au statut du bailleur
+      privé (dispositif Jeanbrun). Notre objectif : rendre cette réforme fiscale
+      claire, fiable et actionnable pour les investisseurs particuliers.
+    </p>
+
+    <h2>Notre ligne éditoriale</h2>
+    <p>
+      Nous publions des contenus informatifs, vérifiés et régulièrement mis à
+      jour. Nous privilégions un ton factuel, des chiffres datés et des
+      explications accessibles, sans jargon inutile. Nous indiquons toujours la
+      date de dernière vérification des informations.
+    </p>
+
+    <h2>Nos sources</h2>
+    <p>
+      Nos contenus s'appuient sur les textes officiels (projet et loi de finances
+      pour 2026, amendements, débats parlementaires), les rapports publics — dont
+      le rapport Cosson–Daubresse sur la reconstitution du parc locatif privé — et
+      les communications du ministère de la Ville et du Logement. Lorsque des
+      paramètres dépendent de décrets non encore publiés, nous le signalons
+      explicitement.
+    </p>
+
+    <h2>Notre méthode</h2>
+    <ul>
+      <li>Chaque chiffre clé (taux, plafonds, dates) provient d'une source identifiable.</li>
+      <li>Les pages sensibles affichent une date de dernière vérification.</li>
+      <li>Nous distinguons clairement les faits établis des points encore en attente de décret.</li>
+      <li>Nos outils, comme le <a href={url('/simulateur')}>simulateur</a>, reposent sur des règles documentées et explicites.</li>
+    </ul>
+
+    <h2>Indépendance et transparence</h2>
+    <p>
+      Notre ligne éditoriale est indépendante. Le site peut accueillir des contenus
+      de partenaires ou des liens commerciaux : ils sont alors signalés et n'altèrent
+      pas la qualité ni la neutralité de l'information. Voir notre page
+      <a href={url('/partenariats')}> Partenariats</a>.
+    </p>
+
+    <h2>Avertissement</h2>
+    <p>
+      Les informations publiées sur {SITE.name} sont fournies à titre indicatif et
+      ne constituent pas un conseil juridique, fiscal ou en investissement
+      personnalisé. Avant toute décision, consultez les textes officiels et un
+      professionnel (notaire, conseiller en gestion de patrimoine, expert-comptable).
+    </p>
+
+    <p>
+      Une question, une correction à proposer ? <a href={url('/contact')}>Contactez-nous</a>.
+    </p>
+  </div>
+</BaseLayout>

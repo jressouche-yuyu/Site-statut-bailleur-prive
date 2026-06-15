@@ -1,0 +1,91 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { breadcrumbSchema, newsArticleSchema } from '../../lib/schema';
+import { url } from '../../lib/url';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('actualites', (p) => !p.data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const dateFmt = (d: Date) => new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' }).format(d);
+
+const crumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: 'Actualités', path: '/actualites' },
+  { name: post.data.title, path: `/actualites/${post.id}` },
+];
+
+const jsonLd = [
+  breadcrumbSchema(crumbs),
+  newsArticleSchema({
+    title: post.data.title,
+    description: post.data.description,
+    slug: post.id,
+    publishedAt: post.data.publishedAt,
+    updatedAt: post.data.updatedAt,
+  }),
+];
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  path={`/actualites/${post.id}`}
+  ogType="article"
+  publishedTime={post.data.publishedAt.toISOString()}
+  modifiedTime={(post.data.updatedAt ?? post.data.publishedAt).toISOString()}
+  jsonLd={jsonLd}
+>
+  <article class="container container-narrow article">
+    <Breadcrumbs items={crumbs} />
+    <header>
+      <h1>{post.data.title}</h1>
+      <p class="meta">
+        {dateFmt(post.data.publishedAt)}
+        {post.data.updatedAt && ` · Mis à jour le ${dateFmt(post.data.updatedAt)}`}
+        {` · ${post.data.readingMinutes} min de lecture`}
+      </p>
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <p style="margin-top: var(--space-12)">
+      <a class="btn btn-ghost" href={url('/actualites')}>← Toutes les actualités</a>
+    </p>
+  </article>
+</BaseLayout>
+
+<style>
+  .article header {
+    margin-top: var(--space-6);
+  }
+  .meta {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+  .prose :global(h2) {
+    margin-top: var(--space-12);
+  }
+  .prose :global(blockquote) {
+    border-left: 4px solid var(--accent);
+    margin: var(--space-6) 0;
+    padding: var(--space-2) var(--space-6);
+    background: var(--accent-soft);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+  }
+  .prose :global(blockquote p:last-child) {
+    margin-bottom: 0;
+  }
+</style>

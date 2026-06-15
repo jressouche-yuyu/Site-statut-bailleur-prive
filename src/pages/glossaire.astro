@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { glossaire } from '../data/glossaire';
+import { breadcrumbSchema } from '../lib/schema';
+import { SITE } from '../consts';
+
+const crumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: 'Glossaire', path: '/glossaire' },
+];
+
+// DefinedTermSet : aide les moteurs à comprendre le vocabulaire du domaine.
+const termSetSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTermSet',
+  name: 'Glossaire du statut du bailleur privé',
+  hasDefinedTerm: glossaire.map((g) => ({
+    '@type': 'DefinedTerm',
+    name: g.term,
+    description: g.definition,
+    url: `${SITE.url}/glossaire#${g.slug}`,
+  })),
+};
+
+const jsonLd = [breadcrumbSchema(crumbs), termSetSchema];
+---
+
+<BaseLayout
+  title="Glossaire du statut du bailleur privé"
+  description="Amortissement, base amortissable, loyer intermédiaire, LMNP, déficit foncier… Toutes les définitions clés pour comprendre le dispositif Jeanbrun."
+  path="/glossaire"
+  jsonLd={jsonLd}
+>
+  <div class="container container-narrow">
+    <Breadcrumbs items={crumbs} />
+    <p class="eyebrow">Glossaire</p>
+    <h1>Le vocabulaire du statut du bailleur privé</h1>
+    <p class="lead">
+      Les termes essentiels pour comprendre le dispositif Jeanbrun, expliqués
+      simplement.
+    </p>
+
+    <dl class="glossary">
+      {
+        glossaire.map((g) => (
+          <div class="term" id={g.slug}>
+            <dt>{g.term}</dt>
+            <dd>{g.definition}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</BaseLayout>
+
+<style>
+  .glossary {
+    margin-top: var(--space-8);
+    display: grid;
+    gap: var(--space-4);
+  }
+  .term {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-sm);
+    scroll-margin-top: 84px;
+  }
+  dt {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: var(--space-2);
+  }
+  dd {
+    margin: 0;
+    color: var(--text-muted);
+  }
+</style>

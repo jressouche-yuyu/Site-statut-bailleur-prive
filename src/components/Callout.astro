@@ -1,0 +1,49 @@
+---
+/**
+ * Encart d'enrichissement (« En bref », « À retenir », avertissement…).
+ * Bloc scannable, bon pour le SEO (extraits) et le GEO (réponse citable).
+ */
+interface Props {
+  title?: string;
+  icon?: string;
+  /** Teinte : info (bleu) ou warning (ambre, pour les avertissements). */
+  tone?: 'info' | 'warning';
+}
+const { title = 'En bref', icon, tone = 'info' } = Astro.props;
+const defaultIcon = tone === 'warning' ? '⚠️' : '💡';
+---
+
+<aside class={`callout callout-${tone}`}>
+  <p class="callout-title"><span aria-hidden="true">{icon ?? defaultIcon}</span> {title}</p>
+  <div class="callout-body">
+    <slot />
+  </div>
+</aside>
+
+<style>
+  .callout {
+    border-radius: var(--radius);
+    padding: var(--space-4) var(--space-6);
+    margin: var(--space-6) 0;
+  }
+  .callout-info {
+    background: rgba(27, 77, 140, 0.06);
+    border: 1px solid rgba(27, 77, 140, 0.25);
+    border-left: 4px solid var(--primary);
+  }
+  .callout-warning {
+    background: var(--warning-soft);
+    border: 1px solid rgba(185, 119, 10, 0.3);
+    border-left: 4px solid var(--warning);
+  }
+  .callout-title {
+    margin: 0 0 var(--space-2);
+    font-weight: 700;
+  }
+  .callout-body :global(ul) {
+    margin: 0;
+  }
+  .callout-body :global(p:last-child) {
+    margin-bottom: 0;
+  }
+</style>
