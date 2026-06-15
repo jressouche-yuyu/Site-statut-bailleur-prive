@@ -43,12 +43,20 @@ const origin = Astro.site ?? new URL(SITE.url);
 const canonical = new URL(Astro.url.pathname, origin).href;
 const ogImage = image.startsWith('http') ? image : new URL(url(image), origin).href;
 const fullTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
+
+// Protection « preview » : tant que le site n'est pas servi sur son domaine de
+// production (SITE.url), on force le noindex. Ainsi les URLs de préversion
+// (github.io, *.pages.dev…) ne sont jamais indexées et ne laissent pas de
+// footprint avant la mise en ligne sur le vrai domaine.
+const prodHost = new URL(SITE.url).host;
+const isPreview = origin.host !== prodHost;
+const robotsContent = noindex || isPreview ? 'noindex, nofollow' : 'index, follow, max-image-preview:large';
 ---
 
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
-<meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
+<meta name="robots" content={robotsContent} />
 
 {/* Open Graph */}
 <meta property="og:type" content={ogType} />
