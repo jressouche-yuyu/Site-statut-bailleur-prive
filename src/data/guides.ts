@@ -80,6 +80,144 @@ export const guides: Guide[] = [
     ],
   },
   {
+    slug: 'rentabilite-dispositif-jeanbrun-exemple-chiffre',
+    title: "Dispositif Jeanbrun : quelle rentabilité ? Étude de cas chiffrée",
+    description:
+      "Taux de crédit 2026, rendement locatif, amortissement et économie d'impôt : un exemple complet pour estimer la rentabilité réelle d'un investissement sous le statut du bailleur privé.",
+    category: "Investir",
+    publishedAt: "2026-06-15",
+    lastUpdated: "2026-06-15",
+    readingMinutes: 9,
+    intro:
+      "La rentabilité d'un investissement Jeanbrun ne se résume pas à l'avantage fiscal : elle combine le rendement locatif, le coût du crédit et l'amortissement. Avec un exemple chiffré et les paramètres de marché de 2026, voici comment raisonner.",
+    sections: [
+      {
+        heading: "Les paramètres de marché en 2026",
+        body: "<p>Deux chiffres encadrent tout calcul de rentabilité aujourd'hui. D'abord le <strong>coût du crédit</strong> : début 2026, les taux moyens tournent autour de <strong>3,2 % à 3,4 %</strong> sur 15 à 20 ans (observatoire Crédit Logement/CSA). Ensuite le <strong>rendement locatif brut</strong> : environ <strong>5,5 % en moyenne nationale</strong>, plutôt 4 à 4,5 % à Lyon, Bordeaux ou Rennes, et 5 à 6 % à Lille. Tant que le rendement brut dépasse le taux d'emprunt, l'<strong>effet de levier</strong> joue en votre faveur.</p>",
+      },
+      {
+        heading: "Notre cas : un T2 neuf à 230 000 €",
+        body: "<p>Prenons un appartement neuf payé <strong>230 000 €</strong>, loué en <strong>loyer intermédiaire</strong> à <strong>690 €/mois</strong> (8 280 €/an), soit un rendement brut de 3,6 % — volontairement prudent. Charges déductibles : 2 200 €/an ; intérêts d'emprunt : 5 200 €/an la première année.</p><p>Base amortissable = 80 % × 230 000 € = <strong>184 000 €</strong>. Amortissement annuel = 184 000 € × 3,5 % = <strong>6 440 €</strong> (sous le plafond de 8 000 €).</p>",
+      },
+      {
+        heading: "L'effet sur l'impôt",
+        body: "<p>Sans le dispositif, le revenu foncier imposable serait de 8 280 − 2 200 − 5 200 = <strong>880 €</strong>. L'amortissement de 6 440 € l'efface intégralement : revenu foncier ramené à 0, et l'excédent (5 560 €) est <strong>reporté</strong> sur les années suivantes. À mesure que les intérêts d'emprunt diminuent, l'amortissement prend le relais pour neutraliser un revenu foncier croissant.</p><p>Pour un bailleur à TMI 30 % (+ 17,2 % de prélèvements sociaux), neutraliser durablement un revenu foncier de plusieurs milliers d'euros représente une économie qui se chiffre vite en <strong>milliers d'euros sur les 9 ans</strong>. Chiffrez votre propre scénario dans le <a href=\"/simulateur\">simulateur</a>.</p>",
+      },
+      {
+        heading: "Raisonner en cash-flow, pas seulement en impôt",
+        body: "<p>L'amortissement améliore le rendement <em>net</em>, mais ne paie pas la mensualité. Le bon réflexe : calculer le <strong>cash-flow</strong> = loyers − (mensualité de crédit + charges + taxe foncière) + économie d'impôt. Sur un bien à loyer plafonné, le cash-flow est souvent légèrement négatif les premières années, puis s'améliore avec la baisse des intérêts et la revalorisation des loyers. L'avantage Jeanbrun réduit cet effort d'épargne mensuel.</p>",
+      },
+      {
+        heading: "Ce qui fait (ou défait) la rentabilité",
+        body: "<ul><li><strong>L'emplacement</strong> prime : un bien mal placé reste un mauvais investissement, même bien amorti.</li><li><strong>Le prix d'achat</strong> : payer trop cher le neuf annule l'avantage fiscal.</li><li><strong>La TMI</strong> : plus elle est élevée, plus l'amortissement est rentable.</li><li><strong>La catégorie de loyer</strong> : un loyer plus bas (social/très social) augmente le taux d'amortissement mais réduit les loyers encaissés — à arbitrer.</li></ul><p>Voir aussi notre comparatif <a href=\"/guides/neuf-ou-ancien-dispositif-jeanbrun\">neuf ou ancien</a>.</p>",
+      },
+    ],
+    faq: [
+      {
+        question: "Le dispositif Jeanbrun rend-il un investissement rentable à lui seul ?",
+        answer:
+          "Non. L'amortissement améliore le rendement net et réduit l'effort d'épargne, mais la rentabilité dépend d'abord de l'emplacement, du prix d'achat et du loyer de marché. L'avantage fiscal amplifie un bon projet, il ne sauve pas un mauvais.",
+      },
+      {
+        question: "Quelle économie d'impôt espérer ?",
+        answer:
+          "Elle dépend de votre tranche d'imposition et du revenu foncier à neutraliser. Pour un bailleur fortement imposé, neutraliser plusieurs milliers d'euros de revenu foncier par an représente une économie de plusieurs milliers d'euros sur les 9 ans. Utilisez le simulateur pour votre cas précis.",
+      },
+    ],
+  },
+  {
+    slug: 'revente-plus-value-amortissement-jeanbrun',
+    title: "Revente et plus-value : que devient l'amortissement Jeanbrun ?",
+    description:
+      "L'amortissement déduit est-il repris lors de la revente, comme en LMNP ? Vente avant 9 ans, plus-value des particuliers : ce qui est établi et ce qui reste à confirmer sur le statut du bailleur privé.",
+    category: "Fiscalité",
+    publishedAt: "2026-06-15",
+    lastUpdated: "2026-06-15",
+    readingMinutes: 7,
+    intro:
+      "C'est la question qui décide de la rentabilité finale : à la revente, les amortissements déduits pendant la location sont-ils « repris » dans le calcul de la plus-value ? Sur ce point, les analyses divergent encore — voici ce qui est établi et ce qui ne l'est pas.",
+    sections: [
+      {
+        heading: "Rappel : la plus-value immobilière des particuliers",
+        body: "<p>Pour un bien loué nu détenu par un particulier, la plus-value de revente relève du régime des <strong>plus-values immobilières des particuliers</strong> : taxation à 19 % + 17,2 % de prélèvements sociaux, avec des <strong>abattements pour durée de détention</strong> conduisant à une exonération totale d'impôt sur le revenu au bout de 22 ans (30 ans pour les prélèvements sociaux).</p>",
+      },
+      {
+        heading: "La question clé : amortissement réintégré ou non ?",
+        body: "<p>C'est le point le plus discuté. <strong>Deux lectures coexistent</strong> dans les analyses professionnelles :</p><ul><li>pour certains, les amortissements déduits seraient <strong>réintégrés à la plus-value imposable</strong> à la revente, sur le modèle de la réforme du <a href=\"/glossaire#lmnp\">LMNP</a> de 2025 ;</li><li>pour d'autres, à l'inverse, ils <strong>ne seraient pas réintégrés</strong> dans le calcul de la plus-value du particulier.</li></ul><p>L'enjeu est majeur : la réintégration réduit fortement l'intérêt du dispositif sur le long terme. Tant que la doctrine fiscale n'a pas tranché clairement, nous présentons les deux hypothèses sans trancher — et recommandons la prudence.</p>",
+      },
+      {
+        heading: "Vente ou changement avant la fin des 9 ans",
+        body: "<p>Sur la rupture d'engagement, les sources convergent davantage : en cas de <strong>vente anticipée</strong>, de passage en meublé ou de location non conforme avant 9 ans, les amortissements déduits sont en principe <strong>réintégrés au revenu foncier</strong> de l'année de rupture (avec un mécanisme de quotient pour limiter la progressivité). Autrement dit, l'avantage est repris si l'on ne tient pas l'engagement.</p>",
+      },
+      {
+        heading: "Une fenêtre d'acquisition limitée",
+        body: "<p>Le dispositif vise les acquisitions réalisées dans une <strong>fenêtre déterminée</strong> : selon les sources, du <strong>21 février 2026 au 31 décembre 2028</strong>. C'est un paramètre à confirmer avec le texte applicable, mais il signifie que la fenêtre d'investissement n'est pas indéfinie.</p>",
+      },
+      {
+        heading: "Notre conseil",
+        body: "<p>Avant d'investir en visant une revente, faites trancher deux points par un professionnel (notaire, CGP, expert-comptable) : le <strong>sort des amortissements à la revente</strong> et la <strong>date limite d'acquisition</strong>. Ces deux paramètres changent radicalement le rendement à long terme. Ce contenu est informatif et ne remplace pas un conseil personnalisé.</p>",
+      },
+    ],
+    faq: [
+      {
+        question: "L'amortissement Jeanbrun est-il repris à la revente comme en LMNP ?",
+        answer:
+          "Les analyses divergent à ce stade : certaines l'affirment (sur le modèle de la réforme LMNP 2025), d'autres l'excluent. Le point n'est pas définitivement tranché : faites-le confirmer par un professionnel avant d'arbitrer.",
+      },
+      {
+        question: "Que se passe-t-il si je vends avant 9 ans ?",
+        answer:
+          "La vente anticipée rompt l'engagement : les amortissements déduits sont en principe réintégrés à votre revenu foncier de l'année de rupture (avec un mécanisme de quotient). L'avantage fiscal est donc repris.",
+      },
+    ],
+  },
+  {
+    slug: 'dispositif-jeanbrun-ancien-travaux-dpe',
+    title: "Dispositif Jeanbrun dans l'ancien : travaux, DPE et pièges",
+    description:
+      "Travaux d'au moins 30 %, performance énergétique à atteindre, base amortissable : les règles du statut du bailleur privé dans l'ancien rénové, et les pièges à éviter.",
+    category: "Investir",
+    publishedAt: "2026-06-15",
+    lastUpdated: "2026-06-15",
+    readingMinutes: 7,
+    intro:
+      "Le dispositif Jeanbrun ne se limite pas au neuf : l'ancien est éligible, à condition d'une rénovation lourde. C'est une voie intéressante pour viser des emplacements de centre-ville, mais elle suppose de maîtriser travaux, performance énergétique et calendrier.",
+    sections: [
+      {
+        heading: "Les conditions propres à l'ancien",
+        body: "<p>Comme dans le neuf, le bien doit être un <strong>logement collectif</strong> (appartement), loué <strong>nu</strong> en résidence principale pendant <strong>9 ans</strong>, à loyer plafonné et à des locataires sous plafonds de ressources, sans louer à un proche. S'ajoutent deux exigences spécifiques : des <strong>travaux d'au moins 30 % du prix d'acquisition</strong> et l'atteinte d'une <strong>haute performance énergétique</strong> après rénovation.</p>",
+      },
+      {
+        heading: "Quel niveau de DPE viser ?",
+        body: "<p>Sur la cible énergétique, les sources varient : plusieurs analyses évoquent l'atteinte d'une <strong>classe A ou B</strong> au DPE après travaux ; d'autres mentionnent A à C. Par prudence, <strong>visez A ou B</strong> : c'est l'exigence la plus stricte rapportée, et elle sécurise l'éligibilité quelle que soit l'interprétation retenue. Ce point mérite d'être confirmé avec le texte applicable avant de chiffrer un projet.</p>",
+      },
+      {
+        heading: "Une base amortissable élargie",
+        body: "<p>Bon point pour l'ancien : l'amortissement se calcule sur <strong>80 % du prix d'acquisition augmenté du montant des travaux</strong>. Les travaux de rénovation viennent donc gonfler la base amortissable. En revanche, les taux d'amortissement sont un cran sous le neuf : <strong>3 %</strong> (intermédiaire), <strong>3,5 %</strong> (social) et <strong>4 %</strong> (très social).</p>",
+      },
+      {
+        heading: "Pièges et points de vigilance",
+        body: "<ul><li><strong>Le chantier</strong> : dépassements de coûts et de délais sont la première cause d'échec — chiffrez avec marge et entourez-vous de professionnels.</li><li><strong>Le seuil de 30 %</strong> : documentez précisément la nature et le montant des travaux éligibles.</li><li><strong>Le DPE</strong> : faites réaliser un DPE projeté avant achat pour vérifier l'atteinte de la cible.</li><li><strong>Le déficit foncier</strong> : dans l'ancien, l'articulation de l'amortissement avec le plafond de déficit foncier (10 700 €, voire 21 400 € en rénovation énergétique) reste à préciser — un point à confirmer.</li></ul>",
+      },
+      {
+        heading: "Neuf ou ancien : rappel",
+        body: "<p>Le neuf offre des taux plus élevés et la simplicité ; l'ancien rénové vise des emplacements rares et crée de la valeur par les travaux. Le bon choix dépend de votre appétence pour le pilotage de chantier et de votre cible patrimoniale. Voir notre comparatif détaillé <a href=\"/guides/neuf-ou-ancien-dispositif-jeanbrun\">neuf ou ancien</a>.</p>",
+      },
+    ],
+    faq: [
+      {
+        question: "Quel montant de travaux faut-il dans l'ancien ?",
+        answer:
+          "Au moins 30 % du prix d'acquisition du logement, sous forme d'une rénovation lourde (isolation, chauffage, ventilation…) permettant d'atteindre une haute performance énergétique après travaux.",
+      },
+      {
+        question: "Les travaux entrent-ils dans la base amortissable ?",
+        answer:
+          "Oui : dans l'ancien, l'amortissement porte sur 80 % du prix d'acquisition augmenté du montant des travaux, ce qui élargit la base amortissable par rapport au seul prix d'achat.",
+      },
+    ],
+  },
+  {
     slug: 'comment-fonctionne-statut-bailleur-prive',
     title: 'Comment fonctionne le statut du bailleur privé ?',
     description:
