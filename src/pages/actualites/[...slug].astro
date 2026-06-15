@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cover from '../../components/Cover.astro';
 import { breadcrumbSchema, newsArticleSchema } from '../../lib/schema';
 import { SITE, EDITORIAL } from '../../consts';
 import { url } from '../../lib/url';
@@ -51,6 +52,7 @@ const jsonLd = [
 >
   <article class="container container-narrow article">
     <Breadcrumbs items={crumbs} />
+    <Cover src={post.data.cover} alt={post.data.coverAlt ?? post.data.title} credit={post.data.coverCredit} seed={post.id} variant="banner" icon="doc" loading="eager" class="article-cover" />
     <header>
       <h1>{post.data.title}</h1>
       <p class="meta">
@@ -73,6 +75,9 @@ const jsonLd = [
 </BaseLayout>
 
 <style>
+  .article-cover {
+    margin: var(--space-6) 0 0;
+  }
   .article header {
     margin-top: var(--space-6);
   }

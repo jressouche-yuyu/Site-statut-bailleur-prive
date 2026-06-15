@@ -1,9 +1,17 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cover from '../../components/Cover.astro';
 import { guides } from '../../data/guides';
 import { breadcrumbSchema, itemListSchema } from '../../lib/schema';
 import { url } from '../../lib/url';
+
+const categoryIcon = {
+  Comprendre: 'building',
+  Investir: 'key',
+  Comparer: 'chart',
+  Fiscalité: 'doc',
+} as const;
 
 const crumbs = [
   { name: 'Accueil', path: '/' },
@@ -40,11 +48,14 @@ const jsonLd = [
       {
         guides.map((g) => (
           <a class="link-card" href={url(`/guides/${g.slug}`)}>
-            <span class="badge badge-accent">{g.category}</span>
-            <h2>{g.title}</h2>
-            <p>{g.description}</p>
-            <span class="meta">{g.readingMinutes} min de lecture</span>
-            <span class="link-card-cta">Lire le guide →</span>
+            <Cover src={g.cover} alt={g.coverAlt ?? g.title} credit={g.coverCredit} seed={g.slug} variant="thumb" icon={categoryIcon[g.category]} />
+            <div class="link-card-body">
+              <span class="badge badge-accent">{g.category}</span>
+              <h2>{g.title}</h2>
+              <p>{g.description}</p>
+              <span class="meta">{g.readingMinutes} min de lecture</span>
+              <span class="link-card-cta">Lire le guide →</span>
+            </div>
           </a>
         ))
       }
@@ -59,11 +70,10 @@ const jsonLd = [
   .link-card {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: var(--space-6);
+    overflow: hidden;
     color: var(--text);
     height: 100%;
     box-shadow: var(--shadow-sm);
@@ -74,6 +84,13 @@ const jsonLd = [
     text-decoration: none;
     box-shadow: var(--shadow);
     transform: translateY(-2px);
+  }
+  .link-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-6);
+    flex: 1;
   }
   .link-card .badge {
     align-self: flex-start;

@@ -4,7 +4,15 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Faq from '../../components/Faq.astro';
 import Callout from '../../components/Callout.astro';
+import Cover from '../../components/Cover.astro';
 import { guides } from '../../data/guides';
+
+const categoryIcon = {
+  Comprendre: 'building',
+  Investir: 'key',
+  Comparer: 'chart',
+  Fiscalité: 'doc',
+} as const;
 import { articleSchema, breadcrumbSchema, faqSchema } from '../../lib/schema';
 import { url } from '../../lib/url';
 
@@ -47,6 +55,7 @@ const fmtDate = (iso: string) =>
 >
   <div class="container container-narrow">
     <Breadcrumbs items={crumbs} />
+    <Cover src={guide.cover} alt={guide.coverAlt ?? guide.title} credit={guide.coverCredit} seed={guide.slug} variant="banner" icon={categoryIcon[guide.category]} loading="eager" class="guide-cover" />
     <article class="prose">
       <span class="badge badge-accent">{guide.category}</span>
       <h1>{guide.title}</h1>
@@ -94,6 +103,9 @@ const fmtDate = (iso: string) =>
   }
   .prose .badge {
     margin-bottom: var(--space-3);
+  }
+  .guide-cover {
+    margin: var(--space-6) 0 var(--space-8);
   }
   .related {
     margin-top: var(--space-12);

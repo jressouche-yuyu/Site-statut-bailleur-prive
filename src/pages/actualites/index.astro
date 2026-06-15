@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cover from '../../components/Cover.astro';
 import { breadcrumbSchema, itemListSchema } from '../../lib/schema';
 import { url } from '../../lib/url';
 
@@ -45,10 +46,13 @@ const dateFmt = (d: Date) => new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long
       {
         posts.map((post) => (
           <a class="post" href={url(`/actualites/${post.id}`)}>
-            <time datetime={post.data.publishedAt.toISOString()}>{dateFmt(post.data.publishedAt)}</time>
-            <h2>{post.data.title}</h2>
-            <p>{post.data.description}</p>
-            <span class="post-cta">Lire →</span>
+            <Cover src={post.data.cover} alt={post.data.coverAlt ?? post.data.title} credit={post.data.coverCredit} seed={post.id} variant="thumb" icon="doc" class="post-cover" />
+            <div class="post-body">
+              <time datetime={post.data.publishedAt.toISOString()}>{dateFmt(post.data.publishedAt)}</time>
+              <h2>{post.data.title}</h2>
+              <p>{post.data.description}</p>
+              <span class="post-cta">Lire →</span>
+            </div>
           </a>
         ))
       }
@@ -67,14 +71,32 @@ const dateFmt = (d: Date) => new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long
     margin-top: var(--space-8);
   }
   .post {
-    display: block;
+    display: grid;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: var(--space-6);
+    overflow: hidden;
     color: var(--text);
     box-shadow: var(--shadow-sm);
     transition: box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+  @media (min-width: 640px) {
+    .post {
+      grid-template-columns: 240px 1fr;
+      align-items: stretch;
+    }
+  }
+  .post :global(.post-cover) {
+    border-radius: 0;
+    height: 100%;
+  }
+  @media (max-width: 639px) {
+    .post :global(.post-cover) {
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+  }
+  .post-body {
+    padding: var(--space-6);
   }
   .post:hover {
     text-decoration: none;

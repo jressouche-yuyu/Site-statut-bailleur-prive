@@ -22,6 +22,10 @@ const actualites = defineCollection({
     tags: z.array(z.string()).default([]),
     /** Temps de lecture estimé en minutes. */
     readingMinutes: z.number().default(4),
+    /** Photo de couverture (optionnelle) : chemin sous /public ou URL. Sinon couverture SVG générée. */
+    cover: z.string().optional(),
+    coverAlt: z.string().optional(),
+    coverCredit: z.string().optional(),
     /** Signature affichée. Par défaut, la rédaction (voir SITE.author). */
     author: z.string().optional(),
     /**

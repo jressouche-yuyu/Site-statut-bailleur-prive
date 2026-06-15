@@ -1,0 +1,110 @@
+---
+/**
+ * Bloc comparatif visuel : Pinel vs dispositif Jeanbrun vs LMNP.
+ * Cartes avec picto, nature de l'avantage et statut. Jeanbrun mis en avant.
+ */
+const cols = [
+  {
+    name: 'Pinel',
+    status: 'Terminé fin 2024',
+    avantage: "Réduction d'impôt",
+    location: 'Location nue',
+    tone: 'past' as const,
+  },
+  {
+    name: 'Dispositif Jeanbrun',
+    status: 'En vigueur 2026',
+    avantage: 'Amortissement (revenus fonciers)',
+    location: 'Location nue',
+    tone: 'now' as const,
+  },
+  {
+    name: 'LMNP',
+    status: 'En vigueur',
+    avantage: 'Amortissement (BIC)',
+    location: 'Location meublée',
+    tone: 'other' as const,
+  },
+];
+---
+
+<div class="compare">
+  {
+    cols.map((c) => (
+      <div class:list={['cmp', `cmp-${c.tone}`]}>
+        <div class="cmp-head">
+          <h3>{c.name}</h3>
+          <span class="cmp-status">{c.status}</span>
+        </div>
+        <dl>
+          <div><dt>Avantage</dt><dd>{c.avantage}</dd></div>
+          <div><dt>Location</dt><dd>{c.location}</dd></div>
+        </dl>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .compare {
+    display: grid;
+    gap: var(--space-4);
+    margin: var(--space-6) 0;
+  }
+  @media (min-width: 720px) {
+    .compare {
+      grid-template-columns: repeat(3, 1fr);
+      align-items: stretch;
+    }
+  }
+  .cmp {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-6);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+  }
+  .cmp-now {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(15, 157, 119, 0.18);
+    background: var(--accent-soft);
+  }
+  .cmp-past {
+    opacity: 0.85;
+  }
+  .cmp-head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    margin-bottom: var(--space-4);
+  }
+  .cmp-head h3 {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  .cmp-status {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+  }
+  .cmp-now .cmp-status {
+    color: var(--accent);
+  }
+  .cmp dl {
+    margin: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+  .cmp dt {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .cmp dd {
+    margin: 0;
+    font-weight: 600;
+  }
+</style>

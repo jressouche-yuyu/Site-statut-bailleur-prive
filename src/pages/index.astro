@@ -5,7 +5,16 @@ import Faq from '../components/Faq.astro';
 import RateTable from '../components/RateTable.astro';
 import BaremeChart from '../components/BaremeChart.astro';
 import Steps from '../components/Steps.astro';
+import Compare from '../components/Compare.astro';
+import Cover from '../components/Cover.astro';
 import { guides } from '../data/guides';
+
+const categoryIcon = {
+  Comprendre: 'building',
+  Investir: 'key',
+  Comparer: 'chart',
+  Fiscalité: 'doc',
+} as const;
 import { faq } from '../data/faq';
 import { dispositif, formatEur } from '../data/dispositif';
 import { breadcrumbSchema, dispositifSchema, faqSchema } from '../lib/schema';
@@ -146,10 +155,13 @@ const jsonLd = [
       {
         featuredGuides.map((g) => (
           <a class="link-card" href={url(`/guides/${g.slug}`)}>
-            <span class="badge badge-accent">{g.category}</span>
-            <h3>{g.title}</h3>
-            <p>{g.description}</p>
-            <span class="link-card-cta">Lire le guide →</span>
+            <Cover src={g.cover} alt={g.coverAlt ?? g.title} credit={g.coverCredit} seed={g.slug} variant="thumb" icon={categoryIcon[g.category]} />
+            <div class="link-card-body">
+              <span class="badge badge-accent">{g.category}</span>
+              <h3>{g.title}</h3>
+              <p>{g.description}</p>
+              <span class="link-card-cta">Lire le guide →</span>
+            </div>
           </a>
         ))
       }
@@ -165,15 +177,34 @@ const jsonLd = [
       {
         latestPosts.map((post) => (
           <a class="link-card" href={url(`/actualites/${post.id}`)}>
-            <time datetime={post.data.publishedAt.toISOString()} class="card-date">
-              {post.data.publishedAt.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
-            </time>
-            <h3>{post.data.title}</h3>
-            <p>{post.data.description}</p>
-            <span class="link-card-cta">Lire l'article →</span>
+            <Cover src={post.data.cover} alt={post.data.coverAlt ?? post.data.title} credit={post.data.coverCredit} seed={post.id} variant="thumb" icon="doc" />
+            <div class="link-card-body">
+              <time datetime={post.data.publishedAt.toISOString()} class="card-date">
+                {post.data.publishedAt.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
+              </time>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.description}</p>
+              <span class="link-card-cta">Lire l'article →</span>
+            </div>
           </a>
         ))
       }
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container">
+      <h2 style="margin-top:0">Jeanbrun face au Pinel et au LMNP</h2>
+      <p class="lead" style="margin-bottom:var(--space-4)">
+        Le dispositif succède au Pinel avec une logique différente, et emprunte au
+        LMNP son mécanisme d'amortissement — mais pour la location nue.
+      </p>
+      <Compare />
+      <p>
+        <a class="link-card-cta" href={url('/guides/dispositif-jeanbrun-vs-pinel-lmnp')}>
+          Lire le comparatif détaillé →
+        </a>
+      </p>
     </div>
   </section>
 
@@ -290,11 +321,10 @@ const jsonLd = [
   .link-card {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: var(--space-6);
+    overflow: hidden;
     color: var(--text);
     height: 100%;
     box-shadow: var(--shadow-sm);
@@ -305,6 +335,13 @@ const jsonLd = [
     text-decoration: none;
     box-shadow: var(--shadow);
     transform: translateY(-2px);
+  }
+  .link-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-6);
+    flex: 1;
   }
   .link-card h3 {
     margin: 0;

@@ -17,6 +17,10 @@ export interface Guide {
   publishedAt: string;
   lastUpdated: string;
   readingMinutes: number;
+  /** Photo de couverture (optionnelle) : chemin sous /public ou URL. Sinon couverture SVG générée. */
+  cover?: string;
+  coverAlt?: string;
+  coverCredit?: string;
   /** Résumé d'ouverture (riche en contexte, citable GEO). */
   intro: string;
   sections: { heading: string; body: string }[];

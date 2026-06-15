@@ -87,6 +87,26 @@ classique — il est rendu en **dofollow** : [texte d'ancre](https://site-client
 - Les liens Markdown sont **dofollow** par défaut. Pour un lien non suivi, utilise
   du HTML inline : `<a href="..." rel="nofollow">…</a>`.
 
+## 🖼️ Ajouter de vraies photos
+
+Chaque guide et article affiche une **couverture SVG générée** par défaut (thème
+immobilier, brandée) — aucune image ne manque jamais. Pour mettre une vraie photo
+à la place, deux options :
+
+1. **Fichier local (recommandé)** : dépose l'image dans `public/images/`
+   (ex. `public/images/guides/mon-guide.jpg`) puis renseigne le champ `cover` :
+   - guides → `src/data/guides.ts` : `cover: '/images/guides/mon-guide.jpg'`
+   - articles → frontmatter du `.md` : `cover: /images/blog/mon-article.jpg`
+2. **URL distante** : `cover: 'https://…/photo.jpg'` (la photo est chargée telle quelle).
+
+Champs associés : `coverAlt` (texte alternatif, SEO/accessibilité) et
+`coverCredit` (mention de crédit, ex. `"Photo : Prénom Nom / Pexels"`).
+
+> Sources de photos libres de droits : [Pexels](https://www.pexels.com),
+> [Unsplash](https://unsplash.com). Privilégie des visuels immobilier / fiscalité.
+> Recommandé : 1200×675 px (16:9) pour les vignettes, 1200×400 px (3:1) pour les
+> bannières d'en-tête.
+
 ## ✏️ Personnalisation
 
 1. Modifie `src/consts.ts` (nom de marque, URL de prod, e-mail, réseaux sociaux).
