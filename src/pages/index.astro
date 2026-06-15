@@ -57,6 +57,11 @@ const jsonLd = [
           <a class="btn" href={url('/dispositif-jeanbrun')}>Comprendre le dispositif</a>
           <a class="btn btn-ghost" href={url('/simulateur')}>Simuler mon amortissement</a>
         </div>
+        <ul class="trust">
+          <li>Sources officielles (PLF 2026)</li>
+          <li>Mis à jour le {new Date(dispositif.lastReviewed).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })}</li>
+          <li>Indépendant &amp; sans conseil intéressé</li>
+        </ul>
       </div>
       <div class="hero-art" aria-hidden={heroPhoto ? undefined : 'true'}>
         {heroPhoto ? (
@@ -331,6 +336,31 @@ const jsonLd = [
     gap: var(--space-3);
     flex-wrap: wrap;
     margin-top: var(--space-6);
+  }
+  .trust {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-6) 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+  }
+  .trust li {
+    margin: 0;
+    position: relative;
+    padding-left: 1.4rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .trust li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.45em;
+    width: 9px;
+    height: 9px;
+    border: 2px solid var(--accent);
+    border-radius: 999px;
   }
 
   .stats {

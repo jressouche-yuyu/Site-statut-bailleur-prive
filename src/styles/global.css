@@ -91,6 +91,14 @@ body {
   font-size: 17px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'kern' 1, 'liga' 1;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--text);
 }
 
 h1,
@@ -168,7 +176,7 @@ strong {
 }
 
 .section {
-  padding-block: var(--space-12);
+  padding-block: clamp(var(--space-12), 7vw, var(--space-16));
 }
 
 .section-soft {
@@ -260,10 +268,17 @@ strong {
   transition: background 0.15s ease, border-color 0.15s ease;
 }
 
+.btn {
+  touch-action: manipulation;
+}
 .btn:hover {
   background: var(--primary-hover);
+  border-color: var(--primary-hover);
   color: #fff;
   text-decoration: none;
+}
+.btn:active {
+  transform: translateY(1px);
 }
 
 .btn-accent {
@@ -380,6 +395,7 @@ tbody tr:hover {
 }
 
 :focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
 }

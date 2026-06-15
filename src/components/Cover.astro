@@ -60,7 +60,7 @@ const iconPaths: Record<NonNullable<Props['icon']>, string> = {
 {
   src ? (
     <figure class:list={['cover', `cover-${variant}`, className]}>
-      <img src={src.startsWith('http') ? src : url(src)} alt={alt} loading={loading} decoding="async" />
+      <img src={src.startsWith('http') ? src : url(src)} alt={alt} loading={loading} decoding="async" width={variant === 'banner' ? 1200 : 800} height={variant === 'banner' ? 400 : 450} />
     </figure>
   ) : (
     <div class:list={['cover', `cover-${variant}`, className]} role="img" aria-label={alt || undefined} aria-hidden={alt ? undefined : 'true'}>
