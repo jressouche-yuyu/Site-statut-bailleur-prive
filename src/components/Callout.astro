@@ -20,26 +20,25 @@ const { title = 'À retenir', tone = 'info' } = Astro.props;
 
 <style>
   .callout {
-    padding: var(--space-5) var(--space-6) var(--space-4);
+    padding: var(--space-6);
     margin: var(--space-8) 0;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-left: 3px solid var(--primary);
   }
   .callout-warning {
-    border-left-color: var(--accent);
     background: var(--warning-soft);
+    border-color: rgba(164, 116, 43, 0.35);
   }
   .callout-kicker {
-    margin: 0 0 var(--space-2);
+    display: inline-block;
+    margin: 0 0 var(--space-4);
+    padding-bottom: 6px;
     font-size: 0.72rem;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.16em;
-    color: var(--primary);
-  }
-  .callout-warning .callout-kicker {
-    color: var(--accent);
+    color: var(--text);
+    border-bottom: 2px solid var(--accent);
   }
   .callout-body :global(ul) {
     margin: 0;

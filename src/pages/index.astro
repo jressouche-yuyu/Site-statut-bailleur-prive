@@ -58,9 +58,16 @@ const jsonLd = [
           <a class="btn btn-ghost" href={url('/simulateur')}>Simuler mon amortissement</a>
         </div>
         <ul class="trust">
-          <li>Sources officielles (PLF 2026)</li>
-          <li>Mis à jour le {new Date(dispositif.lastReviewed).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })}</li>
-          <li>Indépendant &amp; sans conseil intéressé</li>
+          {[
+            'Sources officielles (PLF 2026)',
+            `Mis à jour en ${new Date(dispositif.lastReviewed).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })}`,
+            'Indépendant, sans conseil intéressé',
+          ].map((t) => (
+            <li>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              <span>{t}</span>
+            </li>
+          ))}
         </ul>
       </div>
       <div class="hero-art" aria-hidden={heroPhoto ? undefined : 'true'}>
@@ -339,28 +346,24 @@ const jsonLd = [
   }
   .trust {
     list-style: none;
-    padding: 0;
+    padding: var(--space-4) 0 0;
     margin: var(--space-6) 0 0;
+    border-top: 1px solid var(--border);
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-2) var(--space-5);
+    gap: var(--space-3) var(--space-6);
   }
   .trust li {
     margin: 0;
-    position: relative;
-    padding-left: 1.4rem;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
     font-size: 0.85rem;
     color: var(--text-muted);
   }
-  .trust li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.45em;
-    width: 9px;
-    height: 9px;
-    border: 2px solid var(--accent);
-    border-radius: 999px;
+  .trust li svg {
+    color: var(--accent);
+    flex-shrink: 0;
   }
 
   .stats {
