@@ -1,0 +1,152 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Callout from '../components/Callout.astro';
+import { breadcrumbSchema } from '../lib/schema';
+import { url } from '../lib/url';
+
+const crumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: 'Suis-je éligible ?', path: '/eligibilite' },
+];
+
+// Critères à cocher. `hard` = condition rédhibitoire si non remplie.
+const criteres = [
+  { id: 'collectif', label: "Le logement est un appartement en immeuble collectif (pas une maison individuelle)." },
+  { id: 'nu', label: "Il sera loué nu (non meublé), comme résidence principale du locataire." },
+  { id: 'engagement', label: "Je m'engage à louer pendant au moins 9 ans." },
+  { id: 'fenetre', label: "L'acquisition intervient dans la fenêtre d'éligibilité (à partir de 2026, jusqu'à fin 2028)." },
+  { id: 'loyer', label: "J'accepte un loyer plafonné (intermédiaire, social ou très social)." },
+  { id: 'ressources', label: "Je vérifierai les plafonds de ressources du locataire." },
+  { id: 'proche', label: "Le logement ne sera pas loué à un proche / membre du foyer fiscal." },
+  { id: 'ancien', label: "Si c'est de l'ancien : travaux d'au moins 30 % du prix amenant à un DPE performant (A ou B). (Cochez aussi si vous achetez du neuf.)" },
+];
+
+const jsonLd = [breadcrumbSchema(crumbs)];
+---
+
+<BaseLayout
+  title="Suis-je éligible au dispositif Jeanbrun ? Test rapide"
+  description="Vérifiez en 1 minute si votre projet est éligible au statut du bailleur privé (dispositif Jeanbrun) : logement, location nue, engagement de 9 ans, loyer plafonné, fenêtre d'acquisition."
+  path="/eligibilite"
+  jsonLd={jsonLd}
+>
+  <div class="container container-narrow">
+    <Breadcrumbs items={crumbs} />
+    <p class="eyebrow">Test d'éligibilité</p>
+    <h1>Suis-je éligible au dispositif Jeanbrun ?</h1>
+    <p class="lead">
+      Cochez les conditions que votre projet remplit : le test indique
+      immédiatement si vous semblez éligible au statut du bailleur privé.
+    </p>
+
+    <form id="elig-form" class="elig card">
+      {
+        criteres.map((c) => (
+          <label class="crit">
+            <input type="checkbox" name={c.id} />
+            <span>{c.label}</span>
+          </label>
+        ))
+      }
+    </form>
+
+    <section class="verdict" id="verdict" aria-live="polite" data-total={criteres.length}>
+      <p class="verdict-count"><span id="v-count">0</span> / {criteres.length} conditions remplies</p>
+      <p class="verdict-line" id="v-line">Cochez les conditions ci-dessus pour obtenir votre résultat.</p>
+    </section>
+
+    <Callout title="Important">
+      <p>
+        Ce test est indicatif et porte sur les conditions principales. L'éligibilité
+        définitive dépend du texte applicable et de votre situation. Vérifiez les
+        détails sur la <a href={url('/dispositif-jeanbrun')}>page du dispositif</a> et
+        les <a href={url('/guides/plafonds-loyer-ressources-dispositif-jeanbrun')}>plafonds</a>,
+        puis chiffrez votre projet avec le <a href={url('/simulateur')}>simulateur</a>.
+      </p>
+    </Callout>
+  </div>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('elig-form') as HTMLFormElement;
+  const section = document.getElementById('verdict')!;
+  const total = Number(section.getAttribute('data-total')) || 0;
+  const countEl = document.getElementById('v-count')!;
+  const lineEl = document.getElementById('v-line')!;
+
+  function update() {
+    const boxes = Array.from(form.querySelectorAll<HTMLInputElement>('input[type="checkbox"]'));
+    const checked = boxes.filter((b) => b.checked).length;
+    countEl.textContent = String(checked);
+
+    section.classList.remove('is-ok', 'is-mid', 'is-ko');
+    if (checked === total) {
+      section.classList.add('is-ok');
+      lineEl.textContent = "Votre projet semble éligible au dispositif Jeanbrun (sous réserve de vérification du texte applicable). Étape suivante : chiffrez l'amortissement dans le simulateur.";
+    } else if (checked === 0) {
+      lineEl.textContent = 'Cochez les conditions ci-dessus pour obtenir votre résultat.';
+    } else {
+      section.classList.add('is-mid');
+      lineEl.textContent = `Il manque ${total - checked} condition(s). Le dispositif suppose que toutes les conditions principales soient réunies : vérifiez les points non cochés.`;
+    }
+  }
+
+  form.addEventListener('change', update);
+  update();
+</script>
+
+<style>
+  .elig {
+    display: grid;
+    gap: var(--space-2);
+    margin-top: var(--space-8);
+  }
+  .crit {
+    display: flex;
+    gap: var(--space-3);
+    align-items: flex-start;
+    padding: var(--space-3);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  .crit:hover {
+    background: var(--bg-soft);
+  }
+  .crit input {
+    margin-top: 0.25rem;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    accent-color: var(--accent);
+  }
+  .verdict {
+    margin-top: var(--space-6);
+    padding: var(--space-6);
+    border: 1px solid var(--border);
+    border-left: 0;
+    background: var(--surface);
+    border-radius: var(--radius);
+  }
+  .verdict-count {
+    margin: 0 0 var(--space-2);
+    font-weight: 800;
+    font-size: 1.1rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .verdict-line {
+    margin: 0;
+    color: var(--text-muted);
+  }
+  .verdict.is-ok {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .verdict.is-ok .verdict-line {
+    color: var(--text);
+  }
+  .verdict.is-mid {
+    border-color: rgba(164, 116, 43, 0.4);
+    background: var(--warning-soft);
+  }
+</style>

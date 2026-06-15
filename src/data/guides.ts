@@ -226,6 +226,136 @@ export const guides: Guide[] = [
     ],
   },
   {
+    slug: 'risques-limites-dispositif-jeanbrun',
+    title: "Risques et limites du dispositif Jeanbrun",
+    description:
+      "Loyers plafonnés, engagement de 9 ans, incertitudes réglementaires, dépendance à la fiscalité : les vrais inconvénients du statut du bailleur privé, sans langue de bois.",
+    category: "Comprendre",
+    publishedAt: "2026-06-15",
+    lastUpdated: "2026-06-15",
+    readingMinutes: 6,
+    intro:
+      "Le dispositif Jeanbrun est séduisant, mais ce n'est pas un cadeau sans contrepartie. Avant d'investir, il faut peser ses limites : un avantage qui dépend de votre fiscalité, des loyers bridés, un engagement long et quelques zones d'incertitude. Tour d'horizon honnête.",
+    sections: [
+      {
+        heading: "Un avantage qui dépend de votre fiscalité",
+        body: "<p>L'amortissement réduit le revenu foncier imposable : son intérêt croît avec votre <strong>tranche marginale d'imposition</strong>. Pour un contribuable peu ou pas imposé, le gain est faible. Le dispositif s'adresse surtout aux bailleurs ayant des revenus fonciers à neutraliser et une TMI élevée.</p>",
+      },
+      {
+        heading: "Des loyers plafonnés qui brident le rendement",
+        body: "<p>En contrepartie de l'avantage, vous acceptez un <strong>loyer sous le marché</strong> (intermédiaire, social ou très social) et des <a href=\"/guides/plafonds-loyer-ressources-dispositif-jeanbrun\">plafonds de ressources</a> pour le locataire. Mécaniquement, le rendement locatif brut est plus faible qu'en location libre : l'économie d'impôt doit compenser ce manque à gagner.</p>",
+      },
+      {
+        heading: "Un engagement de 9 ans peu liquide",
+        body: "<p>L'engagement de location court sur <strong>9 ans minimum</strong>. Vendre avant, passer en meublé ou louer hors conditions <strong>rompt l'engagement</strong> : les amortissements déduits sont alors réintégrés à votre revenu foncier. L'immobilier est déjà peu liquide ; le dispositif ajoute une contrainte de durée.</p>",
+      },
+      {
+        heading: "Des incertitudes réglementaires à surveiller",
+        body: "<p>Deux points ne sont pas encore parfaitement tranchés : le <strong>sort de l'amortissement à la revente</strong> (réintégré dans la plus-value, comme en LMNP, ou non ?) et certaines <strong>modalités d'application</strong>. La <a href=\"/guides/revente-plus-value-amortissement-jeanbrun\">question de la plus-value</a> peut changer la rentabilité finale : à faire confirmer avant d'investir.</p>",
+      },
+      {
+        heading: "Les risques classiques de l'immobilier locatif",
+        body: "<ul><li><strong>Vacance et impayés</strong> : un logement non loué ne produit ni loyer ni amortissement utile.</li><li><strong>Marché local</strong> : un mauvais emplacement reste un mauvais investissement.</li><li><strong>Effet de levier</strong> : le crédit amplifie les gains… et les pertes.</li><li><strong>Ancien</strong> : risque de chantier (coûts, délais) pour atteindre le <a href=\"/guides/dispositif-jeanbrun-ancien-travaux-dpe\">DPE requis</a>.</li></ul><p>En résumé : le dispositif Jeanbrun amplifie un bon projet, il ne rattrape pas un mauvais.</p>",
+      },
+    ],
+    faq: [
+      {
+        question: "Le dispositif Jeanbrun a-t-il des inconvénients ?",
+        answer:
+          "Oui : loyers plafonnés (rendement bridé), engagement de 9 ans peu liquide, avantage proportionnel à votre tranche d'imposition, et quelques incertitudes réglementaires (notamment le sort de l'amortissement à la revente). À peser avant d'investir.",
+      },
+      {
+        question: "Que risque-t-on en cas de revente avant 9 ans ?",
+        answer:
+          "La rupture de l'engagement entraîne la réintégration des amortissements déduits à votre revenu foncier de l'année de rupture : l'avantage fiscal est repris.",
+      },
+    ],
+  },
+  {
+    slug: 'acteurs-dispositif-jeanbrun-promoteurs-conseils',
+    title: "Les acteurs du dispositif Jeanbrun : promoteurs et conseils",
+    description:
+      "Promoteurs, conseils en gestion de patrimoine, acteurs publics : le panorama des intervenants du statut du bailleur privé en France, et comment choisir son interlocuteur.",
+    category: "Investir",
+    publishedAt: "2026-06-15",
+    lastUpdated: "2026-06-15",
+    readingMinutes: 6,
+    intro:
+      "Depuis le lancement du dispositif Jeanbrun, tout l'écosystème de l'investissement locatif s'est positionné : promoteurs, conseillers en gestion de patrimoine, médias spécialisés. Voici qui fait quoi — et comment garder un œil critique.",
+    sections: [
+      {
+        heading: "Les promoteurs immobiliers (neuf)",
+        body: "<p>Les grands promoteurs nationaux ont adapté leur offre au statut du bailleur privé, certains avec des pages et programmes dédiés : <strong>Nexity</strong>, <strong>Bouygues Immobilier</strong>, <strong>Cogedim</strong>, <strong>Vinci Immobilier</strong>, <strong>Icade</strong> ou encore <strong>Kaufman &amp; Broad</strong>. S'y ajoutent des promoteurs régionaux solides (Giboire, Lamotte, Pichet, Nacarat, Pierre Promotion…). La presse spécialisée évoque un marché du neuf qui mise sur le dispositif pour relancer les ventes en 2026.</p>",
+      },
+      {
+        heading: "Les conseils et distributeurs",
+        body: "<p>Autour du produit gravitent des <strong>conseillers en gestion de patrimoine (CGP)</strong> et plateformes de distribution qui sélectionnent des programmes et accompagnent le montage (iSelection, Valority et de nombreux CGP indépendants). Leur rôle : aider à l'arbitrage neuf/ancien, au choix de la catégorie de loyer et au financement. Attention toutefois à distinguer le <strong>conseil indépendant</strong> de la simple commercialisation de stock.</p>",
+      },
+      {
+        heading: "Les acteurs publics et d'information",
+        body: "<p>Côté institutionnel : le <strong>ministère de la Ville et du Logement</strong> (à l'origine du dispositif), l'<strong>ANIL</strong> et les ADIL pour l'information neutre, et l'administration fiscale pour la doctrine. Pour les barèmes et plafonds, ce sont les références officielles (logement intermédiaire, Loc'Avantages) qui font foi.</p>",
+      },
+      {
+        heading: "Comment choisir son interlocuteur",
+        body: "<ul><li>Privilégiez un <strong>conseil indépendant</strong> qui compare plusieurs solutions plutôt qu'un seul produit.</li><li>Vérifiez l'<strong>emplacement et le prix au m²</strong> par vous-même : un promoteur vend aussi son stock.</li><li>Demandez un <strong>calcul net</strong> (cash-flow, pas seulement l'économie d'impôt) — notre <a href=\"/simulateur\">simulateur</a> donne un premier ordre de grandeur.</li><li>Pour les points fiscaux sensibles, consultez un <strong>notaire ou un expert-comptable</strong>.</li></ul>",
+      },
+    ],
+    faq: [
+      {
+        question: "Quels promoteurs proposent des programmes éligibles au dispositif Jeanbrun ?",
+        answer:
+          "Les grands promoteurs nationaux (Nexity, Bouygues Immobilier, Cogedim, Vinci Immobilier, Icade, Kaufman & Broad) et de nombreux promoteurs régionaux ont positionné des programmes neufs compatibles. Vérifiez toujours l'emplacement et le prix au m².",
+      },
+      {
+        question: "Faut-il passer par un conseiller en gestion de patrimoine ?",
+        answer:
+          "Ce n'est pas obligatoire. Un CGP indépendant peut aider à arbitrer et à monter le financement, mais privilégiez un conseil qui compare plusieurs solutions plutôt qu'un distributeur d'un seul produit.",
+      },
+    ],
+  },
+  {
+    slug: 'ou-investir-dispositif-jeanbrun-departements',
+    title: "Où investir avec le dispositif Jeanbrun ? Les territoires à fort potentiel",
+    description:
+      "Le dispositif Jeanbrun s'applique partout en France, mais tous les territoires ne se valent pas. Métropoles, tension locative, rendement : où le statut du bailleur privé a le plus de sens.",
+    category: "Investir",
+    publishedAt: "2026-06-15",
+    lastUpdated: "2026-06-15",
+    readingMinutes: 7,
+    intro:
+      "Contrairement au Pinel, le dispositif Jeanbrun n'impose pas de zonage pour l'éligibilité : on peut investir partout. Mais « partout » ne veut pas dire « n'importe où » — le potentiel se concentre là où la demande locative est forte et l'offre neuve dynamique.",
+    sections: [
+      {
+        heading: "Un dispositif national, un potentiel local",
+        body: "<p>Le zonage ne conditionne plus l'éligibilité (il fixe seulement les <a href=\"/guides/plafonds-loyer-ressources-dispositif-jeanbrun\">plafonds</a>). L'enjeu se déplace donc vers une question d'investisseur : <strong>où la demande locative est-elle solide et durable ?</strong> Les marqueurs à regarder : tension locative, bassin d'emploi, population étudiante et de jeunes actifs, et dynamisme de la construction neuve.</p><p><em>Note : le dispositif étant entré en vigueur début 2026, il n'existe pas encore de statistiques d'adoption par département. Le classement ci-dessous repose donc sur des critères structurels de marché, pas sur des volumes constatés.</em></p>",
+      },
+      {
+        heading: "Les métropoles à fort potentiel",
+        body: "<div class=\"table-wrap\"><table><thead><tr><th>Département</th><th>Métropole</th><th>Atout principal</th></tr></thead><tbody><tr><td>Paris / 92 / 93 / 94</td><td>Grand Paris</td><td>Demande locative permanente, faible vacance</td></tr><tr><td>Rhône (69)</td><td>Lyon</td><td>2ᵉ bassin économique, forte demande étudiante</td></tr><tr><td>Haute-Garonne (31)</td><td>Toulouse</td><td>Croissance démographique, aéronautique, étudiants</td></tr><tr><td>Gironde (33)</td><td>Bordeaux</td><td>Attractivité résidentielle, métropole dynamique</td></tr><tr><td>Loire-Atlantique (44)</td><td>Nantes</td><td>Forte croissance, marché tendu</td></tr><tr><td>Nord (59)</td><td>Lille</td><td>Rendements parmi les meilleurs, grosse population étudiante</td></tr><tr><td>Hérault (34)</td><td>Montpellier</td><td>Démographie, étudiants, rendement correct</td></tr><tr><td>Ille-et-Vilaine (35)</td><td>Rennes</td><td>Marché tendu, bassin tech et étudiant</td></tr></tbody></table></div>",
+      },
+      {
+        heading: "Arbitrer rendement et sécurité",
+        body: "<p>Schématiquement : <strong>Paris et l'Île-de-France</strong> offrent une grande sécurité locative mais un rendement faible (prix élevés) ; <strong>Lille, Montpellier, Rennes ou Saint-Étienne</strong> affichent des rendements plus élevés mais une sélection plus exigeante. Le dispositif Jeanbrun, qui plafonne les loyers, pousse logiquement à viser des villes où le rendement de départ est correct, pour que l'effort de loyer reste soutenable.</p>",
+      },
+      {
+        heading: "La méthode pour choisir",
+        body: "<ul><li>Partez de la <strong>demande locative réelle</strong> du quartier (pas de la ville en général).</li><li>Comparez le <strong>loyer plafonné</strong> applicable au loyer de marché : plus l'écart est faible, mieux c'est.</li><li>Vérifiez la <strong>liquidité à la revente</strong> du secteur.</li><li>Chiffrez le tout dans le <a href=\"/simulateur\">simulateur</a> avant de vous décider.</li></ul>",
+      },
+    ],
+    faq: [
+      {
+        question: "Le dispositif Jeanbrun est-il réservé à certaines villes ?",
+        answer:
+          "Non. Il s'applique sur tout le territoire français : le zonage ne conditionne pas l'éligibilité, il sert seulement à fixer les plafonds de loyer et de ressources. Mais le potentiel d'investissement reste concentré dans les zones à forte demande locative.",
+      },
+      {
+        question: "Quels départements ont le plus de potentiel ?",
+        answer:
+          "Faute de données d'adoption (dispositif récent), on raisonne sur des critères structurels : les métropoles tendues comme Lyon (69), Toulouse (31), Bordeaux (33), Nantes (44), Lille (59), Montpellier (34), Rennes (35) et le Grand Paris concentrent l'essentiel de la demande locative.",
+      },
+    ],
+  },
+  {
     slug: 'comment-fonctionne-statut-bailleur-prive',
     title: 'Comment fonctionne le statut du bailleur privé ?',
     description:

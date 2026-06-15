@@ -48,6 +48,7 @@ export const EDITORIAL = {
 export const NAV: { label: string; href: string }[] = [
   { label: 'Le dispositif', href: '/dispositif-jeanbrun' },
   { label: 'Guides', href: '/guides' },
+  { label: 'Éligibilité', href: '/eligibilite' },
   { label: 'Simulateur', href: '/simulateur' },
   { label: 'Actualités', href: '/actualites' },
   { label: 'Glossaire', href: '/glossaire' },
