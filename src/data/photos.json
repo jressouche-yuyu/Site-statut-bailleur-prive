@@ -33,5 +33,40 @@
     "src": "/images/home/hero.jpg",
     "credit": "Photo : Jan van der Wolf / Pexels",
     "alt": "A modern apartment building with distinct balconies against a clear blue sky."
+  },
+  "guide:plafonds-loyer-ressources-dispositif-jeanbrun": {
+    "src": "/images/guides/plafonds-loyer-ressources.jpg",
+    "credit": "Photo : Diego F. Parra / Pexels",
+    "alt": "High-angle shot of Parisian rooftops showcasing classic architecture and urban layout."
+  },
+  "guide:rentabilite-dispositif-jeanbrun-exemple-chiffre": {
+    "src": "/images/guides/rentabilite.jpg",
+    "credit": "Photo : Nataliya Vaitkevich / Pexels",
+    "alt": "Flat lay showing coins, calculator, and charts on a red background for financial analysis and business concepts."
+  },
+  "guide:revente-plus-value-amortissement-jeanbrun": {
+    "src": "/images/guides/revente-plus-value.jpg",
+    "credit": "Photo : Thirdman / Pexels",
+    "alt": "Close-up of hands placing a sold sticker on a real estate sign outside a house."
+  },
+  "guide:dispositif-jeanbrun-ancien-travaux-dpe": {
+    "src": "/images/guides/ancien-travaux-dpe.jpg",
+    "credit": "Photo : Budget Bizar / Pexels",
+    "alt": "A historic building facade under renovation in urban Brussels with yellow supports."
+  },
+  "guide:risques-limites-dispositif-jeanbrun": {
+    "src": "/images/guides/risques-limites.jpg",
+    "credit": "Photo : Vlad Deep / Pexels",
+    "alt": "Close-up image of an insurance policy with a magnifying glass, money, and toy car."
+  },
+  "guide:acteurs-dispositif-jeanbrun-promoteurs-conseils": {
+    "src": "/images/guides/acteurs.jpg",
+    "credit": "Photo : Thirdman / Pexels",
+    "alt": "A close-up of hands shaking over a signed property agreement, symbolizing a successful real estate deal."
+  },
+  "guide:ou-investir-dispositif-jeanbrun-departements": {
+    "src": "/images/guides/ou-investir.jpg",
+    "credit": "Photo : Willian Justen de Vasconcellos / Pexels",
+    "alt": "Stunning aerial shot capturing the rivers and historic architecture of Lyon, France."
   }
 }
