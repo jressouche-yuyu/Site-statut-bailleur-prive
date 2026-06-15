@@ -1,1 +1,37 @@
-{}
+{
+  "guide:comment-fonctionne-statut-bailleur-prive": {
+    "src": "/images/guides/comment-fonctionne.jpg",
+    "credit": "Photo : Doğan Alpaslan  Demir / Pexels",
+    "alt": "Contemporary apartment facade with glass balconies in Bornova, İzmir, Türkiye."
+  },
+  "guide:conditions-eligibilite-dispositif-jeanbrun": {
+    "src": "/images/guides/conditions-eligibilite.jpg",
+    "credit": "Photo : Zulfugar Karimov / Pexels",
+    "alt": "Black and white close-up of two keys tied with string on a textured marble surface."
+  },
+  "guide:neuf-ou-ancien-dispositif-jeanbrun": {
+    "src": "/images/guides/neuf-ou-ancien.jpg",
+    "credit": "Photo : Francesco Ungaro / Pexels",
+    "alt": "A red brick wall under construction with tools and materials scattered around in a renovation project."
+  },
+  "guide:dispositif-jeanbrun-vs-pinel-lmnp": {
+    "src": "/images/guides/jeanbrun-vs-pinel-lmnp.jpg",
+    "credit": "Photo : RDNE Stock project / Pexels",
+    "alt": "Calculator placed on financial graphs and reports showcasing data analysis and business documentation."
+  },
+  "post:statut-bailleur-prive-adopte-budget-2026": {
+    "src": "/images/blog/budget-2026.jpg",
+    "credit": "Photo : Mathias Reding / Pexels",
+    "alt": "Front view of the Palais Bourbon in Paris, featuring statues and French flag."
+  },
+  "post:qui-est-vincent-jeanbrun": {
+    "src": "/images/blog/vincent-jeanbrun.jpg",
+    "credit": "Photo : Rafeeque Kodungookaran / Pexels",
+    "alt": "Aerial view of Paris' historic Opera building with stunning sunset light."
+  },
+  "home:hero": {
+    "src": "/images/home/hero.jpg",
+    "credit": "Photo : Jan van der Wolf / Pexels",
+    "alt": "A modern apartment building with distinct balconies against a clear blue sky."
+  }
+}
