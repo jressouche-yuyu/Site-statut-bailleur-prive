@@ -30,13 +30,18 @@ export const SITE = {
 } as const;
 
 /**
- * Modèle économique : site éditorial de référence financé par le netlinking
- * (partenariats éditoriaux, articles sponsorisés signalés). On garde une ligne
- * éditoriale indépendante et des pages d'autorité pour ranker durablement.
+ * Modèle économique : site éditorial de référence financé par le netlinking.
+ * Le blog (/actualites) accueille indifféremment les publications éditoriales et
+ * les articles partenaires (liens vendus), sans distinction visible, afin que les
+ * liens se fondent dans le contenu naturel. Les commandes passent par le Contact.
  */
 export const EDITORIAL = {
-  /** Active la page « Partenariats » (offre netlinking / contenu sponsorisé). */
-  partnershipsEnabled: true,
+  /**
+   * Afficher une mention « Contenu partenaire » sur les articles marqués
+   * `partner: true`. Désactivé par défaut (articles indistincts, liens dofollow).
+   * Bascule à `true` si tu veux activer la transparence (conformité publicité).
+   */
+  disclosePartner: false,
 } as const;
 
 /** Navigation principale (header). */

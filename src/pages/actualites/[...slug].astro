@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { breadcrumbSchema, newsArticleSchema } from '../../lib/schema';
+import { SITE, EDITORIAL } from '../../consts';
 import { url } from '../../lib/url';
 
 export async function getStaticPaths() {
@@ -17,6 +18,9 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 
 const dateFmt = (d: Date) => new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' }).format(d);
+const byline = post.data.author ?? SITE.author;
+// Mention partenaire : affichée uniquement si l'interrupteur est activé (off par défaut).
+const showPartnerNotice = EDITORIAL.disclosePartner && post.data.partner;
 
 const crumbs = [
   { name: 'Accueil', path: '/' },
@@ -50,11 +54,13 @@ const jsonLd = [
     <header>
       <h1>{post.data.title}</h1>
       <p class="meta">
-        {dateFmt(post.data.publishedAt)}
+        Par {byline} · {dateFmt(post.data.publishedAt)}
         {post.data.updatedAt && ` · Mis à jour le ${dateFmt(post.data.updatedAt)}`}
         {` · ${post.data.readingMinutes} min de lecture`}
       </p>
     </header>
+
+    {showPartnerNotice && <p class="partner-notice">Contenu réalisé en partenariat.</p>}
 
     <div class="prose">
       <Content />
@@ -73,6 +79,15 @@ const jsonLd = [
   .meta {
     color: var(--text-muted);
     font-size: 0.9rem;
+  }
+  .partner-notice {
+    display: inline-block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.15rem 0.7rem;
   }
   .prose :global(h2) {
     margin-top: var(--space-12);

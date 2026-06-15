@@ -2,10 +2,11 @@
 
 Site éditorial de référence sur le **statut du bailleur privé** (alias **dispositif Jeanbrun**), construit avec [Astro](https://astro.build) et pensé pour le **SEO** et le **GEO** (Generative Engine Optimization).
 
-> **Modèle économique** : site éditorial d'autorité financé par le **netlinking**
-> (articles partenaires et contenus sponsorisés signalés, voir `/partenariats`).
-> L'objectif est de **ranker durablement** sur la thématique pour offrir des
-> emplacements de liens contextuels de qualité.
+> **Modèle économique** : site éditorial d'autorité financé par le **netlinking**.
+> Le **blog** (`/actualites`) accueille indifféremment les publications éditoriales
+> et les **articles partenaires** (liens vendus), présentés à l'identique pour que
+> les liens se fondent dans le contenu naturel. Les commandes passent par le
+> **Contact**. L'objectif est de **ranker durablement** sur la thématique.
 
 ## ⚡ Démarrage
 
@@ -27,7 +28,7 @@ src/
 │   ├── guides.ts              # Guides éditoriaux (contenu informationnel)
 │   ├── faq.ts                 # FAQ centrale (réutilisée + schéma FAQPage)
 │   └── glossaire.ts           # Définitions (longue traîne + maillage interne)
-├── content/actualites/        # Articles d'actualité en Markdown (signal de fraîcheur)
+├── content/actualites/        # Blog : actualités + analyses + articles partenaires (Markdown)
 ├── lib/schema.ts              # Fabriques JSON-LD schema.org (clé du GEO)
 ├── components/                # Header, Footer, Seo, Faq, Callout, RateTable…
 ├── layouts/BaseLayout.astro
@@ -40,8 +41,7 @@ src/
     ├── glossaire.astro                # Glossaire (DefinedTermSet)
     ├── faq.astro                      # FAQ (FAQPage)
     ├── a-propos.astro                 # Méthodologie & E-E-A-T
-    ├── partenariats.astro             # Offre netlinking / contenus sponsorisés
-    ├── contact.astro
+    ├── contact.astro                  # Contact (point d'entrée des commandes de liens)
     ├── mentions-legales.astro / confidentialite.astro
     ├── 404.astro
     └── rss.xml.ts                     # Flux RSS
@@ -61,6 +61,31 @@ public/
 - **robots.txt** autorisant explicitement les crawlers IA pour le GEO.
 - **Signaux de fraîcheur** : dates de publication / mise à jour affichées et exposées dans les schémas ; flux d'actualités.
 - **E-E-A-T** : page méthodologie/sources, mention d'indépendance éditoriale, avertissements « ceci n'est pas un conseil fiscal ».
+
+## 🔗 Publier un article (éditorial ou partenaire)
+
+Le blog ne fait aucune différence d'affichage entre les deux. Pour publier,
+ajoute un fichier `src/content/actualites/mon-article.md` :
+
+```yaml
+---
+title: "Titre de l'article"
+description: "Résumé pour le SEO (~155 caractères)."
+publishedAt: 2026-06-20
+author: "Nom de l'auteur"   # optionnel — défaut : la rédaction
+partner: true               # optionnel — usage interne (suivi des liens vendus)
+readingMinutes: 5
+---
+
+Corps de l'article en Markdown. Le lien du client est un lien Markdown
+classique — il est rendu en **dofollow** : [texte d'ancre](https://site-client.fr).
+```
+
+- `partner: true` ne change **rien** à l'affichage tant que `EDITORIAL.disclosePartner`
+  vaut `false` dans `src/consts.ts` (articles indistincts). Bascule-le à `true`
+  pour afficher une mention « Contenu réalisé en partenariat » (transparence pub).
+- Les liens Markdown sont **dofollow** par défaut. Pour un lien non suivi, utilise
+  du HTML inline : `<a href="..." rel="nofollow">…</a>`.
 
 ## ✏️ Personnalisation
 
