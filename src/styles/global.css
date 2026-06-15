@@ -17,6 +17,8 @@
   --primary: #1d2a3f;
   --primary-hover: #2b3b54;
   --accent: #a4742b;
+  /* Variante foncée du laiton pour le PETIT texte (contraste AA sur fond clair). */
+  --accent-ink: #7a531c;
   --accent-soft: #f3e8d3;
   --warning: #9a6212;
   --warning-soft: #f7edda;
@@ -196,7 +198,7 @@ strong {
   letter-spacing: 0.16em;
   font-size: 0.72rem;
   font-weight: 700;
-  color: var(--accent);
+  color: var(--accent-ink);
   margin-bottom: var(--space-4);
 }
 .eyebrow::before {
@@ -312,14 +314,14 @@ strong {
 
 .badge-accent {
   background: var(--accent-soft);
-  color: var(--accent);
-  border-color: rgba(15, 157, 119, 0.3);
+  color: var(--accent-ink);
+  border-color: rgba(164, 116, 43, 0.35);
 }
 
 .badge-primary {
-  background: rgba(27, 77, 140, 0.1);
+  background: rgba(29, 42, 63, 0.08);
   color: var(--primary);
-  border-color: rgba(27, 77, 140, 0.25);
+  border-color: rgba(29, 42, 63, 0.25);
 }
 
 /* Stat / chiffre clé */

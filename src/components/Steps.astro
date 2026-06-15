@@ -55,11 +55,8 @@ const icons: Record<Step['icon'], string> = {
     padding: 0;
     display: grid;
     gap: var(--space-6);
-  }
-  @media (min-width: 720px) {
-    .steps-grid {
-      grid-template-columns: repeat(var(--cols, 4), 1fr);
-    }
+    /* S'adapte à la largeur du conteneur (4 en pleine largeur, 2 en colonne étroite). */
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   }
   .step {
     position: relative;

@@ -464,12 +464,7 @@ const jsonLd = [
   .result-cards {
     display: grid;
     gap: var(--space-4);
-    grid-template-columns: 1fr 1fr;
-  }
-  @media (min-width: 760px) {
-    .result-cards {
-      grid-template-columns: repeat(4, 1fr);
-    }
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   }
   .result-card {
     background: var(--surface);
