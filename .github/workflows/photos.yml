@@ -19,6 +19,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   fetch:
@@ -44,7 +45,9 @@ jobs:
           FORCE: ${{ inputs.force && '1' || '0' }}
         run: npm run photos
 
-      - name: Commiter les photos
+      - name: Commiter les photos et déclencher le déploiement
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -54,4 +57,7 @@ jobs:
           else
             git commit -m "Photos Pexels (automatisation)"
             git push origin claude/statut-bailleur-prive-site-wrw2ma
+            # Les commits poussés par GITHUB_TOKEN ne déclenchent pas d'autres
+            # workflows : on relance donc explicitement le déploiement.
+            gh workflow run deploy.yml --ref claude/statut-bailleur-prive-site-wrw2ma
           fi
