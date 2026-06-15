@@ -153,7 +153,7 @@ export function dispositifSchema(faq?: { question: string; answer: string }[]) {
     alternateName: ['Dispositif Jeanbrun', 'Statut du bailleur privé', 'Relance Logement'],
     serviceType: "Dispositif fiscal d'amortissement pour l'investissement locatif",
     description:
-      "Régime fiscal permettant aux bailleurs particuliers d'amortir une partie du prix d'un logement loué nu, pour les acquisitions à compter du 1er janvier 2026.",
+      "Régime fiscal permettant aux bailleurs particuliers d'amortir une partie du prix d'un logement loué nu, pour les acquisitions réalisées du 21 février 2026 au 31 décembre 2028.",
     provider: { '@type': 'GovernmentOrganization', name: 'État français' },
     areaServed: { '@type': 'Country', name: 'France' },
     audience: { '@type': 'Audience', audienceType: 'Investisseurs immobiliers particuliers' },

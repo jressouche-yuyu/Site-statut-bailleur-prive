@@ -280,8 +280,8 @@ export const guides: Guide[] = [
         body: "<p>Seuls les <strong>appartements en immeuble collectif</strong> sont éligibles : les maisons individuelles sont exclues. Le logement doit être loué <strong>vide</strong> (non meublé) et constituer la <strong>résidence principale</strong> du locataire. La location saisonnière et la location meublée sont donc hors champ.</p>",
       },
       {
-        heading: 'Acquisitions à compter du 1er janvier 2026',
-        body: "<p>Le mécanisme d'amortissement vise les logements <strong>acquis à partir du 1er janvier 2026</strong>. La date d'acquisition (et non la date de mise en location) sert de point de départ à l'éligibilité.</p>",
+        heading: 'Une fenêtre d’acquisition : 2026-2028',
+        body: "<p>Le mécanisme d'amortissement vise les logements <strong>acquis du 21 février 2026 au 31 décembre 2028</strong> (dates sous réserve de confirmation du texte applicable). La date d'acquisition — et non la date de mise en location — sert de point de départ à l'éligibilité.</p>",
       },
       {
         heading: 'Plafonds de loyer et de ressources',
@@ -289,7 +289,7 @@ export const guides: Guide[] = [
       },
       {
         heading: "Le cas de l'ancien : travaux et performance énergétique",
-        body: "<p>L'ancien est éligible, mais sous conditions renforcées : des <strong>travaux représentant au moins 30 % du prix</strong> du logement, permettant d'atteindre une étiquette <strong>DPE A, B ou C</strong> après rénovation. L'objectif est d'orienter les capitaux vers la remise sur le marché de logements performants.</p>",
+        body: "<p>L'ancien est éligible, mais sous conditions renforcées : des <strong>travaux représentant au moins 30 % du prix</strong> du logement, permettant d'atteindre une étiquette <strong>DPE performante (A ou B selon les sources)</strong> après rénovation. L'objectif est d'orienter les capitaux vers la remise sur le marché de logements performants.</p>",
       },
       {
         heading: "L'engagement de 9 ans",
@@ -327,7 +327,7 @@ export const guides: Guide[] = [
       },
       {
         heading: "L'ancien suppose des travaux d'au moins 30 %",
-        body: "<p>Pour être éligible dans l'ancien, il faut engager des <strong>travaux représentant au moins 30 % du prix</strong> et atteindre un <strong>DPE A, B ou C</strong>. Cette contrainte renchérit le projet mais permet de cibler des emplacements de centre-ville rares dans le neuf, et de créer de la valeur via la rénovation.</p>",
+        body: "<p>Pour être éligible dans l'ancien, il faut engager des <strong>travaux représentant au moins 30 % du prix</strong> et atteindre un <strong>DPE performant (A ou B selon les sources)</strong>. Cette contrainte renchérit le projet mais permet de cibler des emplacements de centre-ville rares dans le neuf, et de créer de la valeur via la rénovation.</p>",
       },
       {
         heading: 'Coûts annexes et délais',
@@ -347,7 +347,7 @@ export const guides: Guide[] = [
       {
         question: "Quels travaux sont exigés dans l'ancien ?",
         answer:
-          "Des travaux représentant au moins 30 % du prix d'acquisition et permettant d'atteindre une étiquette DPE A, B ou C après rénovation.",
+          "Des travaux représentant au moins 30 % du prix d'acquisition et permettant d'atteindre une étiquette DPE performante (A ou B selon les sources) après rénovation.",
       },
     ],
   },

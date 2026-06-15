@@ -12,13 +12,15 @@
 
 export const dispositif = {
   /** Dernière revue éditoriale des chiffres (ISO 8601). */
-  lastReviewed: '2026-06-12',
+  lastReviewed: '2026-06-15',
   /** Part du prix d'acquisition amortissable (le reste = quote-part terrain). */
   amortizableShare: 0.8,
   /** Durée minimale d'engagement de location (en années). */
   engagementYears: 9,
-  /** Date d'entrée en vigueur (acquisitions concernées). */
-  inForceFrom: '2026-01-01',
+  /** Entrée en vigueur (sous réserve de confirmation du texte applicable). */
+  inForceFrom: '2026-02-21',
+  /** Fin de la fenêtre d'acquisition éligible (sous réserve de confirmation). */
+  acquisitionUntil: '2028-12-31',
 } as const;
 
 /** Type de bien éligible. */
@@ -90,14 +92,19 @@ export const conditions: { label: string; detail: string }[] = [
       "Le loyer et les ressources du locataire doivent respecter les plafonds de la catégorie (intermédiaire, social ou très social), définis selon la zone.",
   },
   {
-    label: 'Acquisitions à compter du 1er janvier 2026',
+    label: 'Pas de location à un proche',
     detail:
-      "Le mécanisme d'amortissement s'applique aux logements acquis à partir du 1er janvier 2026.",
+      "Le logement ne peut être loué à un membre du foyer fiscal ni à un proche : le locataire doit être un tiers respectant les plafonds de ressources.",
   },
   {
-    label: 'Ancien : travaux lourds + DPE A/B/C',
+    label: 'Acquisitions du 21 février 2026 au 31 décembre 2028',
     detail:
-      "Dans l'ancien, l'éligibilité suppose des travaux représentant au moins 30 % du prix et l'atteinte d'une étiquette énergétique A, B ou C.",
+      "Le mécanisme d'amortissement vise les logements acquis dans cette fenêtre (dates sous réserve de confirmation du texte applicable).",
+  },
+  {
+    label: 'Ancien : travaux ≥ 30 % + DPE A ou B',
+    detail:
+      "Dans l'ancien, l'éligibilité suppose des travaux d'au moins 30 % du prix et l'atteinte d'une étiquette énergétique performante (A ou B selon les sources) après rénovation.",
   },
 ];
 
@@ -106,7 +113,8 @@ export const timeline: { date: string; label: string }[] = [
   { date: '17 octobre 2025', label: "Annonce de l'amendement « statut du bailleur privé » au PLF 2026." },
   { date: '14 novembre 2025', label: "Adoption par l'Assemblée nationale." },
   { date: '30 novembre 2025', label: 'Adoption par le Sénat.' },
-  { date: '1er janvier 2026', label: 'Entrée en vigueur visée pour les acquisitions concernées.' },
+  { date: '21 février 2026', label: 'Entrée en vigueur du dispositif (acquisitions éligibles).' },
+  { date: '31 décembre 2028', label: "Fin de la fenêtre d'acquisition éligible (à confirmer)." },
 ];
 
 const eur = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });

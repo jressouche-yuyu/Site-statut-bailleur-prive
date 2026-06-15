@@ -80,7 +80,7 @@ export const glossaire: GlossaryTerm[] = [
     term: 'DPE',
     slug: 'dpe',
     definition:
-      "Diagnostic de Performance Énergétique, classant un logement de A à G. Dans l'ancien, le dispositif exige d'atteindre une étiquette A, B ou C après travaux.",
+      "Diagnostic de Performance Énergétique, classant un logement de A à G. Dans l'ancien, le dispositif exige d'atteindre une étiquette performante (A ou B selon les sources) après travaux.",
   },
   {
     term: 'Dispositif Pinel',
