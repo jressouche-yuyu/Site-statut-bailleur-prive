@@ -29,6 +29,57 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    slug: 'plafonds-loyer-ressources-dispositif-jeanbrun',
+    title: 'Plafonds de loyer et de ressources du dispositif Jeanbrun (2026)',
+    description:
+      "Loyers plafonnés, ressources des locataires, zonage : comment sont fixés les plafonds du statut du bailleur privé en 2026, avec le barème par zone et catégorie (intermédiaire, social, très social).",
+    category: 'Investir',
+    publishedAt: '2026-06-15',
+    lastUpdated: '2026-06-15',
+    readingMinutes: 8,
+    intro:
+      "Pour amortir avec le dispositif Jeanbrun, le bailleur s'engage sur un loyer plafonné et des locataires sous plafonds de ressources. Bonne nouvelle : ces plafonds ne dépendent pas d'un nouveau décret — ils renvoient à des barèmes déjà connus. Voici, catégorie par catégorie et zone par zone, ce qui s'applique en 2026.",
+    sections: [
+      {
+        heading: 'Comment les plafonds sont-ils fixés ?',
+        body: "<p>Le statut du bailleur privé est créé par l'<strong>article 12 octies de la loi de finances pour 2026</strong>. Point important confirmé par un courrier du ministre Vincent Jeanbrun du 20 mars 2026 : <strong>aucun décret d'application n'est nécessaire</strong> pour le cœur du dispositif. Les plafonds de loyer et de ressources sont fixés <strong>par renvoi à des barèmes existants</strong>, ce qui a permis une entrée en application rapide.</p><p>Le <a href=\"/glossaire#zonage\">zonage</a> ne conditionne pas l'éligibilité (on peut investir partout), mais il sert à déterminer les plafonds : le <strong>loyer intermédiaire</strong> et les ressources associées se réfèrent au <strong>zonage A/A bis/B1/B2/C</strong> (logique Pinel / logement locatif intermédiaire) ; le <strong>loyer social et très social</strong> et les ressources sont fixés à l'<strong>échelle communale</strong> (logique Loc'Avantages).</p>",
+      },
+      {
+        heading: 'Barème des plafonds de loyer 2026 (€/m²/mois)',
+        body: "<p>À titre indicatif, voici les plafonds de loyer mensuels au m² applicables en 2026, alignés sur les barèmes de référence (logement intermédiaire et Loc'Avantages) :</p><div class=\"table-wrap\"><table><thead><tr><th>Zone</th><th>Intermédiaire</th><th>Social</th><th>Très social</th></tr></thead><tbody><tr><th scope=\"row\">A bis</th><td>19,71 €</td><td>≈ 13,68 €</td><td>≈ 10,93 €</td></tr><tr><th scope=\"row\">A</th><td>14,64 €</td><td>≈ 10,17 €</td><td>≈ 8,12 €</td></tr><tr><th scope=\"row\">B1</th><td>11,80 €</td><td>≈ 8,20 €</td><td>≈ 6,55 €</td></tr><tr><th scope=\"row\">B2 / C</th><td>10,26 €</td><td>communal</td><td>communal</td></tr></tbody></table></div><p>Ces plafonds s'appliquent après un <strong>coefficient de surface</strong> de 0,7 + 19/S (plafonné à 1,2), où S est la surface habitable : plus le logement est petit, plus le loyer au m² autorisé est élevé. Les niveaux social et très social sont fixés commune par commune ; les valeurs ci-dessus sont des ordres de grandeur issus du barème Loc'Avantages.</p>",
+      },
+      {
+        heading: 'Plafonds de ressources des locataires',
+        body: "<p>Les ressources du locataire sont appréciées à la date de signature du bail et ne doivent pas dépasser des seuils qui varient selon la <strong>catégorie</strong> et la <strong>composition du foyer</strong> :</p><ul><li><strong>Loyer intermédiaire</strong> : plafonds de ressources du logement intermédiaire (référence Pinel / LLI), par zone A/A bis/B1 et par composition du foyer.</li><li><strong>Loyer social et très social</strong> : plafonds plus stricts, fixés à l'échelle communale (référence Loc'Avantages Loc2 / Loc3).</li></ul><p>Concrètement, plus l'effort de loyer consenti est important, plus les plafonds de ressources sont bas — et plus le taux d'amortissement est élevé. La <a href=\"/guides/conditions-eligibilite-dispositif-jeanbrun\">page conditions d'éligibilité</a> récapitule les autres critères (logement collectif, location nue, 9 ans).</p>",
+      },
+      {
+        heading: 'Lien entre plafonds et amortissement',
+        body: "<p>Le choix de la catégorie de loyer commande directement l'avantage fiscal. Dans le <strong>neuf</strong>, l'amortissement annuel est de 3,5 % (intermédiaire), 4,5 % (social) ou 5,5 % (très social), dans la limite de <strong>8 000 €, 10 000 € et 12 000 €</strong> de déduction par an. Dans l'<strong>ancien rénové</strong>, les taux sont de 3 %, 3,5 % et 4 %.</p><p><strong>À vérifier :</strong> dans l'ancien, plusieurs analyses rattachent l'avantage au plafond du <a href=\"/glossaire#deficit-foncier\">déficit foncier</a> (10 700 € par an, voire 21 400 € en cas de rénovation énergétique, mesure prolongée jusqu'en 2027). Les modalités exactes de cumul restent à confirmer avec le texte définitif : recoupez avant d'arbitrer, et testez votre cas dans le <a href=\"/simulateur\">simulateur</a>.</p>",
+      },
+      {
+        heading: 'Sources & méthode',
+        body: "<p>Cet article s'appuie sur l'article 12 octies de la loi de finances pour 2026, les communications du ministère de la Ville et du Logement (courrier du 20 mars 2026), les barèmes de référence du logement intermédiaire et de <a href=\"https://www.service-public.fr\" rel=\"nofollow\">Loc'Avantages</a>, ainsi que sur les analyses de la presse patrimoniale et de l'<a href=\"https://www.anil.org\" rel=\"nofollow\">ANIL</a>. Les barèmes étant réévalués chaque année et certaines modalités encore en cours de précision, nous datons et mettons à jour cette page régulièrement.</p>",
+      },
+    ],
+    faq: [
+      {
+        question: 'Faut-il attendre un décret pour utiliser le dispositif Jeanbrun ?',
+        answer:
+          "Non. Le ministre a confirmé en mars 2026 qu'aucun décret d'application n'était nécessaire pour le cœur du dispositif : les plafonds de loyer et de ressources renvoient à des barèmes déjà existants, ce qui a permis une entrée en application rapide.",
+      },
+      {
+        question: 'Le zonage détermine-t-il qui peut investir ?',
+        answer:
+          "Non, le zonage ne conditionne pas l'éligibilité : on peut investir partout en France. Il sert uniquement à fixer les plafonds de loyer et de ressources — par zonage ABC pour l'intermédiaire, à l'échelle communale pour le social et le très social.",
+      },
+      {
+        question: 'Quel loyer maximum pour un logement en zone A ?',
+        answer:
+          "En zone A, le plafond de loyer intermédiaire 2026 est de l'ordre de 14,64 €/m²/mois, avant application du coefficient de surface (0,7 + 19/S, plafonné à 1,2). Les niveaux social et très social sont plus bas et fixés commune par commune.",
+      },
+    ],
+  },
+  {
     slug: 'comment-fonctionne-statut-bailleur-prive',
     title: 'Comment fonctionne le statut du bailleur privé ?',
     description:
