@@ -107,6 +107,23 @@ Champs associés : `coverAlt` (texte alternatif, SEO/accessibilité) et
 > Recommandé : 1200×675 px (16:9) pour les vignettes, 1200×400 px (3:1) pour les
 > bannières d'en-tête.
 
+## 🏢 Logos des acteurs (home)
+
+La section « Les acteurs du marché » affiche par défaut les **noms stylisés**
+(wordmarks). Pour afficher de **vrais logos** :
+
+1. Dépose le fichier dans `public/images/logos/<slug>.png` (slugs :
+   `nexity`, `bouygues-immobilier`, `cogedim`, `vinci-immobilier`, `icade`,
+   `kaufman-broad`, `pichet`, `nacarat`).
+2. Ajoute l'entrée dans `src/data/logos.json`, ex. :
+   `{ "nexity": { "src": "/images/logos/nexity.png", "name": "Nexity" } }`.
+
+Le logo s'affiche alors à la place du wordmark (repli automatique sinon).
+> ⚠️ N'utilise que des logos dont tu as le droit d'usage (kit presse de la marque
+> ou licence libre). Le script `scripts/fetch-logos.mjs` (workflow « Logos des
+> acteurs ») était câblé sur une API gratuite désormais inopérante : à rebrancher
+> sur une source légitime.
+
 ## ✏️ Personnalisation
 
 1. Modifie `src/consts.ts` (nom de marque, URL de prod, e-mail, réseaux sociaux).
