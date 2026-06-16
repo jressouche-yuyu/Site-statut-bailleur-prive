@@ -1,0 +1,55 @@
+name: Logos des acteurs (automatisation)
+
+# Récupère les logos officiels des acteurs (API publique de logos), les héberge
+# dans le dépôt et commite le résultat, puis relance le déploiement.
+# Aucun secret requis. Lancement : onglet Actions → « Logos des acteurs » → Run.
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Forcer le re-téléchargement de tous les logos'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: claude/statut-bailleur-prive-site-wrw2ma
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Récupérer les logos
+        env:
+          FORCE: ${{ inputs.force && '1' || '0' }}
+        run: npm run logos
+
+      - name: Commiter les logos et déclencher le déploiement
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/images/logos src/data/logos.json
+          if git diff --staged --quiet; then
+            echo "Aucun nouveau logo."
+          else
+            git commit -m "Logos des acteurs (automatisation)"
+            git push origin claude/statut-bailleur-prive-site-wrw2ma
+            gh workflow run deploy.yml --ref claude/statut-bailleur-prive-site-wrw2ma
+          fi

@@ -9,6 +9,7 @@ import Compare from '../components/Compare.astro';
 import Cover from '../components/Cover.astro';
 import { guides, categoryIcon } from '../data/guides';
 import { photo } from '../lib/photos';
+import { logo as brandLogo } from '../lib/logos';
 import { faq } from '../data/faq';
 import { dispositif, formatEur } from '../data/dispositif';
 import { breadcrumbSchema, dispositifSchema, faqSchema } from '../lib/schema';
@@ -54,7 +55,16 @@ const fmtDate = (d: Date) => d.toLocaleDateString('fr-FR', { day: 'numeric', mon
 
 // Écosystème : grands acteurs (wordmarks, remplaçables par de vrais logos) et
 // principales métropoles concernées.
-const acteurs = ['Nexity', 'Bouygues Immobilier', 'Cogedim', 'Vinci Immobilier', 'Icade', 'Kaufman & Broad', 'Pichet', 'Nacarat'];
+const acteurs = [
+  { name: 'Nexity', slug: 'nexity' },
+  { name: 'Bouygues Immobilier', slug: 'bouygues-immobilier' },
+  { name: 'Cogedim', slug: 'cogedim' },
+  { name: 'Vinci Immobilier', slug: 'vinci-immobilier' },
+  { name: 'Icade', slug: 'icade' },
+  { name: 'Kaufman & Broad', slug: 'kaufman-broad' },
+  { name: 'Pichet', slug: 'pichet' },
+  { name: 'Nacarat', slug: 'nacarat' },
+];
 const territoires = [
   { ville: 'Grand Paris', dpt: '75 · 92 · 93 · 94' },
   { ville: 'Lyon', dpt: '69' },
@@ -279,7 +289,16 @@ const jsonLd = [
         Promoteurs et conseils positionnés sur le statut du bailleur privé.
       </p>
       <ul class="logos">
-        {acteurs.map((a) => <li class="logo-chip">{a}</li>)}
+        {
+          acteurs.map((a) => {
+            const l = brandLogo(a.slug);
+            return (
+              <li class="logo-chip">
+                {l ? <img src={url(l.src)} alt={a.name} loading="lazy" /> : <span>{a.name}</span>}
+              </li>
+            );
+          })
+        }
       </ul>
       <p class="logos-note">Noms cités à titre informatif — aucun lien commercial ni partenariat impliqué.</p>
     </div>
@@ -620,6 +639,8 @@ const jsonLd = [
   .logo-chip {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    min-height: 56px;
     padding: var(--space-3) var(--space-5);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
@@ -629,6 +650,19 @@ const jsonLd = [
     font-size: 1.05rem;
     color: var(--text-muted);
     letter-spacing: 0.01em;
+  }
+  .logo-chip img {
+    height: 30px;
+    width: auto;
+    max-width: 150px;
+    object-fit: contain;
+    filter: grayscale(1);
+    opacity: 0.8;
+    transition: filter 0.15s ease, opacity 0.15s ease;
+  }
+  .logo-chip:hover img {
+    filter: none;
+    opacity: 1;
   }
   .logos-note {
     margin: var(--space-4) 0 0;

@@ -11,7 +11,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check",
-    "photos": "node scripts/fetch-photos.mjs"
+    "photos": "node scripts/fetch-photos.mjs",
+    "logos": "node scripts/fetch-logos.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.11",
