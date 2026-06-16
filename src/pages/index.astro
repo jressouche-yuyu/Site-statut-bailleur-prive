@@ -55,15 +55,17 @@ const fmtDate = (d: Date) => d.toLocaleDateString('fr-FR', { day: 'numeric', mon
 
 // Écosystème : grands acteurs (wordmarks, remplaçables par de vrais logos) et
 // principales métropoles concernées.
+// `brand` = couleur d'accent (proche de la charte de la marque), révélée au
+// survol — purement éditorial, comme la mise en couleur des futurs vrais logos.
 const acteurs = [
-  { name: 'Nexity', slug: 'nexity' },
-  { name: 'Bouygues Immobilier', slug: 'bouygues-immobilier' },
-  { name: 'Cogedim', slug: 'cogedim' },
-  { name: 'Vinci Immobilier', slug: 'vinci-immobilier' },
-  { name: 'Icade', slug: 'icade' },
-  { name: 'Kaufman & Broad', slug: 'kaufman-broad' },
-  { name: 'Pichet', slug: 'pichet' },
-  { name: 'Nacarat', slug: 'nacarat' },
+  { name: 'Nexity', slug: 'nexity', brand: '#E2001A' },
+  { name: 'Bouygues Immobilier', slug: 'bouygues-immobilier', brand: '#0093D0' },
+  { name: 'Cogedim', slug: 'cogedim', brand: '#1A2A4F' },
+  { name: 'Vinci Immobilier', slug: 'vinci-immobilier', brand: '#C8102E' },
+  { name: 'Icade', slug: 'icade', brand: '#E6007E' },
+  { name: 'Kaufman & Broad', slug: 'kaufman-broad', brand: '#D71920' },
+  { name: 'Pichet', slug: 'pichet', brand: '#E30613' },
+  { name: 'Nacarat', slug: 'nacarat', brand: '#F25C3B' },
 ];
 const territoires = [
   { ville: 'Grand Paris', dpt: '75 · 92 · 93 · 94' },
@@ -293,7 +295,7 @@ const jsonLd = [
           acteurs.map((a) => {
             const l = brandLogo(a.slug);
             return (
-              <li class="logo-chip">
+              <li class="logo-chip" style={`--brand:${a.brand}`}>
                 {l ? <img src={url(l.src)} alt={a.name} loading="lazy" /> : <span>{a.name}</span>}
               </li>
             );
@@ -650,6 +652,12 @@ const jsonLd = [
     font-size: 1.05rem;
     color: var(--text-muted);
     letter-spacing: 0.01em;
+    transition: color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .logo-chip:hover {
+    color: var(--brand, var(--text));
+    border-color: color-mix(in srgb, var(--brand, var(--border)) 45%, var(--border));
+    box-shadow: 0 1px 0 color-mix(in srgb, var(--brand, transparent) 30%, transparent);
   }
   .logo-chip img {
     height: 30px;
