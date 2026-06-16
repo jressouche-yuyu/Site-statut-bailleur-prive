@@ -1,1 +1,10 @@
-{}
+{
+  "nexity": { "src": "/images/logos/nexity.png", "name": "Nexity" },
+  "bouygues-immobilier": { "src": "/images/logos/bouygues-immobilier.png", "name": "Bouygues Immobilier" },
+  "cogedim": { "src": "/images/logos/cogedim.png", "name": "Cogedim" },
+  "vinci-immobilier": { "src": "/images/logos/vinci-immobilier.png", "name": "Vinci Immobilier" },
+  "icade": { "src": "/images/logos/icade.png", "name": "Icade" },
+  "kaufman-broad": { "src": "/images/logos/kaufman-broad.png", "name": "Kaufman & Broad" },
+  "pichet": { "src": "/images/logos/pichet.png", "name": "Pichet" },
+  "nacarat": { "src": "/images/logos/nacarat.png", "name": "Nacarat" }
+}
