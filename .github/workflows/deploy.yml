@@ -7,7 +7,6 @@ on:
   push:
     branches:
       - main
-      - claude/statut-bailleur-prive-site-wrw2ma
   workflow_dispatch:
 
 permissions:
@@ -38,9 +37,7 @@ jobs:
 
       - name: Build
         run: npm run build
-        env:
-          SITE_URL: https://jressouche-yuyu.github.io
-          BASE_PATH: /Site-statut-bailleur-prive
+        # Domaine personnalisé (public/CNAME) : build à la racine, URL = SITE.url.
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

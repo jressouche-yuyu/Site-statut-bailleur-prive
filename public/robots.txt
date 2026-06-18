@@ -26,4 +26,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://www.statut-bailleur-prive.fr/sitemap-index.xml
+Sitemap: https://www.bailleur-prive-info.fr/sitemap-index.xml

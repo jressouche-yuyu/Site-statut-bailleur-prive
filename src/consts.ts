@@ -7,7 +7,7 @@ export const SITE = {
   /** Nom de marque affiché dans l'en-tête, les titres et les données structurées. */
   name: 'Bailleur Privé',
   /** Domaine de production (sans slash final). Utilisé pour les URL canoniques, le sitemap et les schémas. */
-  url: 'https://www.statut-bailleur-prive.fr',
+  url: 'https://www.bailleur-prive-info.fr',
   /** Slogan court — réutilisé dans la home et les balises meta. */
   tagline: 'Le guide de référence du dispositif Jeanbrun',
   /** Description par défaut (meta description de repli, ~155 caractères). */
@@ -26,7 +26,7 @@ export const SITE = {
   /** Image Open Graph par défaut (PNG : les réseaux sociaux ignorent le SVG). */
   defaultOgImage: '/og-default.png',
   /** Adresse de contact éditorial / partenariats. */
-  email: 'contact@statut-bailleur-prive.fr',
+  email: 'contact@bailleur-prive-info.fr',
 } as const;
 
 /**
