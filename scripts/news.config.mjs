@@ -41,6 +41,8 @@ export const config = {
   // ─────────────────────────────────────────────────────────────────────────
   // MAILLAGE INTERNE — toujours 2 à 3 liens, la page pilier TOUJOURS présente
   // ─────────────────────────────────────────────────────────────────────────
+  /** Nombre de liens internes par article (brief 2026 : 3 à 5). */
+  internalLinks: { min: 3, max: 5 },
   /** Page stratégique à pousser dans CHAQUE article (lien prioritaire). */
   strategicPage: {
     url: '/dispositif-jeanbrun',
@@ -101,6 +103,14 @@ export const config = {
     "ce que cela signifie pour qui veut se lancer maintenant",
     "un format questions / réponses sur le sujet",
     "le contexte, les acteurs concernés et le calendrier",
+  ],
+  /** Sources officielles à citer visiblement (champ `sources` du frontmatter). */
+  officialSources: [
+    { label: 'Légifrance', url: 'https://www.legifrance.gouv.fr/' },
+    { label: 'service-public.fr', url: 'https://www.service-public.fr/' },
+    { label: 'economie.gouv.fr', url: 'https://www.economie.gouv.fr/' },
+    { label: 'impots.gouv.fr', url: 'https://www.impots.gouv.fr/' },
+    { label: 'ANIL', url: 'https://www.anil.org/' },
   ],
   /** Signature des articles. */
   author: 'La rédaction Bailleur Privé',

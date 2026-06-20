@@ -1,75 +1,129 @@
-# Playbook — Veille d'actualités automatique
+# Playbook — Veille & rédaction automatique (YMYL / GEO 2026)
 
 > Instructions exécutées par la **Routine Claude Code** à chaque réveil.
-> Objectif : publier, de façon autonome et avec un rythme humain, des articles
-> d'actualité de qualité pour le site (statut du bailleur privé / dispositif
-> Jeanbrun), sans jamais deux fois le même sujet.
+> Objectif : publier de façon autonome, à un rythme humain, des articles
+> immobiliers / juridiques / fiscaux de **qualité YMYL** — positionnables sur
+> Google **et** citables mot pour mot par les LLM (ChatGPT, Perplexity, Gemini,
+> AI Overviews). Un article faux ou mal sourcé déclasse et expose la marque :
+> **exactitude et crédibilité maximales, zéro chiffre inventé.**
 
-Tous les réglages (cadence, persona, ton, liens, sources, longueur) sont dans
-**`scripts/news.config.mjs`**. Lis-le avant d'agir.
+Réglages : **`scripts/news.config.mjs`**. Faits de référence : **`scripts/faits-verifies.md`**
+(à **revérifier à la source** à chaque publication). Journal anti-doublon :
+`scripts/news-ledger.json`.
+
+---
 
 ## Étape 1 — Décider s'il faut publier maintenant
-
-Exécute :
 
 ```bash
 node scripts/news-gate.mjs
 ```
+- Sortie **`SKIP`** → **arrête-toi immédiatement**, ne fais rien (cas fréquent, normal).
+- Sortie **`GO`** → continue.
 
-- Si la sortie commence par **`SKIP`** → **arrête-toi immédiatement**, ne fais
-  rien d'autre, ne commit rien. (C'est le cas le plus fréquent : c'est normal.)
-- Si la sortie commence par **`GO`** → continue.
+## Étape 2 — Veille (recherche web vérifiée)
 
-## Étape 2 — Veille (recherche web)
+Cherche une **actualité française récente (≤ 3 semaines)** sur les thèmes du site :
+statut du bailleur privé / loi Jeanbrun, loi Le Meur, fiscalité immobilière,
+investissement locatif, loi de finances, DPE, marché du logement.
 
-Avec l'outil de **recherche web**, cherche une actualité **française récente
-(≤ 3 semaines)** en lien avec les thèmes du site : statut du bailleur privé /
-dispositif Jeanbrun, fiscalité immobilière, investissement locatif, loi de
-finances, marché du logement, amortissement, plafonds de loyer, etc.
-Privilégie les sources fiables (voir `preferredSources` dans la config :
-service-public.fr, economie.gouv.fr, Les Échos, Le Figaro, MoneyVox…).
+- **Sources fiables d'abord** (voir `preferredSources` / `officialSources`) :
+  Légifrance, service-public.fr, economie.gouv.fr, impots.gouv.fr, ANIL, puis
+  presse de référence (Les Échos, Le Figaro, MoneyVox…).
+- **Anti-doublon (impératif)** : lis `scripts/news-ledger.json` ; écarte tout
+  sujet dont l'URL est déjà listée ou dont l'angle est trop proche d'un article
+  publié. Si rien d'inédit et de pertinent → **arrête-toi sans publier**.
+- **Vérifie les faits** que tu comptes citer **directement à la source
+  officielle** (au moins une). Tout chiffre/taux/date doit être confirmé.
 
-**Anti-doublon (impératif)** : lis `scripts/news-ledger.json`. Écarte tout sujet
-dont l'URL source est déjà listée, ou dont le titre/angle est trop proche d'un
-article déjà publié. Si rien de pertinent et d'inédit n'est trouvé →
-**arrête-toi sans publier** (c'est acceptable).
+Choisis **un seul** sujet. Varie tes recherches d'un passage à l'autre.
 
-Choisis **un seul** sujet. Varie tes recherches d'un passage à l'autre pour ne
-pas toujours tomber sur les mêmes sources.
+## Étape 3 — Rédiger l'article (les 3 piliers)
 
-## Étape 3 — Rédiger l'article
+### Pilier A — GEO (citabilité par les LLM)
+- **Answer-first** : chaque section s'ouvre, juste sous son titre, par une
+  **réponse autonome de 25–50 mots**, citable hors contexte. Le développement vient après.
+- **Phrases auto-portantes** : aucun « comme vu plus haut / ci-dessus /
+  précédemment », aucun pronom sans référent. Chaque phrase garde son sens isolée.
+- **Définition d'entité dès l'intro** : « Le statut du bailleur privé est un
+  dispositif fiscal qui… ».
+- Un concept = une section, **pyramide inversée** (l'essentiel d'abord).
+- **Intro et conclusion surpondérées** : idées et mots-clés forts au début et à la fin.
 
-Rédige un article **original** (ne recopie pas la source : décrypte-la).
+### Pilier B — SEO (couverture sémantique)
+- **Intention de recherche** (informationnel / transactionnel / comparatif)
+  identifiée et traitée dès le 1er paragraphe.
+- **Champ lexical riche** : couvrir tout le vocabulaire du sujet (pas de bourrage).
+- **Structure stricte** : **un seul H1** (le `title`/`metaTitle`) ; **jamais** les
+  mots « Introduction » / « Conclusion » comme titres ; **typographie française**
+  (une seule majuscule en début de titre — **Title Case anglo-saxon interdit**).
+- **Éléments enrichis obligatoires**, tous porteurs du vocabulaire du sujet :
+  - **≥ 1 tableau** (min. **5 lignes × 3 colonnes**, à vraie valeur — ex. barème,
+    conditions, comparatif) en Markdown dans le corps ;
+  - **≥ 1 liste à puces** ;
+  - **≥ 1 bloc Focus** (chiffre/insight) — utilise une citation Markdown `>` ;
+  - **1 FAQ de 3 questions** → à mettre dans le **frontmatter `faq`** (le gabarit
+    la rend et l'injecte en JSON-LD, **ne la mets pas dans le corps**).
+- **Maillage interne : 3 à 5 liens**, ancres descriptives **uniques** (1 par URL),
+  dont **TOUJOURS la page pilier `/dispositif-jeanbrun`**. Autres cibles : voir
+  `secondaryLinks` dans la config. Liens Markdown `[ancre](/url)`.
 
-- **Ton** : neutre, pédagogique, factuel (voir `tone` / `persona` dans la config).
-  On explique l'info, puis on l'oriente subtilement vers l'investisseur cible.
-  Pas de conseil financier personnalisé, **aucun chiffre ni citation inventés**.
-- **Angle** : choisis-en un différent à chaque fois (liste `angles` dans la config).
-- **Longueur** : varie entre ~450 et ~850 mots (`wordRange`).
-- **Maillage interne — 2 à 3 liens, en Markdown `[ancre](/url)`** :
-  - **TOUJOURS** la page pilier **`/dispositif-jeanbrun`** (lien prioritaire).
-  - + 1 à 2 liens secondaires pertinents (voir `secondaryLinks` dans la config).
-  - Ancres descriptives, chaque lien une seule fois.
-- **Source** : termine par une ligne `Source : <média>`.
+### Pilier C — E-E-A-T & confiance (anti-hallucination)
+- **Zéro chiffre inventé.** Tout %, prix, taux, date vient d'une **source réelle
+  vérifiable**. À défaut → formulation **qualitative**.
+- **Ton informatif neutre**, voix de marque **« nous »** (1ʳᵉ pers. pluriel),
+  **jamais « je »**, pas de style Wikipédia/observateur tiers, **aucun superlatif**
+  (« leader incontestable », « le meilleur »…).
+- Sujets sensibles (juridique, fiscal) : n'avancer **que ce qui est sourcé**.
+
+### Mode juridique / YMYL (réflexes à INVERSER)
+- **Garder toutes les dates** : la date EST l'information (« applicable du
+  21/02/2026 au 31/12/2028 »).
+- **Garder les chiffres légaux EXACTS** (5,5 / 4,5 / 3,5 %). **Jamais « environ »**
+  sur un barème de loi.
+- **Citer visiblement les sources officielles** → champ `sources` du frontmatter.
+- **Désambiguïser les entités** : loi Jeanbrun ≠ loi Le Meur ≠ Pinel ≠ LMNP
+  (voir `scripts/faits-verifies.md`).
+- Inclure une **section conditions/barèmes** structurée (éligibilité, plafonds,
+  durée d'engagement, régime fiscal) — c'est le cœur d'un article de loi.
+
+> Les éléments techniques **« À jour au [date] », disclaimer juridique, JSON-LD
+> `Article` (dateModified+author) et `FAQPage`** sont générés **automatiquement**
+> par le gabarit d'article à partir du frontmatter — tu n'as pas à les écrire.
 
 ## Étape 4 — Créer le fichier
 
-Crée `src/content/actualites/<slug>.md` (slug = titre en minuscules, sans
-accents, mots séparés par des tirets ; unique — vérifie qu'aucun fichier ni
-entrée de ledger ne porte ce slug). Frontmatter exact :
+`src/content/actualites/<slug>.md` (slug minuscules, sans accents, tirets ;
+unique). Frontmatter :
 
 ```yaml
 ---
-title: "…"
-description: "… (meta description ~155 caractères)"
+title: "H1 : mot-clé + promesse (typo FR, pas de Title Case)"
+metaTitle: "Titre SEO 50–60 caractères avec le mot-clé | Bailleur Privé"
+description: "Meta description 140–155 caractères, avec le mot-clé."
 publishedAt: <date du jour AAAA-MM-JJ>
-tags: ["…", "…"]
+updatedAt: <date du jour AAAA-MM-JJ>
+tags: ["entité principale", "thème"]
 readingMinutes: <nombre>
 author: "La rédaction Bailleur Privé"
+faq:
+  - question: "Question 1 ?"
+    answer: "Réponse autonome de 25–50 mots, chiffres exacts si légaux."
+  - question: "Question 2 ?"
+    answer: "…"
+  - question: "Question 3 ?"
+    answer: "…"
+sources:
+  - label: "Légifrance — <texte précis>"
+    url: "https://www.legifrance.gouv.fr/…"
+  - label: "service-public.fr — <fiche>"
+    url: "https://www.service-public.fr/…"
 ---
-```
 
-Puis le corps en Markdown (sous-titres `##`).
+(corps en Markdown : sections answer-first, 1 tableau ≥5×3, 1 liste, 1 bloc Focus
+en citation `>`, 3–5 liens internes dont /dispositif-jeanbrun. PAS de FAQ, PAS de
+sources, PAS de disclaimer ici : le gabarit les ajoute.)
+```
 
 ## Étape 5 — Enregistrer dans le journal
 
@@ -80,24 +134,37 @@ node scripts/news-record.mjs "<slug>" "<titre exact>" "<url-source>"
 ## Étape 6 — Vérifier puis publier
 
 ```bash
-npm run build      # doit réussir
+npm run build
 ```
-
-Si le build réussit, commit et pousse sur **`main`** (déclenche le déploiement) :
-
+Si le build réussit, publie sur **`main`** (déclenche le déploiement) :
 ```bash
 git add src/content/actualites scripts/news-ledger.json
 git commit -m "Actualité : <titre>"
 git push origin main
 ```
+> Pré-requis Routine : dépôt `Site-statut-bailleur-prive`, environnement avec
+> accès web, **« Allow unrestricted branch pushes »** activé.
 
-> Pré-requis Routine : repo `Site-statut-bailleur-prive`, environnement avec
-> accès web, et **« Allow unrestricted branch pushes »** activé (pour pouvoir
-> pousser sur `main`).
+---
+
+## ✅ Checklist avant publication (valider CHAQUE point)
+
+- [ ] Chaque section démarre par une réponse autonome de 25–50 mots
+- [ ] Définition claire de l'entité principale dans l'intro
+- [ ] Toutes les dates et chiffres légaux **exacts et sourcés** (source visible)
+- [ ] Bloc « À jour au » présent (auto via `updatedAt`)
+- [ ] JSON-LD `Article` (dateModified + author) + `FAQPage` (auto via `faq`)
+- [ ] Disclaimer juridique présent (auto)
+- [ ] Entités légales distinguées sans confusion
+- [ ] Tableau (≥ 5×3), FAQ (3 Q/R), liste à puces, bloc Focus
+- [ ] 1 H1 unique · pas de « Introduction/Conclusion » · typo FR (pas de Title Case)
+- [ ] `metaTitle` 50–60 car. · `description` 140–155 car.
+- [ ] Voix « nous », ton neutre, zéro superlatif, zéro chiffre non sourcé
+- [ ] 3–5 liens internes, ancres uniques, dont `/dispositif-jeanbrun`
 
 ## Garde-fous
 
 - **Jamais** deux articles au sujet identique ou très proche.
-- **Jamais** de chiffres, taux ou citations inventés : reste prudent et factuel.
-- Si un doute sérieux sur une info → ne publie pas ce sujet.
+- **Jamais** de chiffre, taux, prix ou citation inventés.
+- Doute sérieux sur un fait → **ne publie pas** ce sujet.
 - Un seul article par exécution.

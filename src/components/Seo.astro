@@ -9,6 +9,8 @@ import { url } from '../lib/url';
 
 interface Props {
   title: string;
+  /** Titre SEO explicite (50–60 car.) ; utilisé tel quel pour la balise <title>. */
+  metaTitle?: string;
   description?: string;
   /** Chemin de la page (ex. "/classements"). Sert à construire l'URL canonique. */
   path?: string;
@@ -28,6 +30,7 @@ interface Props {
 
 const {
   title,
+  metaTitle,
   description = SITE.description,
   image = SITE.defaultOgImage,
   ogType = 'website',
@@ -42,7 +45,9 @@ const origin = Astro.site ?? new URL(SITE.url);
 // `Astro.url.pathname` inclut déjà le base path éventuel → URL canonique fiable.
 const canonical = new URL(Astro.url.pathname, origin).href;
 const ogImage = image.startsWith('http') ? image : new URL(url(image), origin).href;
-const fullTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
+// Titre SEO : `metaTitle` explicite s'il est fourni (déjà calibré 50–60 car.),
+// sinon composition « Titre | Marque ».
+const fullTitle = metaTitle ?? (title.includes(SITE.name) ? title : `${title} | ${SITE.name}`);
 
 // Protection « preview » : tant que le site n'est pas servi sur son domaine de
 // production (SITE.url), on force le noindex. Ainsi les URLs de préversion

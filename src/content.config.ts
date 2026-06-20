@@ -17,9 +17,18 @@ const actualites = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
+    /** Titre SEO (balise <title>, 50–60 car. avec le mot-clé). Si absent, `title`. */
+    metaTitle: z.string().optional(),
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
     tags: z.array(z.string()).default([]),
+    /**
+     * FAQ structurée (3 Q/R recommandé). Rendue en bas d'article ET injectée en
+     * JSON-LD FAQPage — levier GEO majeur pour les contenus YMYL/juridiques.
+     */
+    faq: z.array(z.object({ question: z.string(), answer: z.string() })).default([]),
+    /** Sources officielles citées (Légifrance, service-public.fr…) : E-E-A-T + citabilité. */
+    sources: z.array(z.object({ label: z.string(), url: z.string() })).default([]),
     /** Temps de lecture estimé en minutes. */
     readingMinutes: z.number().default(4),
     /** Photo de couverture (optionnelle) : chemin sous /public ou URL. Sinon couverture SVG générée. */
