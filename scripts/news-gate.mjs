@@ -12,10 +12,15 @@
  * Usage : node scripts/news-gate.mjs
  */
 import { readFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { config } from './news.config.mjs';
 
-const LEDGER_PATH = path.join(path.resolve(process.cwd()), 'scripts/news-ledger.json');
+const ROOT = path.resolve(process.cwd());
+const LEDGER_PATH = path.join(ROOT, 'scripts/news-ledger.json');
+// Drapeau de test : si ce fichier existe, on force un GO (un seul run de test).
+// Retiré ensuite pour revenir à la cadence normale.
+const FORCE_FLAG = path.join(ROOT, 'scripts/force-next-publish');
 const FORCE = process.env.NEWS_FORCE === '1';
 
 function parisNow() {
@@ -62,6 +67,7 @@ function out(verdict, reason) { console.log(`${verdict}: ${reason}`); }
 async function main() {
   const now = parisNow();
   if (FORCE) return out('GO', 'NEWS_FORCE');
+  if (existsSync(FORCE_FLAG)) return out('GO', 'test forcé (scripts/force-next-publish)');
 
   const { hour, dateStr, weekday, weekKey } = now;
   const { start, end } = config.publishHours;
