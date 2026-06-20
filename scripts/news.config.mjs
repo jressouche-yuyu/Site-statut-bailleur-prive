@@ -16,10 +16,13 @@ export const config = {
   /** Heures de publication autorisées (Europe/Paris, 24h). On ne publie JAMAIS
    *  en dehors : pas de mise en ligne la nuit. */
   publishHours: { start: 8, end: 19 },
+  /** Jours actifs (1 = lundi … 7 = dimanche). Par défaut, jours ouvrés. */
+  activeDays: [1, 2, 3, 4, 5],
+  /** Nombre de passages planifiés par jour actif (doit refléter le cron de la
+   *  Routine). Sert à étaler la probabilité de publication sur la semaine. */
+  runsPerDay: 2,
   /** Probabilité de publier deux articles le même jour (sinon on étale). */
   sameDayChance: 0.15,
-  /** Délai « humain » aléatoire avant publication, en minutes (min..max). */
-  humanDelayMinutes: { min: 1, max: 18 },
 
   // ─────────────────────────────────────────────────────────────────────────
   // ÉDITORIAL
@@ -61,15 +64,12 @@ export const config = {
   // ─────────────────────────────────────────────────────────────────────────
   // VEILLE — sources RSS et pertinence
   // ─────────────────────────────────────────────────────────────────────────
-  /** Flux RSS surveillés (actu éco / immo / fiscalité). À ajuster librement.
-   *  Les flux injoignables ou invalides sont ignorés sans bloquer la routine. */
-  feeds: [
-    'https://www.economie.gouv.fr/rss.xml',
-    'https://www.service-public.fr/abonnements/rss/actualites?datas=particuliers',
-    'https://www.moneyvox.fr/rss/',
-    'https://www.moneyvox.fr/rss/immobilier.xml',
-    'https://immobilier.lefigaro.fr/rss/figaro_immobilier.xml',
-    'https://www.lesechos.fr/rss/patrimoine.xml',
+  /** Domaines de sources à privilégier lors de la recherche web (actu éco /
+   *  immo / fiscalité françaises). La Routine s'en sert pour cibler sa veille. */
+  preferredSources: [
+    'service-public.fr', 'economie.gouv.fr', 'impots.gouv.fr', 'anil.org',
+    'lesechos.fr', 'lefigaro.fr', 'lemonde.fr', 'moneyvox.fr', 'pap.fr',
+    'seloger.com', 'capital.fr', 'boursorama.com', 'batiactu.com', 'fnaim.fr',
   ],
   /** Mots-clés de pertinence : un candidat doit en contenir au moins un. */
   keywords: [
@@ -88,11 +88,11 @@ export const config = {
   freshnessDays: 21,
 
   // ─────────────────────────────────────────────────────────────────────────
-  // GÉNÉRATION (API Claude)
+  // RÉDACTION
   // ─────────────────────────────────────────────────────────────────────────
-  /** Longueur cible en mots (tirée au hasard dans l'intervalle → variabilité). */
+  /** Longueur cible en mots (à varier dans l'intervalle → évite l'uniformité). */
   wordRange: { min: 450, max: 850 },
-  /** Angles éditoriaux possibles (tirés au hasard → évite l'uniformité). */
+  /** Angles éditoriaux possibles (en varier un à chaque article). */
   angles: [
     "ce qui change concrètement et les implications pour l'investisseur",
     "un décryptage chiffré avec ordres de grandeur",
@@ -102,9 +102,6 @@ export const config = {
     "un format questions / réponses sur le sujet",
     "le contexte, les acteurs concernés et le calendrier",
   ],
-  /** Modèle Claude utilisé pour la rédaction. */
-  model: 'claude-sonnet-4-6',
-  maxTokens: 3000,
-  /** Signature des articles automatisés. */
+  /** Signature des articles. */
   author: 'La rédaction Bailleur Privé',
 };

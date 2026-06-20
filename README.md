@@ -87,33 +87,39 @@ classique — il est rendu en **dofollow** : [texte d'ancre](https://site-client
 - Les liens Markdown sont **dofollow** par défaut. Pour un lien non suivi, utilise
   du HTML inline : `<a href="..." rel="nofollow">…</a>`.
 
-## 🤖 Veille d'actualités automatique
+## 🤖 Veille d'actualités automatique (Routine Claude Code)
 
-Une routine publie **1 à 3 articles/semaine** de façon autonome, en imitant un
-rythme humain (jours et heures variables en horaires de bureau Europe/Paris,
-**jamais la nuit**, part d'aléatoire dans la veille comme dans la publication).
-Elle ne publie **jamais deux fois le même sujet** (journal anti-doublon).
+Une **Routine Claude Code** publie **1 à 3 articles/semaine** de façon autonome,
+en imitant un rythme humain (jours et heures variables en horaires de bureau
+Europe/Paris, **jamais la nuit**, part d'aléatoire). Elle ne publie **jamais deux
+fois le même sujet** (journal anti-doublon). Pas de clé API : la Routine tourne
+sur l'abonnement Claude Code.
 
-**Fonctionnement :** le workflow `.github/workflows/news.yml` se réveille à
-plusieurs créneaux/jour ; le script `scripts/publish-news.mjs` décide s'il
-publie, surveille les flux RSS configurés, rédige un article original via l'API
-Claude (ton neutre/pédagogique, orienté investisseur) avec **2–3 liens internes
-dont toujours la page pilier `/dispositif-jeanbrun`**, puis commite le `.md`.
+**Fonctionnement :** à chaque réveil planifié, la Routine suit le playbook
+**`scripts/veille-playbook.md`** :
+1. `node scripts/news-gate.mjs` décide s'il faut publier maintenant (cadence
+   1–3/sem, horaires, aléa) → `GO` ou `SKIP` ;
+2. si `GO`, veille par **recherche web** sur les thèmes du site, en évitant les
+   sujets déjà traités ;
+3. rédige un article original (ton neutre/pédagogique, orienté investisseur)
+   avec **2–3 liens internes dont toujours la page pilier `/dispositif-jeanbrun`** ;
+4. enregistre au journal (`news-record.mjs`), build, commit + push sur `main`.
 
-**Activation (une seule fois) :** ajoute le secret **`ANTHROPIC_API_KEY`** dans
-*Settings → Secrets and variables → Actions* (clé sur
-<https://console.anthropic.com/>). Sans cette clé, la routine s'arrête proprement
-sans rien casser.
+**Réglages :** tout se pilote dans **`scripts/news.config.mjs`** — cadence
+(`minPerWeek`/`maxPerWeek`, `activeDays`, `runsPerDay`, `publishHours`), persona,
+ton, liens internes, sources à privilégier, longueur, angles. Le journal
+anti-doublon est `scripts/news-ledger.json` (géré automatiquement).
 
-**Réglages :** tout se pilote dans **`scripts/news.config.mjs`** — sources RSS,
-cadence (`minPerWeek`/`maxPerWeek`), persona, ton, liens internes, mots-clés,
-modèle, longueur. Le journal anti-doublon est `scripts/news-ledger.json`
-(géré automatiquement).
+**Créer la Routine** (une seule fois, voir <https://claude.ai/code/routines>) :
+- **Prompt** : « Suis scrupuleusement les instructions de
+  `scripts/veille-playbook.md`. »
+- **Dépôt** : `Site-statut-bailleur-prive` · **Environnement** : avec accès web.
+- **Réglage** : activer **« Allow unrestricted branch pushes »** (push sur `main`).
+- **Planning** : 2 passages/jour en semaine, ex. cron `0 9 * * 1-5` et
+  `0 15 * * 1-5` (UTC → ~10 h et ~16 h Paris). Doit correspondre à `runsPerDay`.
 
-**Tester sans attendre :** onglet *Actions → « Veille d'actualités » → Run
-workflow* (option *force* pour ignorer la cadence, *draft* pour publier en
-brouillon). En local : `NEWS_DRY_RUN=1 NEWS_FORCE=1 npm run news` génère un
-article factice (sans réseau ni API) pour vérifier la chaîne.
+**Tester la cadence en local :** `npm run news:gate` (ou `NEWS_FORCE=1 npm run
+news:gate` pour forcer un `GO`).
 
 ## 🖼️ Ajouter de vraies photos
 
