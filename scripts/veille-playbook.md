@@ -125,25 +125,42 @@ en citation `>`, 3–5 liens internes dont /dispositif-jeanbrun. PAS de FAQ, PAS
 sources, PAS de disclaimer ici : le gabarit les ajoute.)
 ```
 
-## Étape 5 — Enregistrer dans le journal
+## Étape 5 — Photo illustrative
+
+Récupère une photo d'illustration (comme les articles existants) :
 
 ```bash
-node scripts/news-record.mjs "<slug>" "<titre exact>" "<url-source>"
+node scripts/fetch-one-photo.mjs "<slug>" "<requête en anglais>"
 ```
 
-## Étape 6 — Vérifier puis publier
+La requête doit décrire un visuel **pertinent et sobre** (ex. `modern apartment
+building facade`, `french city housing rooftops`, `tax documents calculator desk`).
+Si la photo est indisponible, l'article garde sa couverture SVG générée (jamais
+d'image manquante) — ce n'est pas bloquant.
+
+## Étape 6 — Contrôle qualité (checklist mécanique)
+
+```bash
+node scripts/news-check.mjs src/content/actualites/<slug>.md
+```
+
+Tant qu'il reste un **✗**, **corrige l'article** et relance. Ne publie que
+lorsque **tous les contrôles passent**.
+
+## Étape 7 — Vérifier puis publier
 
 ```bash
 npm run build
 ```
 Si le build réussit, publie sur **`main`** (déclenche le déploiement) :
 ```bash
-git add src/content/actualites scripts/news-ledger.json
+git add src/content/actualites scripts/news-ledger.json public/images src/data/photos.json
 git commit -m "Actualité : <titre>"
 git push origin main
 ```
 > Pré-requis Routine : dépôt `Site-statut-bailleur-prive`, environnement avec
-> accès web, **« Allow unrestricted branch pushes »** activé.
+> accès web (idéalement `api.pexels.com` autorisé pour les photos) et secret
+> **`PEXELS_API_KEY`**, **« Allow unrestricted branch pushes »** activé.
 
 ---
 
@@ -161,6 +178,8 @@ git push origin main
 - [ ] `metaTitle` 50–60 car. · `description` 140–155 car.
 - [ ] Voix « nous », ton neutre, zéro superlatif, zéro chiffre non sourcé
 - [ ] 3–5 liens internes, ancres uniques, dont `/dispositif-jeanbrun`
+- [ ] Photo illustrative récupérée (ou repli SVG assumé)
+- [ ] `node scripts/news-check.mjs` : tous les contrôles passent
 
 ## Garde-fous
 
