@@ -32,6 +32,36 @@ function rehypeBaseLinks() {
   };
 }
 
+/**
+ * Enrobe chaque tableau Markdown dans un conteneur `.table-wrap` afin qu'il
+ * soit scrollable horizontalement sur mobile (les tableaux Markdown sortent
+ * sinon en <table> nu, sans le conteneur appliqué dans les pages .astro).
+ */
+function rehypeWrapTables() {
+  return (/** @type {any} */ tree) => {
+    const visit = (/** @type {any} */ node) => {
+      if (!node.children) return;
+      const out = [];
+      for (const child of node.children) {
+        if (child.type === 'element' && child.tagName === 'table') {
+          // Enrobe le tableau sans re-descendre dedans (évite toute récursion).
+          out.push({
+            type: 'element',
+            tagName: 'div',
+            properties: { className: ['table-wrap'] },
+            children: [child],
+          });
+        } else {
+          visit(child);
+          out.push(child);
+        }
+      }
+      node.children = out;
+    };
+    visit(tree);
+  };
+}
+
 // https://astro.build/config
 export default defineConfig({
   site,
@@ -49,7 +79,7 @@ export default defineConfig({
     }),
   ],
   markdown: {
-    rehypePlugins: [rehypeBaseLinks],
+    rehypePlugins: [rehypeBaseLinks, rehypeWrapTables],
   },
   build: {
     inlineStylesheets: 'auto',
