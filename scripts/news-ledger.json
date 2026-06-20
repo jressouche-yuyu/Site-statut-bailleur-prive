@@ -1,0 +1,19 @@
+{
+  "_comment": "Journal anti-doublon de la veille automatique. Géré par scripts/publish-news.mjs : ne pas éditer à la main (sauf pour purger). Chaque entrée trace un article publié (ou pré-existant) afin de ne jamais retraiter la même source ni republier un sujet équivalent.",
+  "published": [
+    {
+      "slug": "qui-est-vincent-jeanbrun",
+      "title": "Qui est Vincent Jeanbrun, le ministre derrière le dispositif ?",
+      "sourceUrl": null,
+      "date": "2026-01-15",
+      "origin": "seed"
+    },
+    {
+      "slug": "statut-bailleur-prive-adopte-budget-2026",
+      "title": "Le statut du bailleur privé adopté dans le budget 2026",
+      "sourceUrl": null,
+      "date": "2025-12-02",
+      "origin": "seed"
+    }
+  ]
+}

@@ -87,6 +87,34 @@ classique — il est rendu en **dofollow** : [texte d'ancre](https://site-client
 - Les liens Markdown sont **dofollow** par défaut. Pour un lien non suivi, utilise
   du HTML inline : `<a href="..." rel="nofollow">…</a>`.
 
+## 🤖 Veille d'actualités automatique
+
+Une routine publie **1 à 3 articles/semaine** de façon autonome, en imitant un
+rythme humain (jours et heures variables en horaires de bureau Europe/Paris,
+**jamais la nuit**, part d'aléatoire dans la veille comme dans la publication).
+Elle ne publie **jamais deux fois le même sujet** (journal anti-doublon).
+
+**Fonctionnement :** le workflow `.github/workflows/news.yml` se réveille à
+plusieurs créneaux/jour ; le script `scripts/publish-news.mjs` décide s'il
+publie, surveille les flux RSS configurés, rédige un article original via l'API
+Claude (ton neutre/pédagogique, orienté investisseur) avec **2–3 liens internes
+dont toujours la page pilier `/dispositif-jeanbrun`**, puis commite le `.md`.
+
+**Activation (une seule fois) :** ajoute le secret **`ANTHROPIC_API_KEY`** dans
+*Settings → Secrets and variables → Actions* (clé sur
+<https://console.anthropic.com/>). Sans cette clé, la routine s'arrête proprement
+sans rien casser.
+
+**Réglages :** tout se pilote dans **`scripts/news.config.mjs`** — sources RSS,
+cadence (`minPerWeek`/`maxPerWeek`), persona, ton, liens internes, mots-clés,
+modèle, longueur. Le journal anti-doublon est `scripts/news-ledger.json`
+(géré automatiquement).
+
+**Tester sans attendre :** onglet *Actions → « Veille d'actualités » → Run
+workflow* (option *force* pour ignorer la cadence, *draft* pour publier en
+brouillon). En local : `NEWS_DRY_RUN=1 NEWS_FORCE=1 npm run news` génère un
+article factice (sans réseau ni API) pour vérifier la chaîne.
+
 ## 🖼️ Ajouter de vraies photos
 
 Chaque guide et article affiche une **couverture SVG générée** par défaut (thème
