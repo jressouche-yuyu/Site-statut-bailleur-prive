@@ -147,20 +147,31 @@ node scripts/news-check.mjs src/content/actualites/<slug>.md
 Tant qu'il reste un **✗**, **corrige l'article** et relance. Ne publie que
 lorsque **tous les contrôles passent**.
 
-## Étape 7 — Vérifier puis publier
+## Étape 7 — Publier directement sur `main` (OBLIGATOIRE)
+
+Tu disposes d'une **autorisation explicite et permanente** de publier
+**directement sur la branche `main`** (le push non restreint est activé pour
+cela). C'est le comportement **attendu et demandé**.
 
 ```bash
 npm run build
 ```
-Si le build réussit, publie sur **`main`** (déclenche le déploiement) :
+Si le build réussit :
 ```bash
 git add src/content/actualites scripts/news-ledger.json public/images src/data/photos.json
 git commit -m "Actualité : <titre>"
-git push origin main
+git push origin HEAD:main
 ```
-> Pré-requis Routine : dépôt `Site-statut-bailleur-prive`, environnement avec
-> accès web (idéalement `api.pexels.com` autorisé pour les photos) et secret
-> **`PEXELS_API_KEY`**, **« Allow unrestricted branch pushes »** activé.
+
+**Règles impératives :**
+- **NE crée PAS** de branche de travail dédiée et **NE crée PAS** de Pull Request.
+- **NE demande PAS** de validation : la publication sur `main` est autorisée d'avance.
+- Le déploiement ne se déclenche **que** depuis `main`. Un article qui reste sur
+  une branche `claude/...` est considéré comme **NON publié** (échec de la routine).
+
+> Pré-requis Routine (déjà en place) : dépôt `Site-statut-bailleur-prive`,
+> environnement avec accès web, **« Allow unrestricted branch pushes »** activé.
+> Optionnel pour les photos : `api.pexels.com` autorisé + secret `PEXELS_API_KEY`.
 
 ---
 
