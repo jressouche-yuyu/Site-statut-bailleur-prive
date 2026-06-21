@@ -10,19 +10,33 @@ const site = process.env.SITE_URL || SITE.url;
 const base = process.env.BASE_PATH || '/';
 
 /**
- * Préfixe le base-path aux liens/images racine du contenu Markdown.
- * Sinon, un lien [x](/simulateur) renvoie un 404 sur un déploiement en
- * sous-chemin (GitHub Pages projet).
+ * Ajoute un slash final aux chemins de PAGE (évite la redirection 301
+ * `/x` → `/x/` côté GitHub Pages), sans toucher aux fichiers (extension),
+ * ancres ou query. Ex. `/simulateur` → `/simulateur/`, `/x.jpg` inchangé.
  */
-function rehypeBaseLinks() {
+function ensureTrailingSlash(p) {
+  const m = p.match(/^([^?#]*)([?#].*)?$/);
+  let pathname = m[1];
+  const suffix = m[2] || '';
+  if (pathname && !pathname.endsWith('/') && !/\.[a-z0-9]+$/i.test(pathname)) {
+    pathname += '/';
+  }
+  return pathname + suffix;
+}
+
+/**
+ * Pour le contenu Markdown : préfixe le base-path (déploiement en sous-chemin)
+ * ET ajoute le slash final aux liens internes de page (anti-chaîne de redirection).
+ */
+function rehypeInternalLinks() {
   const prefix = base.replace(/\/$/, '');
   return (/** @type {any} */ tree) => {
-    if (!prefix) return;
     const visit = (/** @type {any} */ node) => {
       if (node.type === 'element' && (node.tagName === 'a' || node.tagName === 'img')) {
         const attr = node.tagName === 'a' ? 'href' : 'src';
-        const v = node.properties && node.properties[attr];
+        let v = node.properties && node.properties[attr];
         if (typeof v === 'string' && v.startsWith('/') && !v.startsWith('//')) {
+          if (node.tagName === 'a') v = ensureTrailingSlash(v); // pages uniquement
           node.properties[attr] = prefix + v;
         }
       }
@@ -31,6 +45,7 @@ function rehypeBaseLinks() {
     visit(tree);
   };
 }
+
 
 /**
  * Enrobe chaque tableau Markdown dans un conteneur `.table-wrap` afin qu'il
@@ -66,7 +81,7 @@ function rehypeWrapTables() {
 export default defineConfig({
   site,
   base,
-  trailingSlash: 'ignore',
+  trailingSlash: 'always',
   integrations: [
     sitemap({
       // Exclut les pages en noindex (mentions légales, confidentialité).
@@ -79,7 +94,7 @@ export default defineConfig({
     }),
   ],
   markdown: {
-    rehypePlugins: [rehypeBaseLinks, rehypeWrapTables],
+    rehypePlugins: [rehypeInternalLinks, rehypeWrapTables],
   },
   build: {
     inlineStylesheets: 'auto',

@@ -8,22 +8,37 @@
  */
 const BASE = import.meta.env.BASE_URL; // ex. "/" ou "/Barre-de-son-PC/"
 
+/**
+ * Ajoute un slash final aux chemins de PAGE (évite la redirection 301
+ * `/x` → `/x/` servie par GitHub Pages), sans toucher aux fichiers (extension),
+ * ancres ou query. Ex. `/simulateur` → `/simulateur/`, `/favicon.svg` inchangé.
+ */
+function ensureTrailingSlash(p: string): string {
+  const m = p.match(/^([^?#]*)([?#].*)?$/);
+  let pathname = m ? m[1] : p;
+  const suffix = (m && m[2]) || '';
+  if (pathname && !pathname.endsWith('/') && !/\.[a-z0-9]+$/i.test(pathname)) {
+    pathname += '/';
+  }
+  return pathname + suffix;
+}
+
 export function url(path = '/'): string {
   // Liens externes / ancres / mailto : inchangés.
   if (/^(https?:|mailto:|tel:|#)/.test(path)) return path;
   const base = BASE.endsWith('/') ? BASE.slice(0, -1) : BASE;
-  const p = path.startsWith('/') ? path : `/${path}`;
+  const p = ensureTrailingSlash(path.startsWith('/') ? path : `/${path}`);
   return `${base}${p}`;
 }
 
 /**
- * Préfixe le base-path aux liens/ressources racine d'un fragment HTML « brut »
- * (contenu défini en dur, injecté via set:html). Sans ça, un href="/glossaire"
- * renvoie un 404 sur un déploiement en sous-chemin (GitHub Pages projet).
+ * Réécrit les liens/ressources racine d'un fragment HTML « brut » (contenu
+ * injecté via set:html) : préfixe le base-path et ajoute le slash final aux
+ * liens de page. Délègue à `url()` (qui laisse les fichiers/ancres intacts).
  */
 export function withBase(html: string): string {
-  const base = BASE.endsWith('/') ? BASE.slice(0, -1) : BASE;
-  if (!base) return html;
-  // href="/x" ou src="/x" (root-relative), pas les // (protocol-relative).
-  return html.replace(/(href|src)="\/(?!\/)/g, `$1="${base}/`);
+  return html.replace(
+    /(href|src)="(\/(?!\/)[^"]*)"/g,
+    (_m, attr, p) => `${attr}="${url(p)}"`,
+  );
 }
