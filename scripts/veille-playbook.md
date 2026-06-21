@@ -127,16 +127,23 @@ sources, PAS de disclaimer ici : le gabarit les ajoute.)
 
 ## Étape 5 — Photo illustrative
 
-Récupère une photo d'illustration (comme les articles existants) :
+Attribue **toujours** une vraie photo à l'article (le repli SVG ne doit plus
+survenir en fonctionnement nominal) :
 
 ```bash
-node scripts/fetch-one-photo.mjs "<slug>" "<requête en anglais>"
+node scripts/assign-photo.mjs "<slug>" "<thème FR : 3-6 mots-clés du sujet>" "<requête EN optionnelle>"
 ```
 
-La requête doit décrire un visuel **pertinent et sobre** (ex. `modern apartment
-building facade`, `french city housing rooftops`, `tax documents calculator desk`).
-Si la photo est indisponible, l'article garde sa couverture SVG générée (jamais
-d'image manquante) — ce n'est pas bloquant.
+Exemples de thème FR (alignés sur le mapping interne) :
+`"vote loi budget assemblée"` · `"DPE rénovation ancien travaux"` ·
+`"plafonds loyers locataires"` · `"comparaison Pinel LMNP fiscalité"`.
+
+Le script choisit l'image automatiquement :
+- si `PEXELS_API_KEY` est défini **et** `api.pexels.com` joignable → photo Pexels
+  fraîche (téléchargée dans `public/images/blog/<slug>.jpg`) ;
+- sinon → image la plus pertinente de la **bibliothèque locale** (mapping
+  thématique + anti-répétition). Dans tous les cas, l'entrée `post:<slug>` est
+  écrite dans `src/data/photos.json` et la couverture s'affiche automatiquement.
 
 ## Étape 6 — Contrôle qualité (checklist mécanique)
 
@@ -171,7 +178,9 @@ git push origin HEAD:main
 
 > Pré-requis Routine (déjà en place) : dépôt `Site-statut-bailleur-prive`,
 > environnement avec accès web, **« Allow unrestricted branch pushes »** activé.
-> Optionnel pour les photos : `api.pexels.com` autorisé + secret `PEXELS_API_KEY`.
+> Optionnel pour des **photos fraîches** : autoriser `api.pexels.com` +
+> `images.pexels.com` dans la politique réseau de l'environnement et y définir le
+> secret `PEXELS_API_KEY` ; sinon, repli automatique sur la bibliothèque locale.
 
 ---
 
@@ -189,7 +198,7 @@ git push origin HEAD:main
 - [ ] `metaTitle` 50–60 car. · `description` 140–155 car.
 - [ ] Voix « nous », ton neutre, zéro superlatif, zéro chiffre non sourcé
 - [ ] 3–5 liens internes, ancres uniques, dont `/dispositif-jeanbrun`
-- [ ] Photo illustrative récupérée (ou repli SVG assumé)
+- [ ] Photo attribuée via `assign-photo.mjs` (locale garantie, Pexels si dispo)
 - [ ] `node scripts/news-check.mjs` : tous les contrôles passent
 
 ## Garde-fous

@@ -102,8 +102,9 @@ sur l'abonnement Claude Code.
 2. si `GO`, veille par **recherche web** sur les thèmes du site, en évitant les
    sujets déjà traités ;
 3. rédige un article original (ton neutre/pédagogique, orienté investisseur)
-   avec **2–3 liens internes dont toujours la page pilier `/dispositif-jeanbrun`** ;
-4. enregistre au journal (`news-record.mjs`), build, commit + push sur `main`.
+   avec **3–5 liens internes dont toujours la page pilier `/dispositif-jeanbrun`** ;
+4. attribue une **vraie photo** (`assign-photo.mjs`), enregistre au journal
+   (`news-record.mjs`), build, commit + push sur `main`.
 
 **Réglages :** tout se pilote dans **`scripts/news.config.mjs`** — cadence
 (`minPerWeek`/`maxPerWeek`, `activeDays`, `runsPerDay`, `publishHours`), persona,
@@ -120,6 +121,25 @@ anti-doublon est `scripts/news-ledger.json` (géré automatiquement).
 
 **Tester la cadence en local :** `npm run news:gate` (ou `NEWS_FORCE=1 npm run
 news:gate` pour forcer un `GO`).
+
+### Photos des articles (autonomie complète)
+
+Chaque article reçoit **toujours une vraie photo**, via `scripts/assign-photo.mjs`
+(appelé par la Routine, ou `npm run photo:assign -- "<slug>" "<thème FR>"`) :
+
+- **Étage 1 — Pexels** (photos fraîches et variées) : actif si l'**environnement
+  de la Routine** est configuré.
+- **Étage 2 — bibliothèque locale** (repli garanti, hors-ligne) : sinon, le script
+  choisit l'image existante la plus pertinente (mapping thématique + anti-répétition).
+
+**Activer les photos Pexels** se fait dans la **configuration de l'environnement**
+de la Routine (⚠️ *pas* le déclencheur « API » des Routines, qui ne sert qu'à la
+lancer) :
+1. autoriser `api.pexels.com` **et** `images.pexels.com` dans la politique réseau ;
+2. y définir le secret **`PEXELS_API_KEY`** (clé gratuite : <https://www.pexels.com/api/>).
+
+Tant que ce n'est pas fait, la Routine reste **100 % autonome** grâce à la
+bibliothèque locale (seules la fraîcheur et la variété des visuels diffèrent).
 
 ## 🖼️ Ajouter de vraies photos
 

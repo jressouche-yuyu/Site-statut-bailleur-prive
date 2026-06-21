@@ -16,7 +16,8 @@
     "news:gate": "node scripts/news-gate.mjs",
     "news:record": "node scripts/news-record.mjs",
     "news:check": "node scripts/news-check.mjs",
-    "news:photo": "node scripts/fetch-one-photo.mjs"
+    "news:photo": "node scripts/assign-photo.mjs",
+    "photo:assign": "node scripts/assign-photo.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.11",
