@@ -9,7 +9,20 @@
 import { SITE } from '../consts';
 import type { Guide } from '../data/guides';
 
-const abs = (path: string) => new URL(path, SITE.url).href;
+/**
+ * URL absolue d'un chemin interne, avec slash final pour les PAGES (cohérence
+ * avec le canonical et le sitemap, et anti-chaîne de redirection lors du crawl
+ * des données structurées). Les fichiers (extension) restent inchangés.
+ */
+const abs = (path: string) => {
+  const m = path.match(/^([^?#]*)([?#].*)?$/);
+  let pathname = m ? m[1] : path;
+  const suffix = (m && m[2]) || '';
+  if (pathname && !pathname.endsWith('/') && !/\.[a-z0-9]+$/i.test(pathname)) {
+    pathname += '/';
+  }
+  return new URL(pathname + suffix, SITE.url).href;
+};
 
 /** Schéma éditeur du site (E-E-A-T). À inclure sur toutes les pages. */
 export function organizationSchema() {
