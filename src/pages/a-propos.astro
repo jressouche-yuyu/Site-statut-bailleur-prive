@@ -9,7 +9,17 @@ const crumbs = [
   { name: 'Accueil', path: '/' },
   { name: 'À propos', path: '/a-propos' },
 ];
-const jsonLd = [breadcrumbSchema(crumbs)];
+const jsonLd = [
+  breadcrumbSchema(crumbs),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: `À propos — ${SITE.name}`,
+    url: `${SITE.url}/a-propos/`,
+    inLanguage: SITE.lang,
+    about: { '@id': `${SITE.url}/#organization` },
+  },
+];
 ---
 
 <BaseLayout

@@ -5,6 +5,7 @@ import Callout from '../components/Callout.astro';
 import { loyerTiers, dispositif } from '../data/dispositif';
 import { breadcrumbSchema, howToSchema } from '../lib/schema';
 import { url } from '../lib/url';
+import { SITE } from '../consts';
 
 const crumbs = [
   { name: 'Accueil', path: '/' },
@@ -57,6 +58,17 @@ const jsonLd = [
       { title: 'Renseigner votre tranche d\'imposition', body: 'Pour comparer l\'impôt avec et sans le dispositif et l\'économie sur 9 ans.' },
     ],
   }),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Simulateur du dispositif Jeanbrun',
+    url: `${SITE.url}/simulateur/`,
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'Web',
+    inLanguage: SITE.lang,
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+    publisher: { '@id': `${SITE.url}/#organization` },
+  },
 ];
 ---
 

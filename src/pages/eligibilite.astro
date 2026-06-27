@@ -4,6 +4,7 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Callout from '../components/Callout.astro';
 import { breadcrumbSchema } from '../lib/schema';
 import { url } from '../lib/url';
+import { SITE } from '../consts';
 
 const crumbs = [
   { name: 'Accueil', path: '/' },
@@ -22,7 +23,20 @@ const criteres = [
   { id: 'ancien', label: "Si c'est de l'ancien : travaux d'au moins 30 % du prix amenant à un DPE performant (A ou B). (Cochez aussi si vous achetez du neuf.)" },
 ];
 
-const jsonLd = [breadcrumbSchema(crumbs)];
+const jsonLd = [
+  breadcrumbSchema(crumbs),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: "Test d'éligibilité au dispositif Jeanbrun",
+    url: `${SITE.url}/eligibilite/`,
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'Web',
+    inLanguage: SITE.lang,
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+    publisher: { '@id': `${SITE.url}/#organization` },
+  },
+];
 ---
 
 <BaseLayout
