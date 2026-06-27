@@ -26,4 +26,6 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://www.bailleur-prive-info.fr/sitemap-index.xml
+Sitemap: https://www.bailleur-prive-info.fr/sitemap.xml
+
+# Index destiné aux moteurs génératifs (LLM) : https://www.bailleur-prive-info.fr/llms.txt

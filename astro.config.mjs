@@ -1,6 +1,5 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import sitemap from '@astrojs/sitemap';
 import { SITE } from './src/consts';
 
 // Permet de surcharger l'URL et le sous-chemin au build (ex. GitHub Pages).
@@ -82,17 +81,8 @@ export default defineConfig({
   site,
   base,
   trailingSlash: 'always',
-  integrations: [
-    sitemap({
-      // Exclut les pages en noindex (mentions légales, confidentialité).
-      filter: (page) =>
-        !/\/(mentions-legales|confidentialite)\/?$/.test(page),
-      i18n: {
-        defaultLocale: 'fr',
-        locales: { fr: 'fr-FR' },
-      },
-    }),
-  ],
+  // Sitemap généré sur-mesure par src/pages/sitemap.xml.ts (lastmod + images).
+  integrations: [],
   markdown: {
     rehypePlugins: [rehypeInternalLinks, rehypeWrapTables],
   },
