@@ -92,6 +92,13 @@
       "sourceUrl": "https://www.insee.fr/fr/statistiques/9022797",
       "date": "2026-07-27",
       "origin": "auto"
+    },
+    {
+      "slug": "encadrement-loyers-relocation-decret-2026-zones-tendues",
+      "title": "Encadrement des loyers à la relocation en zones tendues : les règles applicables dès le 1er août 2026",
+      "sourceUrl": "https://www.legifrance.gouv.fr/",
+      "date": "2026-07-30",
+      "origin": "auto"
     }
   ]
 }
