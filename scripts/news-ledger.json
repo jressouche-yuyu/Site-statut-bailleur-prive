@@ -127,6 +127,20 @@
       "sourceUrl": "https://www.impots.gouv.fr/particulier/base-de-calcul",
       "date": "2026-08-07",
       "origin": "auto"
+    },
+    {
+      "slug": "maprimerenov-bailleur-plateforme-france-renov-aout-2026",
+      "title": "MaPrimeRénov' et France Rénov' fusionnent le 17 août 2026 : ce que les bailleurs doivent anticiper",
+      "sourceUrl": "https://www.anah.gouv.fr/presse/compter-du-17-aout-2026-france-renov-renforce-son-offre-de-services-avec-un-compte-personnel",
+      "date": "2026-08-06",
+      "origin": "auto"
+    },
+    {
+      "slug": "encadrement-niveaux-loyers-expiration-novembre-2026-bailleurs",
+      "title": "Encadrement des niveaux de loyers : l'expérimentation expire le 23 novembre 2026",
+      "sourceUrl": "https://www.anil.org/aj-experimentation-encadrement-niveau-loyers-zones-tendues/",
+      "date": "2026-08-10",
+      "origin": "auto"
     }
   ]
 }
