@@ -55,7 +55,19 @@ const isActive = (href: string) => {
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
     header.classList.toggle('nav-open', open);
+    // Sans `inert`, les 8 liens du menu replie restent focusables alors que
+    // rien n'est peint : la tabulation disparait de l'ecran. La bascule ne vaut
+    // qu'en dessous de 860px (et donc aussi a 200 % de zoom sur 1366px).
+    if (nav) {
+      const collapsed = !open && window.matchMedia('(max-width: 860px)').matches;
+      nav.toggleAttribute('inert', collapsed);
+    }
   }
+
+  // L'etat doit suivre le redimensionnement et le zoom, pas seulement le clic.
+  window.matchMedia('(max-width: 860px)').addEventListener('change', () => {
+    setOpen(toggle?.getAttribute('aria-expanded') === 'true');
+  });
 
   toggle?.addEventListener('click', () => {
     const open = toggle.getAttribute('aria-expanded') === 'true';
@@ -69,6 +81,11 @@ const isActive = (href: string) => {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') setOpen(false);
   });
+
+  // Etat initial : le menu est replie au chargement sous 860px. Sans cet appel,
+  // `inert` n'est jamais pose et les 8 liens restent dans le parcours clavier
+  // alors que rien n'est peint.
+  setOpen(false);
 </script>
 
 <style>

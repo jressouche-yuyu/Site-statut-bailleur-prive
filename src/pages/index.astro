@@ -58,14 +58,14 @@ const fmtDate = (d: Date) => d.toLocaleDateString('fr-FR', { day: 'numeric', mon
 // `brand` = couleur d'accent (proche de la charte de la marque), révélée au
 // survol — purement éditorial, comme la mise en couleur des futurs vrais logos.
 const acteurs = [
-  { name: 'Nexity', slug: 'nexity', brand: '#E2001A' },
-  { name: 'Bouygues Immobilier', slug: 'bouygues-immobilier', brand: '#0093D0' },
-  { name: 'Cogedim', slug: 'cogedim', brand: '#1A2A4F' },
-  { name: 'Vinci Immobilier', slug: 'vinci-immobilier', brand: '#C8102E' },
-  { name: 'Icade', slug: 'icade', brand: '#E6007E' },
-  { name: 'Kaufman & Broad', slug: 'kaufman-broad', brand: '#D71920' },
-  { name: 'Pichet', slug: 'pichet', brand: '#E30613' },
-  { name: 'Nacarat', slug: 'nacarat', brand: '#F25C3B' },
+  { name: 'Nexity', slug: 'nexity', situe: 'Premier promoteur français, présent sur tout le territoire.' },
+  { name: 'Bouygues Immobilier', slug: 'bouygues-immobilier', situe: 'Filiale du groupe Bouygues, forte implantation en Île-de-France.' },
+  { name: 'Cogedim', slug: 'cogedim', situe: 'Marque du groupe Altarea, positionnée sur le haut de gamme urbain.' },
+  { name: 'Vinci Immobilier', slug: 'vinci-immobilier', situe: 'Branche immobilière du groupe Vinci, logement et tertiaire.' },
+  { name: 'Icade', slug: 'icade', situe: 'Foncière et promoteur, adossé à la Caisse des Dépôts.' },
+  { name: 'Kaufman & Broad', slug: 'kaufman-broad', situe: 'Promoteur généraliste, logement collectif et résidences gérées.' },
+  { name: 'Pichet', slug: 'pichet', situe: 'Groupe familial bordelais, promotion et gestion locative.' },
+  { name: 'Nacarat', slug: 'nacarat', situe: 'Promoteur du groupe Rabot Dutilleul, ancré dans les Hauts-de-France.' },
 ];
 const territoires = [
   { ville: 'Grand Paris', dpt: '75 · 92 · 93 · 94' },
@@ -162,29 +162,20 @@ const jsonLd = [
   </section>
 
   <section class="section container">
-    <div class="grid grid-3 stats">
-      <div class="card stat-card">
-        <span class="stat-ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg>
-        </span>
-        <p class="stat">80 %</p>
-        <p>du prix du logement amortissable (hors quote-part terrain).</p>
+    <dl class="chiffres">
+      <div>
+        <dt>80 %</dt>
+        <dd>du prix du logement est amortissable, hors quote-part terrain.</dd>
       </div>
-      <div class="card stat-card">
-        <span class="stat-ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M19 5 5 19M6.5 9a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM17.5 20a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/></svg>
-        </span>
-        <p class="stat">jusqu'à 5,5 %</p>
-        <p>d'amortissement par an dans le neuf, selon l'effort de loyer.</p>
+      <div>
+        <dt>5,5 %</dt>
+        <dd>d'amortissement par an au maximum, dans le neuf au loyer très social.</dd>
       </div>
-      <div class="card stat-card">
-        <span class="stat-ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18M7 3v3m10-3v3M5 5h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/></svg>
-        </span>
-        <p class="stat">9 ans</p>
-        <p>d'engagement de location nue en résidence principale.</p>
+      <div>
+        <dt>9 ans</dt>
+        <dd>de location nue en résidence principale, au loyer plafonné.</dd>
       </div>
-    </div>
+    </dl>
   </section>
 
   <section class="section">
@@ -192,10 +183,10 @@ const jsonLd = [
       <Steps
         title="Comment ça marche, en 4 étapes"
         steps={[
-          { icon: 'building', title: 'Acheter un appartement', body: 'Un logement collectif acquis dans la fenêtre d\'éligibilité, destiné à la location nue.' },
-          { icon: 'percent', title: 'Choisir son loyer', body: 'Intermédiaire, social ou très social : plus le loyer est bas, plus le taux d\'amortissement est élevé.' },
-          { icon: 'calendar', title: 'Louer 9 ans', body: 'S\'engager à louer en résidence principale au loyer plafonné pendant au moins 9 ans.' },
-          { icon: 'piggy', title: 'Amortir & déduire', body: 'Déduire chaque année l\'amortissement (80 % du prix × taux) de ses revenus fonciers.' },
+          { title: 'Acheter un appartement', body: 'Un logement collectif acquis dans la fenêtre d\'éligibilité, destiné à la location nue.' },
+          { title: 'Choisir son loyer', body: 'Intermédiaire, social ou très social : plus le loyer est bas, plus le taux d\'amortissement est élevé.' },
+          { title: 'Louer 9 ans', body: 'S\'engager à louer en résidence principale au loyer plafonné pendant au moins 9 ans.' },
+          { title: 'Amortir & déduire', body: 'Déduire chaque année l\'amortissement (80 % du prix × taux) de ses revenus fonciers.' },
         ]}
       />
     </div>
@@ -212,7 +203,7 @@ const jsonLd = [
       <RateTable />
       <p class="table-note">
         Plafonds de déduction : {formatEur(8000)} (intermédiaire), {formatEur(10000)} (social),
-        {formatEur(12000)} (très social). <a href={url('/dispositif-jeanbrun')}>Voir le détail des conditions →</a>
+        {formatEur(12000)} (très social). <a href={url('/dispositif-jeanbrun')}>Voir le détail des conditions</a>
       </p>
     </div>
   </section>
@@ -235,7 +226,7 @@ const jsonLd = [
             <h3>{featured.title}</h3>
             <p>{featured.description}</p>
             <span class="feature-meta">{fmtDate(featured.date)}</span>
-            <span class="link-card-cta">Lire →</span>
+            <span class="link-card-cta">Lire l'analyse</span>
           </div>
         </a>
       )
@@ -250,7 +241,7 @@ const jsonLd = [
               <span class="badge badge-accent">{it.kind === 'guide' ? it.type : 'Actualité'}</span>
               <h3>{it.title}</h3>
               <p>{it.description}</p>
-              <span class="link-card-cta">{it.kind === 'guide' ? 'Lire le guide →' : "Lire l'article →"}</span>
+              <span class="link-card-cta">{it.kind === 'guide' ? 'Lire le guide' : "Lire l'article"}</span>
             </div>
           </a>
         ))
@@ -261,7 +252,7 @@ const jsonLd = [
   <section class="section container">
     <div class="section-head">
       <h2>Les territoires concernés</h2>
-      <a class="see-all" href={url('/guides/ou-investir-dispositif-jeanbrun-departements')}>Où investir ? →</a>
+      <a class="see-all" href={url('/guides/ou-investir-dispositif-jeanbrun-departements')}>Où investir ?</a>
     </div>
     <p class="lead" style="margin-bottom:var(--space-6)">
       Le dispositif s'applique partout en France ; le potentiel se concentre dans
@@ -285,41 +276,41 @@ const jsonLd = [
     <div class="container">
       <div class="section-head">
         <h2 style="margin-top:0">Les acteurs du marché</h2>
-        <a class="see-all" href={url('/guides/acteurs-dispositif-jeanbrun-promoteurs-conseils')}>Panorama des acteurs →</a>
+        <a class="see-all" href={url('/guides/acteurs-dispositif-jeanbrun-promoteurs-conseils')}>Panorama des acteurs</a>
       </div>
       <p class="lead" style="margin-bottom:var(--space-6)">
         Promoteurs et conseils positionnés sur le statut du bailleur privé.
       </p>
-      <ul class="logos">
+      <ul class="acteurs">
         {
           acteurs.map((a) => {
             const l = brandLogo(a.slug);
             return (
-              <li class="logo-chip" style={`--brand:${a.brand}`}>
-                {l ? <img src={url(l.src)} alt={a.name} loading="lazy" /> : <span>{a.name}</span>}
+              <li>
+                {l && <img src={url(l.src)} alt="" loading="lazy" />}
+                <p class="acteur-nom">{a.name}</p>
+                <p class="acteur-sit">{a.situe}</p>
               </li>
             );
           })
         }
       </ul>
-      <p class="logos-note">Noms cités à titre informatif — aucun lien commercial ni partenariat impliqué.</p>
+      <p class="acteurs-note">Ces sociétés sont citées à titre informatif, d'après leur communication publique. Nous n'avons aucun lien commercial avec elles et ne percevons rien sur les projets qu'elles commercialisent.</p>
     </div>
   </section>
 
-  <section class="section section-soft">
-    <div class="container">
-      <h2 style="margin-top:0">Jeanbrun face au Pinel et au LMNP</h2>
+  <section class="section container">
+      <h2>Jeanbrun face au Pinel et au LMNP</h2>
       <p class="lead" style="margin-bottom:var(--space-4)">
         Le dispositif succède au Pinel avec une logique différente, et emprunte au
         LMNP son mécanisme d'amortissement — mais pour la location nue.
       </p>
       <Compare />
       <p>
-        <a class="link-card-cta" href={url('/guides/dispositif-jeanbrun-vs-pinel-lmnp')}>
-          Lire le comparatif détaillé →
+        <a href={url('/guides/dispositif-jeanbrun-vs-pinel-lmnp')}>
+          Lire le comparatif détaillé
         </a>
       </p>
-    </div>
   </section>
 
   <section class="section container editorial">
@@ -454,22 +445,37 @@ const jsonLd = [
     flex-shrink: 0;
   }
 
-  .stats {
-    margin-top: 0;
+  /* Bande de chiffres : filet de presse, pas de carte. Le chiffre est pose en
+     serif d'affichage sur un filet plein, la legende dessous. Aucune boite,
+     aucune ombre, aucun picto — trois motifs qui signent une page generee. */
+  .chiffres {
+    margin: 0;
+    display: grid;
+    gap: var(--space-6);
   }
-  .stat-card p:last-child {
-    margin: var(--space-2) 0 0;
+  .chiffres > div {
+    border-top: 2px solid var(--primary);
+    padding-top: var(--space-3);
+  }
+  .chiffres dt {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.2rem, 4.5vw, 3.1rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+    color: var(--primary);
+  }
+  .chiffres dd {
+    margin: var(--space-3) 0 0;
+    max-width: 30ch;
     color: var(--text-muted);
   }
-  .stat-ico {
-    display: inline-grid;
-    place-items: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    background: rgba(27, 77, 140, 0.08);
-    color: var(--primary);
-    margin-bottom: var(--space-3);
+  @media (min-width: 700px) {
+    .chiffres {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-8);
+    }
   }
 
   .table-note {
@@ -627,52 +633,54 @@ const jsonLd = [
   }
 
   /* Bande de logos (wordmarks) */
-  .logos {
+  /* Liste editoriale : chaque acteur est situe en une ligne. Le logo reste,
+     mais en niveaux de gris et en appui du texte — pas l'inverse. `alt=""` :
+     le nom est juste en dessous, decrire le logo serait redondant. */
+  .acteurs {
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-3);
+    display: grid;
+    gap: var(--space-6) var(--space-8);
   }
-  .logos li {
+  .acteurs li {
     margin: 0;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border);
   }
-  .logo-chip {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 56px;
-    padding: var(--space-3) var(--space-5);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    background: var(--surface);
+  .acteurs img {
+    height: 24px;
+    width: auto;
+    max-width: 130px;
+    object-fit: contain;
+    object-position: left;
+    filter: grayscale(1);
+    opacity: 0.7;
+    margin-bottom: var(--space-3);
+  }
+  .acteur-nom {
+    margin: 0;
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: 1.05rem;
+    font-size: 1.12rem;
+    color: var(--text);
+  }
+  .acteur-sit {
+    margin: var(--space-1) 0 0;
+    font-size: 0.95rem;
     color: var(--text-muted);
-    letter-spacing: 0.01em;
-    transition: color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
   }
-  .logo-chip:hover {
-    color: var(--brand, var(--text));
-    border-color: color-mix(in srgb, var(--brand, var(--border)) 45%, var(--border));
-    box-shadow: 0 1px 0 color-mix(in srgb, var(--brand, transparent) 30%, transparent);
+  @media (min-width: 640px) {
+    .acteurs {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
-  .logo-chip img {
-    height: 30px;
-    width: auto;
-    max-width: 150px;
-    object-fit: contain;
-    filter: grayscale(1);
-    opacity: 0.8;
-    transition: filter 0.15s ease, opacity 0.15s ease;
+  @media (min-width: 1000px) {
+    .acteurs {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
-  .logo-chip:hover img {
-    filter: none;
-    opacity: 1;
-  }
-  .logos-note {
+  .acteurs-note {
     margin: var(--space-4) 0 0;
     font-size: 0.82rem;
     color: var(--text-muted);

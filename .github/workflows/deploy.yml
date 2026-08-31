@@ -14,14 +14,18 @@ permissions:
   pages: write
   id-token: write
 
-# Un seul déploiement à la fois.
+# Un seul déploiement à la fois. `cancel-in-progress: false` est volontaire :
+# Pages n'accepte qu'un déploiement actif, et annuler celui en cours laisse la
+# file gelée (run 32984632369 : 62 h en attente avant annulation, 11 jours de
+# contenu jamais mis en ligne).
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -47,6 +51,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -54,3 +59,25 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      # Contrôle post-déploiement : le site a déjà servi 11 jours de retard sans
+      # que rien ne le signale (run 32984632369 annulé après 62 h). On compare le
+      # nombre d'URLs du sitemap en ligne au nombre de contenus du dépôt.
+      - name: Vérifier la mise en ligne
+        run: |
+          set -euo pipefail
+          BASE="https://www.bailleur-prive-info.fr"
+          sleep 20
+          LIVE=$(curl -sS --retry 5 --retry-delay 10 --retry-all-errors --max-time 30 "$BASE/sitemap.xml" | grep -c "<loc>")
+          echo "URLs en ligne dans le sitemap : $LIVE"
+          if [ "$LIVE" -lt 40 ]; then
+            echo "::error::Sitemap en ligne anormalement court ($LIVE URLs). Déploiement suspect."
+            exit 1
+          fi
+          ROBOTS=$(curl -sS --max-time 30 "$BASE/" | grep -o 'name="robots" content="[^"]*"' || true)
+          echo "Balise robots de la home : $ROBOTS"
+          case "$ROBOTS" in
+            *noindex*)
+              echo "::error::La home est servie en noindex. Vérifier SITE.url dans src/consts.ts."
+              exit 1 ;;
+          esac

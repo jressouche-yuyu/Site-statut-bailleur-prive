@@ -12,10 +12,16 @@
   --surface: #ffffff;
   --surface-2: #f2ede2;
   --border: #e2dccd;
+  /* Bordure porteuse de sens (champs, boutons fantomes) : 3,61:1 sur blanc,
+     3,40:1 sur --bg, 3,06:1 sur --bg-soft. --border reste decoratif. */
+  --border-strong: #8f8672;
   --text: #1d2433;
   --text-muted: #5d6472;
   --primary: #1d2a3f;
   --primary-hover: #2b3b54;
+  /* INTERDIT comme couleur de texte : 3,87:1 sur --bg, 4,11:1 sur blanc,
+     3,38:1 sur --accent-soft. Reserve aux aplats, filets et anneau de focus,
+     ou 3:1 suffit. Pour du texte : --accent-ink. */
   --accent: #a4742b;
   /* Variante foncée du laiton pour le PETIT texte (contraste AA sur fond clair). */
   --accent-ink: #7a531c;
@@ -34,6 +40,7 @@
   --space-2: 0.5rem;
   --space-3: 0.75rem;
   --space-4: 1rem;
+  --space-5: 1.25rem;
   --space-6: 1.5rem;
   --space-8: 2rem;
   --space-12: 3rem;
@@ -90,7 +97,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
-  font-size: 17px;
+  font-size: 1.0625rem;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -138,11 +145,24 @@ p {
 
 a {
   color: var(--primary);
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: from-font;
 }
 
 a:hover {
   color: var(--primary-hover);
+}
+
+/* Liens non textuels : bouton, carte cliquable, onglet de navigation, fil
+   d'Ariane. Leur fonction est portee par la forme, pas par la couleur — le
+   soulignement y serait du bruit. Partout ailleurs il est obligatoire :
+   --primary sur --text ne fait que 1,08:1 de difference. */
+a:is(.btn, .skip-link, .brand, .card-link, .link-card, .feature-card, .see-all, .logo-chip, .preset),
+:is(.nav-list, .breadcrumbs, .site-footer, .territoires, .logos, .presets, .cmp, .steps-grid) a {
+  text-decoration: none;
+}
+:is(.nav-list, .breadcrumbs, .site-footer, .territoires) a:hover {
   text-decoration: underline;
 }
 
@@ -284,15 +304,17 @@ strong {
 }
 
 .btn-accent {
-  background: var(--accent);
+  background: var(--accent-ink);
+  border-color: var(--accent-ink);
 }
 .btn-accent:hover {
-  background: #0c855f;
+  background: #63430f;
+  border-color: #63430f;
 }
 
 .btn-ghost {
   background: transparent;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   color: var(--text);
 }
 .btn-ghost:hover {

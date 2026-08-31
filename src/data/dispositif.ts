@@ -12,7 +12,7 @@
 
 export const dispositif = {
   /** Dernière revue éditoriale des chiffres (ISO 8601). */
-  lastReviewed: '2026-06-15',
+  lastReviewed: '2026-08-31',
   /** Part du prix d'acquisition amortissable (le reste = quote-part terrain). */
   amortizableShare: 0.8,
   /** Durée minimale d'engagement de location (en années). */

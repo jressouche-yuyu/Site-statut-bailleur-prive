@@ -40,18 +40,32 @@ const { items, title = 'Questions fréquentes' } = Astro.props;
     cursor: pointer;
     font-weight: 600;
     list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: 24px;
   }
   summary::-webkit-details-marker {
     display: none;
   }
+  /* Chevron en bordures CSS plutot qu'un caractere : le contenu genere est
+     expose dans l'arbre d'accessibilite, la question etait lue suivie d'un
+     « plus ». `float: right` remontait en plus le signe sur la premiere ligne
+     des questions longues. #1d2a3f sur blanc = 14,43:1. */
   summary::after {
-    content: '+';
-    float: right;
-    color: var(--primary);
-    font-weight: 700;
+    content: '';
+    flex: none;
+    width: 9px;
+    height: 9px;
+    margin-right: 3px;
+    border-right: 2px solid var(--primary);
+    border-bottom: 2px solid var(--primary);
+    transform: rotate(45deg) translate(-2px, -2px);
+    transition: transform 0.15s ease;
   }
   details[open] summary::after {
-    content: '–';
+    transform: rotate(-135deg) translate(-3px, -3px);
   }
   details p {
     margin: var(--space-3) 0 0;

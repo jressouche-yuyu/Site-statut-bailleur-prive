@@ -133,7 +133,9 @@ const jsonLd = [
     margin-top: var(--space-2);
     font-size: 0.8rem;
     font-weight: 600;
-    color: var(--accent);
+    /* --accent sur --bg-soft = 3,49:1 en 12,8px gras (grand texte = 18,66px
+       gras minimum, donc seuil 4,5:1). --accent-ink : 5,78:1. */
+    color: var(--accent-ink);
     background: var(--bg-soft);
     border: 1px solid var(--border);
     border-radius: 999px;

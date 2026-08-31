@@ -50,6 +50,6 @@ jobs:
             echo "Aucun nouveau logo."
           else
             git commit -m "Logos des acteurs (automatisation)"
-            git push origin claude/statut-bailleur-prive-site-wrw2ma
-            gh workflow run deploy.yml --ref claude/statut-bailleur-prive-site-wrw2ma
+            git push origin main
+            gh workflow run deploy.yml --ref main
           fi

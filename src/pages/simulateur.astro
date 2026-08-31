@@ -161,7 +161,8 @@ const jsonLd = [
     </form>
 
     <!-- Synthèse chiffrée -->
-    <section class="results" id="results" aria-live="polite">
+    <section class="results" id="results">
+      <p class="sr-only" role="status" id="r-status"></p>
       <div class="result-cards">
         <div class="result-card">
           <p class="result-label">Amortissement déductible / an</p>
@@ -291,6 +292,11 @@ const jsonLd = [
       ? (effortMonth <= 0 ? 'autofinancé' : 'à financer chaque mois')
       : 'renseignez la mensualité';
 
+    // Résumé unique pour les lecteurs d'écran : la zone entière annoncée à
+    // chaque frappe rendait le formulaire inutilisable.
+    get('r-status').textContent =
+      `Amortissement ${eur.format(amort)} par an, économie d'impôt ${eur.format(saveYear)} par an, ${eur.format(save9)} sur ${config.years} ans.`;
+
     // Détail
     get('d-rent-1').textContent = eur.format(loyers);
     get('d-rent-2').textContent = eur.format(loyers);
@@ -362,16 +368,32 @@ const jsonLd = [
     compute();
   }
 
+  function setActivePreset(btn) {
+    document.querySelectorAll('[data-preset]').forEach((b) => {
+      const on = b === btn;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+  }
+
   document.querySelectorAll('[data-preset]').forEach((btn) => {
+    btn.setAttribute('aria-pressed', 'false');
     btn.addEventListener('click', () => {
       const p = presets.find((x) => x.id === btn.getAttribute('data-preset'));
       if (p) applyPreset(p);
-      document.querySelectorAll('[data-preset]').forEach((b) => b.classList.remove('is-active'));
-      btn.classList.add('is-active');
+      setActivePreset(btn);
     });
   });
 
-  form.addEventListener('input', compute);
+  // Dès que l'utilisateur touche un champ, le cas-type n'est plus celui affiché :
+  // l'état visuel doit lâcher, sinon l'interface ment.
+  form.addEventListener('input', () => setActivePreset(null));
+
+  let debounce;
+  form.addEventListener('input', () => {
+    clearTimeout(debounce);
+    debounce = setTimeout(compute, 250);
+  });
   compute();
 </script>
 
@@ -398,7 +420,7 @@ const jsonLd = [
   .preset {
     text-align: left;
     background: var(--surface);
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-strong);
     border-radius: var(--radius-sm);
     padding: var(--space-3) var(--space-4);
     cursor: pointer;
@@ -409,12 +431,14 @@ const jsonLd = [
   }
   .preset.is-active {
     border-color: var(--primary);
-    box-shadow: 0 0 0 2px rgba(27, 77, 140, 0.15);
+    border-left-width: 4px;
+    padding-left: calc(var(--space-4) - 3px);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 18%, transparent);
   }
   .preset-label {
     display: block;
     font-weight: 700;
-    font-size: 0.92rem;
+    font-size: 1rem;
   }
   .preset-sub {
     display: block;
@@ -440,13 +464,13 @@ const jsonLd = [
   label,
   .field-label {
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
   input[type='number'],
   select {
     font: inherit;
     padding: var(--space-3);
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-strong);
     border-radius: var(--radius-sm);
     background: var(--bg);
     color: var(--text);
@@ -472,6 +496,10 @@ const jsonLd = [
   .results {
     margin-top: var(--space-8);
     display: grid;
+    /* minmax(0, 1fr) et non 1fr : sinon min-width:auto laisse le tableau
+       imposer sa largeur de contenu et deux cartes sortent du cadre a 375px
+       — rognees par main{overflow-x:clip}, donc definitivement perdues. */
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-6);
   }
   .result-cards {
@@ -488,7 +516,7 @@ const jsonLd = [
   }
   .result-card.accent {
     background: var(--accent-soft);
-    border-color: rgba(15, 157, 119, 0.3);
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
   }
   .result-label {
     margin: 0 0 var(--space-1);

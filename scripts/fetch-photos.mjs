@@ -29,20 +29,20 @@ const JSON_PATH = path.join(ROOT, 'src/data/photos.json');
  * `query` est en anglais (meilleurs résultats sur Pexels).
  */
 const ENTRIES = [
-  { key: 'guide:plafonds-loyer-ressources-dispositif-jeanbrun', dir: 'guides', name: 'plafonds-loyer-ressources', query: 'french city apartment rooftops housing' },
-  { key: 'guide:rentabilite-dispositif-jeanbrun-exemple-chiffre', dir: 'guides', name: 'rentabilite', query: 'financial calculator coins growth investment' },
-  { key: 'guide:revente-plus-value-amortissement-jeanbrun', dir: 'guides', name: 'revente-plus-value', query: 'house for sale sold sign real estate' },
-  { key: 'guide:dispositif-jeanbrun-ancien-travaux-dpe', dir: 'guides', name: 'ancien-travaux-dpe', query: 'old building renovation works paris' },
-  { key: 'guide:risques-limites-dispositif-jeanbrun', dir: 'guides', name: 'risques-limites', query: 'risk warning financial documents magnifier' },
-  { key: 'guide:acteurs-dispositif-jeanbrun-promoteurs-conseils', dir: 'guides', name: 'acteurs', query: 'business meeting real estate handshake office' },
-  { key: 'guide:ou-investir-dispositif-jeanbrun-departements', dir: 'guides', name: 'ou-investir', query: 'aerial view french city map districts' },
-  { key: 'guide:comment-fonctionne-statut-bailleur-prive', dir: 'guides', name: 'comment-fonctionne', query: 'modern apartment building facade' },
-  { key: 'guide:conditions-eligibilite-dispositif-jeanbrun', dir: 'guides', name: 'conditions-eligibilite', query: 'apartment building entrance keys' },
-  { key: 'guide:neuf-ou-ancien-dispositif-jeanbrun', dir: 'guides', name: 'neuf-ou-ancien', query: 'apartment renovation construction' },
-  { key: 'guide:dispositif-jeanbrun-vs-pinel-lmnp', dir: 'guides', name: 'jeanbrun-vs-pinel-lmnp', query: 'calculator financial documents desk' },
-  { key: 'post:statut-bailleur-prive-adopte-budget-2026', dir: 'blog', name: 'budget-2026', query: 'government parliament building france' },
-  { key: 'post:qui-est-vincent-jeanbrun', dir: 'blog', name: 'vincent-jeanbrun', query: 'french city architecture building' },
-  { key: 'home:hero', dir: 'home', name: 'hero', query: 'modern residential building blue sky' },
+  { key: 'guide:plafonds-loyer-ressources-dispositif-jeanbrun', dir: 'guides', name: 'plafonds-loyer-ressources', query: 'french city apartment rooftops housing', alt: "Toits d'immeubles parisiens vus d'en haut." },
+  { key: 'guide:rentabilite-dispositif-jeanbrun-exemple-chiffre', dir: 'guides', name: 'rentabilite', query: 'financial calculator coins growth investment', alt: "Calculatrice, pièces de monnaie et graphiques financiers posés à plat." },
+  { key: 'guide:revente-plus-value-amortissement-jeanbrun', dir: 'guides', name: 'revente-plus-value', query: 'house for sale sold sign real estate', alt: "Panneau « Vendu » apposé sur un panneau d'agence immobilière devant une maison." },
+  { key: 'guide:dispositif-jeanbrun-ancien-travaux-dpe', dir: 'guides', name: 'ancien-travaux-dpe', query: 'old building renovation works paris', alt: "Façade d'immeuble ancien en cours de rénovation, étayée par des supports de chantier." },
+  { key: 'guide:risques-limites-dispositif-jeanbrun', dir: 'guides', name: 'risques-limites', query: 'risk warning financial documents magnifier', alt: "Contrat d'assurance examiné à la loupe, posé sur un bureau." },
+  { key: 'guide:acteurs-dispositif-jeanbrun-promoteurs-conseils', dir: 'guides', name: 'acteurs', query: 'business meeting real estate handshake office', alt: "Poignée de main au-dessus d'un contrat immobilier signé." },
+  { key: 'guide:ou-investir-dispositif-jeanbrun-departements', dir: 'guides', name: 'ou-investir', query: 'aerial view french city map districts', alt: "Vue aérienne de Lyon, ses deux fleuves et son architecture historique." },
+  { key: 'guide:comment-fonctionne-statut-bailleur-prive', dir: 'guides', name: 'comment-fonctionne', query: 'modern apartment building facade', alt: "Façade contemporaine d'immeuble d'habitation aux balcons vitrés." },
+  { key: 'guide:conditions-eligibilite-dispositif-jeanbrun', dir: 'guides', name: 'conditions-eligibilite', query: 'apartment building entrance keys', alt: "Deux clés de logement reliées par une ficelle, posées sur du marbre." },
+  { key: 'guide:neuf-ou-ancien-dispositif-jeanbrun', dir: 'guides', name: 'neuf-ou-ancien', query: 'apartment renovation construction', alt: "Mur de briques en cours de construction, outils et matériaux de chantier autour." },
+  { key: 'guide:dispositif-jeanbrun-vs-pinel-lmnp', dir: 'guides', name: 'jeanbrun-vs-pinel-lmnp', query: 'calculator financial documents desk', alt: "Calculatrice posée sur des tableaux et graphiques financiers imprimés." },
+  { key: 'post:statut-bailleur-prive-adopte-budget-2026', dir: 'blog', name: 'budget-2026', query: 'government parliament building france', alt: "Façade du Palais Bourbon à Paris, siège de l'Assemblée nationale, drapeau français déployé." },
+  { key: 'post:qui-est-vincent-jeanbrun', dir: 'blog', name: 'vincent-jeanbrun', query: 'french city architecture building', alt: "Vue aérienne de l'Opéra Garnier à Paris au coucher du soleil." },
+  { key: 'home:hero', dir: 'home', name: 'hero', query: 'modern residential building blue sky', alt: "Immeuble d'habitation contemporain aux balcons filants, sous un ciel dégagé." },
 ];
 
 async function loadJson() {
@@ -98,7 +98,9 @@ async function main() {
       photos[e.key] = {
         src: relPath,
         credit: `Photo : ${photo.photographer} / Pexels`,
-        alt: (photo.alt || e.query).slice(0, 120),
+        // Jamais `photo.alt` : Pexels renvoie de l'anglais, or les pages sont
+        // en lang="fr-FR" (WCAG 3.1.2, Langue d'un passage).
+        alt: (e.alt || `Illustration : ${e.name.replace(/-/g, ' ')}.`).slice(0, 160),
       };
       changed++;
       console.log(`✓ ${e.key} → ${relPath} (${photo.photographer})`);

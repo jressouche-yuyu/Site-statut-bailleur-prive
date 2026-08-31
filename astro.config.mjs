@@ -13,8 +13,10 @@ const base = process.env.BASE_PATH || '/';
  * `/x` → `/x/` côté GitHub Pages), sans toucher aux fichiers (extension),
  * ancres ou query. Ex. `/simulateur` → `/simulateur/`, `/x.jpg` inchangé.
  */
-function ensureTrailingSlash(p) {
-  const m = p.match(/^([^?#]*)([?#].*)?$/);
+function ensureTrailingSlash(/** @type {string} */ p) {
+  // Le motif est ancre et entierement optionnel : il matche toujours. Le repli
+  // n'est la que pour satisfaire le verificateur de types.
+  const m = p.match(/^([^?#]*)([?#].*)?$/) ?? [p, p, ''];
   let pathname = m[1];
   const suffix = m[2] || '';
   if (pathname && !pathname.endsWith('/') && !/\.[a-z0-9]+$/i.test(pathname)) {

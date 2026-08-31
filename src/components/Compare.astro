@@ -66,7 +66,7 @@ const cols = [
   }
   .cmp-now {
     border-color: var(--accent);
-    box-shadow: 0 0 0 2px rgba(15, 157, 119, 0.18);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 22%, transparent);
     background: var(--accent-soft);
   }
   .cmp-past {
@@ -90,7 +90,9 @@ const cols = [
     color: var(--text-muted);
   }
   .cmp-now .cmp-status {
-    color: var(--accent);
+    /* --accent (#a4742b) sur --accent-soft ne fait que 3,38:1 en 12,5px gras.
+       --accent-ink : 5,61:1. */
+    color: var(--accent-ink);
   }
   .cmp dl {
     margin: 0;
