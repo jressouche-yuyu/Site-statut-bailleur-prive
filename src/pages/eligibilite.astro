@@ -11,16 +11,81 @@ const crumbs = [
   { name: 'Suis-je éligible ?', path: '/eligibilite' },
 ];
 
-// Critères à cocher. `hard` = condition rédhibitoire si non remplie.
+/**
+ * Critères du test.
+ * `hard` : condition rédhibitoire — non remplie, le projet n'est pas éligible,
+ * et on doit alors dire vers quoi se tourner plutôt que laisser l'utilisateur
+ * dans le vide. `sinon` porte cette issue de repli.
+ * `ancienSeul` : ne s'affiche que si l'acquisition porte sur de l'ancien.
+ */
 const criteres = [
-  { id: 'collectif', label: "Le logement est un appartement en immeuble collectif (pas une maison individuelle)." },
-  { id: 'nu', label: "Il sera loué nu (non meublé), comme résidence principale du locataire." },
-  { id: 'engagement', label: "Je m'engage à louer pendant au moins 9 ans." },
-  { id: 'fenetre', label: "L'acquisition intervient dans la fenêtre d'éligibilité (à partir de 2026, jusqu'à fin 2028)." },
-  { id: 'loyer', label: "J'accepte un loyer plafonné (intermédiaire, social ou très social)." },
-  { id: 'ressources', label: "Je vérifierai les plafonds de ressources du locataire." },
-  { id: 'proche', label: "Le logement ne sera pas loué à un proche / membre du foyer fiscal." },
-  { id: 'ancien', label: "Si c'est de l'ancien : travaux d'au moins 30 % du prix amenant à un DPE performant (A ou B). (Cochez aussi si vous achetez du neuf.)" },
+  {
+    id: 'collectif', hard: true,
+    label: "Le logement est un appartement en immeuble collectif (pas une maison individuelle).",
+    sinon: {
+      titre: 'Maison individuelle',
+      texte: "Le dispositif ne couvre que le logement collectif. Pour une maison, les leviers restent le déficit foncier au régime réel ou la location meublée.",
+      lien: { label: 'Comparer avec le LMNP', href: '/guides/dispositif-jeanbrun-vs-pinel-lmnp' },
+    },
+  },
+  {
+    id: 'nu', hard: true,
+    label: "Il sera loué nu (non meublé), comme résidence principale du locataire.",
+    sinon: {
+      titre: 'Location meublée',
+      texte: "L'amortissement existe déjà en meublé, via le LMNP — avec une fiscalité en BIC et des règles différentes, en cours de révision au PLF 2027.",
+      lien: { label: 'Jeanbrun face au LMNP', href: '/guides/dispositif-jeanbrun-vs-pinel-lmnp' },
+    },
+  },
+  {
+    id: 'engagement', hard: true,
+    label: "Je m'engage à louer pendant au moins 9 ans.",
+    sinon: {
+      titre: 'Engagement de 9 ans impossible',
+      texte: "L'engagement est la contrepartie de l'amortissement : le rompre entraîne la reprise de l'avantage. Sans cet horizon, mieux vaut regarder les risques avant de s'engager.",
+      lien: { label: 'Risques et limites du dispositif', href: '/guides/risques-limites-dispositif-jeanbrun' },
+    },
+  },
+  {
+    id: 'fenetre', hard: true,
+    label: "L'acquisition intervient dans la fenêtre d'éligibilité (à partir de 2026, jusqu'à fin 2028).",
+    sinon: {
+      titre: 'Acquisition hors fenêtre',
+      texte: "Une acquisition antérieure à 2026 n'ouvre pas droit au dispositif. Le régime réel et le déficit foncier restent accessibles sur un bien déjà détenu.",
+      lien: { label: 'Comment fonctionne le dispositif', href: '/guides/comment-fonctionne-statut-bailleur-prive' },
+    },
+  },
+  {
+    id: 'loyer', hard: true,
+    label: "J'accepte un loyer plafonné (intermédiaire, social ou très social).",
+    sinon: {
+      titre: 'Loyer de marché souhaité',
+      texte: "Le plafonnement est ce qui déclenche l'amortissement : sans lui, pas de dispositif. Loc'Avantages repose sur le même principe de contrepartie, avec une réduction d'impôt plutôt qu'un amortissement.",
+      lien: { label: "Loc'Avantages 2026", href: '/actualites/locavantages-2026-convention-anah-reduction-impot-bailleurs' },
+    },
+  },
+  {
+    id: 'proche', hard: true,
+    label: "Le logement ne sera pas loué à un proche / membre du foyer fiscal.",
+    sinon: {
+      titre: 'Location à un proche',
+      texte: "La location à un membre du foyer fiscal est exclue, comme dans les dispositifs qui l'ont précédé.",
+      lien: { label: "Conditions d'éligibilité en détail", href: '/guides/conditions-eligibilite-dispositif-jeanbrun' },
+    },
+  },
+  {
+    id: 'ressources', hard: false,
+    label: "Je vérifierai les plafonds de ressources du locataire.",
+  },
+  {
+    id: 'travaux', hard: true, ancienSeul: true,
+    label: "Travaux d'au moins 30 % du prix, amenant le logement à un DPE A ou B.",
+    sinon: {
+      titre: 'Ancien sans rénovation lourde',
+      texte: "Dans l'ancien, le dispositif est conditionné à une rénovation d'ampleur. En dessous de ce seuil, le déficit foncier reste le levier classique.",
+      lien: { label: "L'ancien : travaux et DPE", href: '/guides/dispositif-jeanbrun-ancien-travaux-dpe' },
+    },
+  },
 ];
 
 const jsonLd = [
@@ -55,9 +120,15 @@ const jsonLd = [
     </p>
 
     <form id="elig-form" class="elig card">
+      <fieldset class="segment">
+        <legend>Votre acquisition porte sur :</legend>
+        <label class="radio"><input type="radio" name="segment" value="neuf" checked /> Un logement neuf</label>
+        <label class="radio"><input type="radio" name="segment" value="ancien" /> De l'ancien à rénover</label>
+      </fieldset>
+
       {
         criteres.map((c) => (
-          <label class="crit">
+          <label class="crit" data-crit={c.id} hidden={c.ancienSeul || undefined}>
             <input type="checkbox" name={c.id} />
             <span>{c.label}</span>
           </label>
@@ -65,10 +136,24 @@ const jsonLd = [
       }
     </form>
 
-    <section class="verdict" id="verdict" aria-live="polite" data-total={criteres.length}>
-      <p class="verdict-count"><span id="v-count">0</span> / {criteres.length} conditions remplies</p>
+    <section class="verdict" id="verdict" aria-live="polite">
+      <p class="verdict-count"><span id="v-count">0</span> / <span id="v-total">7</span> conditions remplies</p>
       <p class="verdict-line" id="v-line">Cochez les conditions ci-dessus pour obtenir votre résultat.</p>
+      <div id="v-next" class="verdict-next" hidden></div>
     </section>
+
+    <script is:inline set:html={`window.__ELIG = ${JSON.stringify({
+      criteres: criteres.map(({ id, hard, ancienSeul, sinon }) => ({
+        id,
+        hard: !!hard,
+        ancienSeul: !!ancienSeul,
+        sinon: sinon ? { ...sinon, lien: { ...sinon.lien, href: url(sinon.lien.href) } } : null,
+      })),
+      urls: {
+        simulateur: url('/simulateur'),
+        plafonds: url('/guides/plafonds-loyer-ressources-dispositif-jeanbrun'),
+      },
+    })};`} />
 
     <Callout title="Important">
       <p>
@@ -82,32 +167,104 @@ const jsonLd = [
   </div>
 </BaseLayout>
 
-<script>
-  const form = document.getElementById('elig-form') as HTMLFormElement;
-  const section = document.getElementById('verdict')!;
-  const total = Number(section.getAttribute('data-total')) || 0;
-  const countEl = document.getElementById('v-count')!;
-  const lineEl = document.getElementById('v-line')!;
+<script is:inline>
+  (function () {
+    var DATA = window.__ELIG || { criteres: [], urls: {} };
+    var CRITERES = DATA.criteres;
+    var URLS = DATA.urls;
+    var form = document.getElementById('elig-form');
+    var section = document.getElementById('verdict');
+    var countEl = document.getElementById('v-count');
+    var totalEl = document.getElementById('v-total');
+    var lineEl = document.getElementById('v-line');
+    var nextEl = document.getElementById('v-next');
+    if (!form || !section) return;
 
-  function update() {
-    const boxes = Array.from(form.querySelectorAll<HTMLInputElement>('input[type="checkbox"]'));
-    const checked = boxes.filter((b) => b.checked).length;
-    countEl.textContent = String(checked);
-
-    section.classList.remove('is-ok', 'is-mid', 'is-ko');
-    if (checked === total) {
-      section.classList.add('is-ok');
-      lineEl.textContent = "Votre projet semble éligible au dispositif Jeanbrun (sous réserve de vérification du texte applicable). Étape suivante : chiffrez l'amortissement dans le simulateur.";
-    } else if (checked === 0) {
-      lineEl.textContent = 'Cochez les conditions ci-dessus pour obtenir votre résultat.';
-    } else {
-      section.classList.add('is-mid');
-      lineEl.textContent = `Il manque ${total - checked} condition(s). Le dispositif suppose que toutes les conditions principales soient réunies : vérifiez les points non cochés.`;
+    function applicables(segment) {
+      return CRITERES.filter(function (c) { return !c.ancienSeul || segment === 'ancien'; });
     }
-  }
 
-  form.addEventListener('change', update);
-  update();
+    function update() {
+      var segment = (form.querySelector('input[name="segment"]:checked') || {}).value || 'neuf';
+
+      // La question travaux ne concerne que l'ancien : masquée ET retirée de
+      // l'arbre d'accessibilité, pas seulement grisée.
+      CRITERES.forEach(function (c) {
+        if (!c.ancienSeul) return;
+        var row = form.querySelector('[data-crit="' + c.id + '"]');
+        if (!row) return;
+        var show = segment === 'ancien';
+        row.hidden = !show;
+        var box = row.querySelector('input');
+        if (!show && box) box.checked = false;
+      });
+
+      var liste = applicables(segment);
+      var manquants = liste.filter(function (c) {
+        var box = form.querySelector('input[name="' + c.id + '"]');
+        return !box || !box.checked;
+      });
+      var bloquants = manquants.filter(function (c) { return c.hard; });
+
+      countEl.textContent = String(liste.length - manquants.length);
+      totalEl.textContent = String(liste.length);
+      section.classList.remove('is-ok', 'is-mid', 'is-ko');
+      nextEl.hidden = true;
+      nextEl.innerHTML = '';
+
+      if (manquants.length === liste.length) {
+        lineEl.textContent = 'Cochez les conditions ci-dessus pour obtenir votre résultat.';
+        return;
+      }
+
+      if (manquants.length === 0) {
+        section.classList.add('is-ok');
+        lineEl.textContent =
+          "Votre projet remplit les conditions principales, sous réserve du texte applicable. Étape suivante : chiffrez l'amortissement.";
+        nextEl.hidden = false;
+        nextEl.innerHTML =
+          '<a class="btn" href="' + URLS.simulateur + '">Chiffrer mon amortissement</a>';
+        return;
+      }
+
+      // Toutes les conditions bloquantes sont remplies : il ne reste que des
+      // vérifications à mener. Ce n'est pas un refus.
+      if (bloquants.length === 0) {
+        section.classList.add('is-mid');
+        lineEl.textContent =
+          "Aucune condition rédhibitoire ne s'oppose à votre projet. Il vous reste " +
+          manquants.length + ' point' + (manquants.length > 1 ? 's' : '') +
+          ' à vérifier avant de vous engager.';
+        nextEl.hidden = false;
+        nextEl.innerHTML =
+          '<a class="btn" href="' + URLS.plafonds + '">Vérifier les plafonds</a>';
+        return;
+      }
+
+      // Au moins une condition rédhibitoire manque : on le dit, on nomme
+      // laquelle, et on donne une issue plutôt qu'un cul-de-sac.
+      section.classList.add('is-ko');
+      lineEl.textContent =
+        bloquants.length === 1
+          ? "En l'état, votre projet n'est pas éligible : une condition rédhibitoire n'est pas remplie."
+          : "En l'état, votre projet n'est pas éligible : " + bloquants.length +
+            ' conditions rédhibitoires ne sont pas remplies.';
+
+      var html = '<p class="next-kicker">Ce qui bloque, et vers quoi vous tourner</p><ul class="next-list">';
+      bloquants.forEach(function (c) {
+        if (!c.sinon) return;
+        html +=
+          '<li><strong>' + c.sinon.titre + '</strong><span>' + c.sinon.texte + '</span>' +
+          '<a href="' + c.sinon.lien.href + '">' + c.sinon.lien.label + '</a></li>';
+      });
+      html += '</ul>';
+      nextEl.hidden = false;
+      nextEl.innerHTML = html;
+    }
+
+    form.addEventListener('change', update);
+    update();
+  })();
 </script>
 
 <style>
@@ -160,7 +317,86 @@ const jsonLd = [
     color: var(--text);
   }
   .verdict.is-mid {
-    border-color: rgba(164, 116, 43, 0.4);
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
     background: var(--warning-soft);
+  }
+  /* Issue « non éligible » : elle manquait, et le visiteur qui échouait sortait
+     du site. L'état est porté par le texte autant que par la couleur. */
+  .verdict.is-ko {
+    border-color: color-mix(in srgb, var(--danger) 45%, transparent);
+    background: color-mix(in srgb, var(--danger) 7%, var(--surface));
+  }
+  .verdict.is-ko .verdict-line,
+  .verdict.is-mid .verdict-line {
+    color: var(--text);
+  }
+
+  .segment {
+    margin: 0 0 var(--space-4);
+    padding: 0 0 var(--space-4);
+    border: 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-6);
+    align-items: center;
+  }
+  .segment legend {
+    padding: 0;
+    font-weight: 600;
+    margin-bottom: var(--space-2);
+  }
+  .segment .radio {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 24px;
+    cursor: pointer;
+  }
+  .segment input {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--accent);
+  }
+
+  .verdict-next {
+    margin-top: var(--space-6);
+    padding-top: var(--space-6);
+    border-top: 1px solid color-mix(in srgb, var(--text) 15%, transparent);
+  }
+  .next-kicker {
+    margin: 0 0 var(--space-4);
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--text);
+  }
+  .next-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-4);
+  }
+  .next-list li {
+    display: grid;
+    gap: var(--space-1);
+    margin: 0;
+    padding-left: var(--space-4);
+    border-left: 2px solid var(--danger);
+  }
+  .next-list strong {
+    font-family: var(--font-display);
+    font-size: 1.02rem;
+  }
+  .next-list span {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+  .next-list a {
+    justify-self: start;
+    font-weight: 600;
+    font-size: 0.95rem;
   }
 </style>

@@ -221,7 +221,8 @@ const jsonLd = [
         ce qui réduit votre base imposable. L'économie réelle dépend de votre TMI
         et des prélèvements sociaux (17,2 %). Si l'amortissement dépasse le revenu
         foncier imposable, l'excédent n'est pas perdu : il est <strong>reporté</strong>
-        sur les années suivantes (pris en compte dans l'estimation annuelle).
+        sur les années suivantes. Le total sur 9 ans applique ce report année par
+        année ; l'économie annuelle affichée, elle, décrit la première année.
       </p>
     </Callout>
 
@@ -277,7 +278,21 @@ const jsonLd = [
     const carried = amort - amortUsed;
 
     const saveYear = taxSans - taxAvec;
-    const save9 = saveYear * config.years;
+
+    // Échéancier réel sur la durée d'engagement : l'amortissement non consommé
+    // une année s'ajoute au stock déductible de la suivante. Sans cette boucle,
+    // save9 = saveYear x 9 supposait neuf années identiques et sous-estimait le
+    // résultat dès que l'amortissement dépassait le revenu foncier — alors que
+    // l'encadré affirmait que le report était pris en compte.
+    let stock = 0;
+    let save9 = 0;
+    for (let y = 0; y < config.years; y++) {
+      const dispo = amort + stock;
+      const used = Math.min(dispo, taxableSans);
+      stock = dispo - used;
+      save9 += taxSans - Math.max(0, taxableSans - used) * rate;
+    }
+    const carriedEnd = stock;
 
     // Effort d'épargne mensuel (si mensualité renseignée)
     const effortMonth = mensualite + charges / 12 - rent - saveYear / 12;
@@ -319,7 +334,10 @@ const jsonLd = [
       narrative += `Sans dispositif, votre revenu foncier imposable est de ${eur.format(taxableSans)}, soit ${eur.format(taxSans)} d'impôt et prélèvements. Avec le dispositif Jeanbrun, vous déduisez ${eur.format(amortUsed)} d'amortissement : votre base tombe à ${eur.format(Math.max(0, netAvec))}, et votre impôt à ${eur.format(taxAvec)}. Soit une économie de ${eur.format(saveYear)} par an, environ ${eur.format(save9)} sur les 9 ans d'engagement.`;
     }
     if (carried > 0) {
-      narrative += ` ${eur.format(carried)} d'amortissement non utilisé cette année sont reportés.`;
+      narrative += ` ${eur.format(carried)} d'amortissement ne trouvent pas de revenu foncier à absorber la première année et sont reportés.`;
+      narrative += carriedEnd > 0
+        ? ` Au terme des ${config.years} ans, il resterait ${eur.format(carriedEnd)} d'amortissement non consommé : à ce niveau de charges, le dispositif ne délivre pas tout son potentiel.`
+        : ` Le report est entièrement absorbé avant la fin de l'engagement.`;
     }
     get('narrative').textContent = narrative;
 
@@ -327,7 +345,8 @@ const jsonLd = [
 
     const noteParts = [];
     noteParts.push(`Économie annuelle : ${eur.format(saveYear)}.`);
-    if (carried > 0) noteParts.push(`Amortissement reporté : ${eur.format(carried)}/an.`);
+    if (carried > 0) noteParts.push(`Report la 1re année : ${eur.format(carried)}.`);
+    if (carriedEnd > 0) noteParts.push(`Non consommé après ${config.years} ans : ${eur.format(carriedEnd)}.`);
     get('chart-note').textContent = noteParts.join(' ');
   }
 

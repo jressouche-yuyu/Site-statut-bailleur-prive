@@ -66,7 +66,7 @@ export const guides: Guide[] = [
       },
       {
         heading: 'Sources & méthode',
-        body: "<p>Cet article s'appuie sur l'article 12 octies de la loi de finances pour 2026, les communications du ministère de la Ville et du Logement (courrier du 20 mars 2026), les barèmes de référence du logement intermédiaire et de <a href=\"https://www.service-public.fr\" rel=\"nofollow\">Loc'Avantages</a>, ainsi que sur les analyses de la presse patrimoniale et de l'<a href=\"https://www.anil.org\" rel=\"nofollow\">ANIL</a>. Les barèmes étant réévalués chaque année et certaines modalités encore en cours de précision, nous datons et mettons à jour cette page régulièrement.</p>",
+        body: "<p>Cet article s'appuie sur l'article 12 octies de la loi de finances pour 2026, les communications du ministère de la Ville et du Logement (courrier du 20 mars 2026), les barèmes de référence du logement intermédiaire et de <a href=\"https://www.service-public.fr\">Loc'Avantages</a>, ainsi que sur les analyses de la presse patrimoniale et de l'<a href=\"https://www.anil.org\">ANIL</a>. Les barèmes étant réévalués chaque année et certaines modalités encore en cours de précision, nous datons et mettons à jour cette page régulièrement.</p>",
       },
     ],
     faq: [

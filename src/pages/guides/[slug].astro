@@ -54,7 +54,8 @@ const fmtDate = (iso: string) =>
       <span class="badge badge-accent">{guide.category}</span>
       <h1>{guide.title}</h1>
       <p class="meta">
-        Publié le {fmtDate(guide.publishedAt)} · Mis à jour le {fmtDate(guide.lastUpdated)} ·
+        Publié le <time datetime={guide.publishedAt}>{fmtDate(guide.publishedAt)}</time> ·
+        Mis à jour le <time datetime={guide.lastUpdated}>{fmtDate(guide.lastUpdated)}</time> ·
         {guide.readingMinutes} min de lecture
       </p>
       <p class="lead">{guide.intro}</p>

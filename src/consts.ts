@@ -44,14 +44,30 @@ export const EDITORIAL = {
   disclosePartner: false,
 } as const;
 
-/** Navigation principale (header). */
+/**
+ * Navigation principale (rangée du header).
+ * Volontairement courte : huit entrées de même poids ne hiérarchisent rien.
+ * Les pages de référence (glossaire, FAQ, à propos) passent au bandeau
+ * utilitaire, et le simulateur devient l'action mise en avant.
+ */
 export const NAV: { label: string; href: string }[] = [
   { label: 'Le dispositif', href: '/dispositif-jeanbrun' },
   { label: 'Guides', href: '/guides' },
   { label: 'Éligibilité', href: '/eligibilite' },
-  { label: 'Simulateur', href: '/simulateur' },
   { label: 'Actualités', href: '/actualites' },
+];
+
+/** Bandeau utilitaire (fin, au-dessus de la rangée principale). */
+export const NAV_UTIL: { label: string; href: string }[] = [
   { label: 'Glossaire', href: '/glossaire' },
   { label: 'FAQ', href: '/faq' },
   { label: 'À propos', href: '/a-propos' },
+  { label: 'Contact', href: '/contact' },
 ];
+
+/** Action mise en avant : le simulateur est l'actif linkable du site. */
+export const NAV_CTA = {
+  label: "Simuler mon amortissement",
+  short: 'Simuler',
+  href: '/simulateur',
+} as const;

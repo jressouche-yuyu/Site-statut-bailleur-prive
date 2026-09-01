@@ -1,14 +1,52 @@
 ---
-import { SITE, NAV } from '../consts';
+/**
+ * En-tête du site — deux rangées, à la manière d'un titre de presse.
+ *
+ * Rangée fine : la date de dernière vérification (signal de fraîcheur, visible
+ * sur toutes les pages) et les pages de référence.
+ * Rangée principale : marque, quatre entrées de navigation, et le simulateur
+ * promu en bouton — c'est l'actif linkable du site, il ne peut pas rester une
+ * entrée de menu parmi huit.
+ */
+import { SITE, NAV, NAV_UTIL, NAV_CTA } from '../consts';
+import { dispositif } from '../data/dispositif';
 import { url } from '../lib/url';
+
 const current = Astro.url.pathname;
 const isActive = (href: string) => {
   const h = url(href);
   return current === h || current.startsWith(h + '/');
 };
+
+const reviewed = new Date(dispositif.lastReviewed);
+const reviewedLabel = reviewed.toLocaleDateString('fr-FR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
 ---
 
 <header class="site-header">
+  <div class="util-bar">
+    <div class="container util-inner">
+      <p class="util-freshness">
+        <span class="util-dot" aria-hidden="true"></span>
+        Données vérifiées le <time datetime={dispositif.lastReviewed}>{reviewedLabel}</time>
+      </p>
+      <ul class="util-links">
+        {
+          NAV_UTIL.map((item) => (
+            <li>
+              <a href={url(item.href)} aria-current={isActive(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+
   <div class="container header-inner">
     <a href={url('/')} class="brand" aria-label={`${SITE.name} — accueil`}>
       <span class="brand-mono" aria-hidden="true">BP</span>
@@ -17,16 +55,6 @@ const isActive = (href: string) => {
         <span class="brand-sub">Le dispositif Jeanbrun décrypté</span>
       </span>
     </a>
-
-    <button
-      type="button"
-      class="nav-toggle"
-      aria-label="Ouvrir le menu"
-      aria-expanded="false"
-      aria-controls="primary-nav"
-    >
-      <span class="burger" aria-hidden="true"></span>
-    </button>
 
     <nav id="primary-nav" class="primary-nav" aria-label="Navigation principale">
       <ul class="nav-list">
@@ -39,39 +67,72 @@ const isActive = (href: string) => {
             </li>
           ))
         }
+        <li class="nav-util-echo">
+          <span class="nav-group-label">Références</span>
+        </li>
+        {
+          NAV_UTIL.map((item) => (
+            <li class="nav-util-echo">
+              <a href={url(item.href)} aria-current={isActive(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
       </ul>
     </nav>
+
+    <div class="header-actions">
+      <a
+        class="btn header-cta"
+        href={url(NAV_CTA.href)}
+        aria-current={isActive(NAV_CTA.href) ? 'page' : undefined}
+      >
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="4" y="2.5" width="16" height="19" rx="2.5" />
+          <path d="M8 7h8M8 12h3M8 16.5h3M15 12v4.5" />
+        </svg>
+        <span class="cta-long">{NAV_CTA.label}</span>
+        <span class="cta-short" aria-hidden="true">{NAV_CTA.short}</span>
+      </a>
+
+      <button
+        type="button"
+        class="nav-toggle"
+        aria-label="Ouvrir le menu"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+      >
+        <span class="burger" aria-hidden="true"></span>
+      </button>
+    </div>
   </div>
 </header>
 
 <script>
-  // Bascule du menu burger sur mobile.
   const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
   const nav = document.getElementById('primary-nav');
   const header = document.querySelector('.site-header');
+  const mq = window.matchMedia('(max-width: 900px)');
 
   function setOpen(open: boolean) {
     if (!toggle || !header) return;
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
     header.classList.toggle('nav-open', open);
-    // Sans `inert`, les 8 liens du menu replie restent focusables alors que
-    // rien n'est peint : la tabulation disparait de l'ecran. La bascule ne vaut
-    // qu'en dessous de 860px (et donc aussi a 200 % de zoom sur 1366px).
-    if (nav) {
-      const collapsed = !open && window.matchMedia('(max-width: 860px)').matches;
-      nav.toggleAttribute('inert', collapsed);
-    }
+    // Sans `inert`, les liens du menu replié restent focusables alors que rien
+    // n'est peint : la tabulation disparaît de l'écran. La bascule ne vaut
+    // qu'en dessous de 900px (donc aussi à 200 % de zoom sur un 1366px).
+    if (nav) nav.toggleAttribute('inert', !open && mq.matches);
   }
 
-  // L'etat doit suivre le redimensionnement et le zoom, pas seulement le clic.
-  window.matchMedia('(max-width: 860px)').addEventListener('change', () => {
+  // L'état doit suivre le redimensionnement et le zoom, pas seulement le clic.
+  mq.addEventListener('change', () => {
     setOpen(toggle?.getAttribute('aria-expanded') === 'true');
   });
 
   toggle?.addEventListener('click', () => {
-    const open = toggle.getAttribute('aria-expanded') === 'true';
-    setOpen(!open);
+    setOpen(toggle.getAttribute('aria-expanded') !== 'true');
   });
 
   nav?.querySelectorAll('a').forEach((a) =>
@@ -82,10 +143,19 @@ const isActive = (href: string) => {
     if (e.key === 'Escape') setOpen(false);
   });
 
-  // Etat initial : le menu est replie au chargement sous 860px. Sans cet appel,
-  // `inert` n'est jamais pose et les 8 liens restent dans le parcours clavier
-  // alors que rien n'est peint.
   setOpen(false);
+
+  // État « décollé » : le bandeau utilitaire se replie et le filet s'affirme
+  // dès que la page défile. Sentinelle observée plutôt qu'un écouteur de
+  // scroll — aucun travail sur le thread principal pendant le défilement.
+  const sentinel = document.createElement('div');
+  sentinel.setAttribute('aria-hidden', 'true');
+  sentinel.style.cssText = 'position:absolute;top:0;height:1px;width:1px;';
+  document.body.prepend(sentinel);
+  new IntersectionObserver(
+    ([e]) => header?.classList.toggle('is-stuck', !e.isIntersecting),
+    { threshold: 0 },
+  ).observe(sentinel);
 </script>
 
 <style>
@@ -93,75 +163,217 @@ const isActive = (href: string) => {
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(250, 248, 243, 0.92);
-    backdrop-filter: blur(10px);
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: blur(12px) saturate(1.4);
     border-top: 3px solid var(--primary);
     border-bottom: 1px solid var(--border);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
-  .header-inner {
+  .site-header.is-stuck {
+    border-bottom-color: var(--border-strong);
+    box-shadow: 0 1px 12px color-mix(in srgb, var(--primary) 8%, transparent);
+  }
+
+  /* ── Bandeau utilitaire ─────────────────────────────────────────── */
+  .util-bar {
+    background: var(--bg-soft);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    max-height: 44px;
+    transition: max-height 0.22s ease, opacity 0.18s ease;
+  }
+  /* Se replie au défilement : la marque et l'action gagnent la hauteur. */
+  .site-header.is-stuck .util-bar {
+    max-height: 0;
+    opacity: 0;
+  }
+  .util-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
-    min-height: 74px;
+    min-height: 34px;
+    padding-block: var(--space-1);
   }
-  .brand {
+  .util-freshness {
+    margin: 0;
     display: inline-flex;
     align-items: center;
-    gap: var(--space-3);
-    color: var(--text);
-  }
-  .brand:hover {
-    text-decoration: none;
-  }
-  .brand-mono {
-    flex-shrink: 0;
-    display: grid;
-    place-items: center;
-    width: 40px;
-    height: 40px;
-    background: var(--primary);
-    color: #fff;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.15rem;
-    letter-spacing: 0.02em;
-  }
-  .brand-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.05;
-  }
-  .brand-name {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.3rem;
-    letter-spacing: -0.01em;
-  }
-  .brand-sub {
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 0.13em;
+    gap: var(--space-2);
+    /* 12,8px : mention de service, pas du texte courant.
+       #5d6472 sur #f1ece1 = 5,05:1. */
+    font-size: 0.8rem;
     color: var(--text-muted);
   }
-  .nav-list {
+  .util-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex: none;
+  }
+  .util-links {
     display: flex;
     gap: var(--space-6);
     list-style: none;
     margin: 0;
     padding: 0;
   }
+  .util-links li {
+    margin: 0;
+  }
+  .util-links a {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .util-links a:hover,
+  .util-links a[aria-current='page'] {
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* ── Rangée principale ──────────────────────────────────────────── */
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    min-height: 78px;
+    transition: min-height 0.2s ease;
+  }
+  .site-header.is-stuck .header-inner {
+    min-height: 66px;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--text);
+    flex: none;
+  }
+  .brand:hover {
+    text-decoration: none;
+  }
+  .brand-mono {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    background: var(--primary);
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.18rem;
+    letter-spacing: 0.02em;
+    /* Filet laiton en pied : rappelle le trait des chiffres clés. */
+    box-shadow: inset 0 -3px 0 var(--accent);
+    transition: box-shadow 0.18s ease;
+  }
+  .brand:hover .brand-mono {
+    box-shadow: inset 0 -42px 0 var(--primary-hover), inset 0 -3px 0 var(--accent);
+  }
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.08;
+  }
+  .brand-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.34rem;
+    letter-spacing: -0.018em;
+  }
+  .brand-sub {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* Sentence case et 15,2px : une micro-navigation en capitales de 12px est
+     à la fois moins lisible et plus « gabarit ». */
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-list li {
+    margin: 0;
+  }
   .nav-list a {
+    position: relative;
+    display: block;
+    padding-block: var(--space-2);
     color: var(--text-muted);
     font-weight: 600;
-    font-size: 0.78rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+  /* L'état courant n'est pas porté par la couleur seule : un filet laiton le
+     double (#a4742b sur --bg = 3,87:1, seuil composant 3:1). */
+  .nav-list a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.18s ease;
   }
   .nav-list a:hover,
   .nav-list a[aria-current='page'] {
     color: var(--primary);
     text-decoration: none;
+  }
+  .nav-list a:hover::after,
+  .nav-list a[aria-current='page']::after {
+    transform: scaleX(1);
+  }
+  /* Doublons du bandeau utilitaire : visibles uniquement dans le menu replié. */
+  .nav-util-echo {
+    display: none;
+  }
+  .nav-group-label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex: none;
+  }
+  /* Blanc sur --primary = 14,43:1. Hauteur 44px : cible confortable. */
+  .header-cta {
+    padding: var(--space-3) var(--space-5);
+    font-size: 0.92rem;
+    min-height: 44px;
+    box-shadow: 0 1px 0 color-mix(in srgb, var(--primary) 30%, transparent);
+  }
+  .header-cta svg {
+    flex: none;
+    opacity: 0.85;
+  }
+  .cta-short {
+    display: none;
   }
 
   .nav-toggle {
@@ -171,7 +383,7 @@ const isActive = (href: string) => {
     align-items: center;
     justify-content: center;
     background: transparent;
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-strong);
     border-radius: var(--radius-sm);
     cursor: pointer;
   }
@@ -200,9 +412,37 @@ const isActive = (href: string) => {
     transform: translateY(7px);
   }
 
-  @media (max-width: 860px) {
+  /* Mesuré : marque 290 + nav 356 + bouton 258 + gouttières = 984px requis,
+     alors que le menu replié ne prend le relais qu'à 900px. Entre les deux, le
+     libellé long du bouton est raccourci — 834px suffisent alors. */
+  @media (max-width: 1080px) {
+    .nav-list {
+      gap: var(--space-6);
+    }
+    .header-inner {
+      gap: var(--space-4);
+    }
+    .cta-long {
+      display: none;
+    }
+    .cta-short {
+      display: inline;
+    }
+    .header-cta {
+      padding-inline: var(--space-4);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .util-bar {
+      display: none;
+    }
     .nav-toggle {
       display: inline-flex;
+    }
+    /* Le bandeau utilitaire disparaît : ses liens reviennent dans le menu. */
+    .nav-util-echo {
+      display: block;
     }
     .primary-nav {
       position: absolute;
@@ -213,16 +453,19 @@ const isActive = (href: string) => {
       border-bottom: 1px solid var(--border);
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.25s ease;
+      visibility: hidden;
+      transition: max-height 0.25s ease, visibility 0s linear 0.25s;
       box-shadow: var(--shadow);
     }
-    .nav-list {
-      flex-direction: column;
-      gap: 0;
-      padding: var(--space-2) var(--space-4) var(--space-4);
+    .site-header.nav-open .primary-nav {
+      max-height: 80vh;
+      overflow-y: auto;
+      visibility: visible;
+      transition: max-height 0.25s ease, visibility 0s;
     }
-    .nav-list li {
-      margin: 0;
+    .nav-list {
+      display: block;
+      padding: var(--space-2) var(--space-4) var(--space-4);
     }
     .nav-list a {
       display: block;
@@ -230,8 +473,15 @@ const isActive = (href: string) => {
       font-size: 1.05rem;
       border-bottom: 1px solid var(--border);
     }
-    .site-header.nav-open .primary-nav {
-      max-height: 80vh;
+    .nav-list a::after {
+      display: none;
+    }
+    .nav-list a[aria-current='page'] {
+      border-left: 3px solid var(--accent);
+      padding-left: var(--space-3);
+    }
+    .nav-group-label {
+      padding: var(--space-6) var(--space-2) var(--space-2);
     }
     .site-header.nav-open .burger {
       background: transparent;
@@ -241,6 +491,24 @@ const isActive = (href: string) => {
     }
     .site-header.nav-open .burger::after {
       transform: translateY(0) rotate(-45deg);
+    }
+  }
+
+  @media (max-width: 460px) {
+    .brand-sub {
+      display: none;
+    }
+    .brand-name {
+      font-size: 1.16rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .util-bar,
+    .header-inner,
+    .nav-list a::after,
+    .brand-mono {
+      transition: none;
     }
   }
 </style>

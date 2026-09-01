@@ -19,6 +19,8 @@ const jsonLd = [
     'Guides sur le statut du bailleur privé',
   ),
 ];
+const fmtDate = (d: string) =>
+  new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' }).format(new Date(d));
 ---
 
 <BaseLayout
@@ -49,7 +51,10 @@ const jsonLd = [
               <span class="badge badge-accent">{g.category}</span>
               <h2>{g.title}</h2>
               <p>{g.description}</p>
-              <span class="meta">{g.readingMinutes} min de lecture</span>
+              <span class="meta">
+                Mis à jour le <time datetime={g.lastUpdated}>{fmtDate(g.lastUpdated)}</time> ·
+                {g.readingMinutes} min de lecture
+              </span>
               <span class="link-card-cta">Lire le guide →</span>
             </div>
           </a>

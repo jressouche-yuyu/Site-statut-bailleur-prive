@@ -64,8 +64,14 @@ const jsonLd = [
     <header>
       <h1>{post.data.title}</h1>
       <p class="meta">
-        Par {byline} · {dateFmt(post.data.publishedAt)}
-        {post.data.updatedAt && ` · Mis à jour le ${dateFmt(post.data.updatedAt)}`}
+        Par {byline} ·
+        <time datetime={post.data.publishedAt.toISOString().slice(0, 10)}>{dateFmt(post.data.publishedAt)}</time>
+        {post.data.updatedAt && (
+          <>
+            {' · Mis à jour le '}
+            <time datetime={post.data.updatedAt.toISOString().slice(0, 10)}>{dateFmt(post.data.updatedAt)}</time>
+          </>
+        )}
         {` · ${post.data.readingMinutes} min de lecture`}
       </p>
       <p class="freshness">À jour au {dateFmt(updatedDate)}</p>
@@ -98,7 +104,7 @@ const jsonLd = [
           <ul>
             {sources.map((s) => (
               <li>
-                <a href={s.url} rel="nofollow noopener" target="_blank">{s.label}</a>
+                <a href={s.url} rel="noopener" target="_blank">{s.label}</a>
               </li>
             ))}
           </ul>
