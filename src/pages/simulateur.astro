@@ -6,6 +6,7 @@ import { loyerTiers, dispositif } from '../data/dispositif';
 import { breadcrumbSchema, howToSchema } from '../lib/schema';
 import { url } from '../lib/url';
 import { SITE } from '../consts';
+import Sources from '../components/Sources.astro';
 
 const crumbs = [
   { name: 'Accueil', path: '/' },
@@ -235,6 +236,7 @@ const jsonLd = [
         <a href={url('/guides/comment-fonctionne-statut-bailleur-prive')}> notre guide</a>.
       </p>
     </Callout>
+    <Sources />
   </div>
 </BaseLayout>
 

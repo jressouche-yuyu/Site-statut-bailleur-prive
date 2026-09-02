@@ -3,7 +3,7 @@ title: "Qui est Vincent Jeanbrun, le ministre derrière le dispositif ?"
 metaTitle: "Vincent Jeanbrun : le ministre du statut du bailleur privé"
 description: "Le statut du bailleur privé doit son surnom à Vincent Jeanbrun, ministre du Logement. Origine de la mesure et rapport parlementaire qui l'a inspirée."
 publishedAt: 2026-06-21
-updatedAt: 2026-06-20
+updatedAt: 2026-08-31
 tags: ["dispositif Jeanbrun", "contexte"]
 readingMinutes: 3
 faq:

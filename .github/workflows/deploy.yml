@@ -29,6 +29,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Historique complet : scripts/git-dates.mjs en a besoin pour dater
+          # chaque article à son dernier commit réel.
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4

@@ -1,0 +1,129 @@
+---
+/**
+ * Bloc « Sources officielles ».
+ *
+ * Les pages de référence demandaient au lecteur de « recouper avec les textes
+ * officiels » sans lui donner un seul lien. Ce bloc comble l'écart entre la
+ * promesse de sourçage et ce qui était réellement servi.
+ *
+ * Liens en dofollow (`rel="noopener"` seul) : citer Légifrance, l'ANIL ou le
+ * ministère est un signal de sourçage, pas une fuite à colmater.
+ *
+ * Chaque URL du jeu par défaut a été vérifiée : celles de service-public.fr et
+ * du BOFiP initialement pressenties pointaient en réalité vers un certificat de
+ * position militaire et vers le taux réduit d'IS des PME. Ne pas ajouter de
+ * source sans avoir ouvert la page.
+ */
+interface Source {
+  label: string;
+  editeur: string;
+  url: string;
+}
+
+interface Props {
+  /** Remplace le jeu par défaut. */
+  items?: Source[];
+  /** Sources supplémentaires, ajoutées au jeu par défaut. */
+  extra?: Source[];
+  title?: string;
+  note?: string;
+}
+
+const DEFAUT: Source[] = [
+  {
+    label: 'Statut du bailleur privé : un levier gagnant pour tous',
+    editeur: 'Ministères Transition écologique et Logement',
+    url: 'https://www.ecologie.gouv.fr/presse/statut-du-bailleur-prive-levier-gagnant-tous',
+  },
+  {
+    label: 'Analyse juridique : loi de finances pour 2026',
+    editeur: 'ANIL — Agence nationale pour l’information sur le logement',
+    url: 'https://www.anil.org/aj-loi-finances-2026/',
+  },
+  {
+    label: 'Texte de la loi de finances pour 2026',
+    editeur: 'Légifrance',
+    url: 'https://www.legifrance.gouv.fr/',
+  },
+  {
+    label: 'Dossier législatif « Relance et décentralisation du logement »',
+    editeur: 'Sénat',
+    url: 'https://www.senat.fr/dossier-legislatif/pjl25-801.html',
+  },
+  {
+    label: 'Déclarer les loyers perçus d’un logement loué vide',
+    editeur: 'impots.gouv.fr',
+    url: 'https://www.impots.gouv.fr/particulier/questions/je-mets-en-location-un-logement-vide-comment-declarer-les-loyers-percus',
+  },
+];
+
+const {
+  items,
+  extra = [],
+  title = 'Sources officielles',
+  note = 'Les paramètres définitifs du dispositif dépendent des décrets d’application. En cas de doute, le texte publié fait foi.',
+} = Astro.props;
+
+const sources = items ?? [...DEFAUT, ...extra];
+---
+
+<aside class="sources-block" aria-labelledby="sources-heading">
+  <h2 id="sources-heading" class="sources-kicker">{title}</h2>
+  <ul>
+    {
+      sources.map((s) => (
+        <li>
+          <a href={s.url} rel="noopener" target="_blank">
+            {s.label}
+            <span class="sr-only"> (nouvelle fenêtre)</span>
+          </a>
+          <span class="src-editeur">{s.editeur}</span>
+        </li>
+      ))
+    }
+  </ul>
+  {note && <p class="sources-note">{note}</p>}
+</aside>
+
+<style>
+  .sources-block {
+    margin: var(--space-12) 0 var(--space-8);
+    padding-top: var(--space-4);
+    border-top: 2px solid var(--primary);
+  }
+  .sources-kicker {
+    margin: 0 0 var(--space-6);
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--text);
+  }
+  .sources-block ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-4);
+  }
+  .sources-block li {
+    margin: 0;
+    display: grid;
+    gap: 2px;
+  }
+  .sources-block a {
+    font-weight: 600;
+    justify-self: start;
+  }
+  .src-editeur {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+  .sources-note {
+    margin: var(--space-6) 0 0;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    max-width: 62ch;
+  }
+</style>

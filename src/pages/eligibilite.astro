@@ -5,6 +5,7 @@ import Callout from '../components/Callout.astro';
 import { breadcrumbSchema } from '../lib/schema';
 import { url } from '../lib/url';
 import { SITE } from '../consts';
+import Sources from '../components/Sources.astro';
 
 const crumbs = [
   { name: 'Accueil', path: '/' },
@@ -164,6 +165,7 @@ const jsonLd = [
         puis chiffrez votre projet avec le <a href={url('/simulateur')}>simulateur</a>.
       </p>
     </Callout>
+    <Sources />
   </div>
 </BaseLayout>
 

@@ -17,11 +17,15 @@
     "news:record": "node scripts/news-record.mjs",
     "news:check": "node scripts/news-check.mjs",
     "news:photo": "node scripts/assign-photo.mjs",
-    "photo:assign": "node scripts/assign-photo.mjs"
+    "photo:assign": "node scripts/assign-photo.mjs",
+    "dates": "node scripts/git-dates.mjs",
+    "prebuild": "node scripts/git-dates.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.11",
     "@astrojs/sitemap": "^3.4.1",
+    "@fontsource-variable/hanken-grotesk": "^5.3.0",
+    "@fontsource/spectral": "^5.3.0",
     "astro": "^5.13.0",
     "sharp": "^0.34.2"
   },

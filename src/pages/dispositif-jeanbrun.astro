@@ -16,6 +16,7 @@ import {
   howToSchema,
 } from '../lib/schema';
 import { url } from '../lib/url';
+import Sources from '../components/Sources.astro';
 
 const crumbs = [
   { name: 'Accueil', path: '/' },
@@ -168,6 +169,7 @@ const jsonLd = [
     </article>
 
     <Faq items={pageFaq} title="Questions fréquentes" />
+    <Sources />
   </div>
 </BaseLayout>
 

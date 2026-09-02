@@ -7,6 +7,7 @@ import { breadcrumbSchema, newsArticleSchema, faqSchema } from '../../lib/schema
 import { photo } from '../../lib/photos';
 import { SITE, EDITORIAL } from '../../consts';
 import { url } from '../../lib/url';
+import gitDates from '../../data/git-dates.json';
 
 export async function getStaticPaths() {
   const posts = await getCollection('actualites', (p) => !p.data.draft);
@@ -25,7 +26,22 @@ const byline = post.data.author ?? SITE.author;
 const showPartnerNotice = EDITORIAL.disclosePartner && post.data.partner;
 
 // Données YMYL : fraîcheur (« à jour au »), FAQ structurée, sources officielles.
-const updatedDate = post.data.updatedAt ?? post.data.publishedAt;
+// Ordre de priorité : `updatedAt` déclaré à la main > dernier commit ayant
+// touché le fichier > date de publication. Sans le second, 24 articles sur 25
+// annonçaient une modification à leur seconde exacte de publication.
+const gitISO = (gitDates as Record<string, string>)[post.id];
+const gitDate = gitISO ? new Date(gitISO) : undefined;
+const revised =
+  gitDate && gitDate.getTime() - post.data.publishedAt.getTime() > 36 * 3600 * 1000
+    ? gitDate
+    : undefined;
+const declared = post.data.updatedAt ?? revised;
+// Une date de modification antérieure à la publication est incohérente et
+// invalide le JSON-LD. On la neutralise plutôt que de la propager.
+const updatedDate =
+  declared && declared.getTime() >= post.data.publishedAt.getTime()
+    ? declared
+    : post.data.publishedAt;
 const faq = post.data.faq ?? [];
 const sources = post.data.sources ?? [];
 
@@ -42,7 +58,7 @@ const jsonLd = [
     description: post.data.description,
     slug: post.id,
     publishedAt: post.data.publishedAt,
-    updatedAt: post.data.updatedAt,
+    updatedAt: updatedDate.getTime() > post.data.publishedAt.getTime() ? updatedDate : undefined,
   }),
   ...(faq.length ? [faqSchema(faq)] : []),
 ];

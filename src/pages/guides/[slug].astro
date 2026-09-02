@@ -9,6 +9,7 @@ import { guides, categoryIcon } from '../../data/guides';
 import { photo } from '../../lib/photos';
 import { articleSchema, breadcrumbSchema, faqSchema } from '../../lib/schema';
 import { url, withBase } from '../../lib/url';
+import Sources from '../../components/Sources.astro';
 
 export const getStaticPaths = (() => {
   return guides.map((guide) => ({
@@ -88,6 +89,7 @@ const fmtDate = (iso: string) =>
         <li><a href={url('/simulateur')}>Simuler mon amortissement</a></li>
       </ul>
     </aside>
+    <Sources />
   </div>
 </BaseLayout>
 
