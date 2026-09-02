@@ -66,7 +66,7 @@ Avant cette échéance, nous recommandons de :
 
 ## Ce que cela change pour un investisseur en dispositif Jeanbrun
 
-Pour un investisseur qui s'engage dans le cadre du [statut du bailleur privé (dispositif Jeanbrun)](/dispositif-jeanbrun), lequel repose sur la location nue à usage de résidence principale avec un engagement de 12 ans, la conformité du bail est une condition de sécurité importante. Une clause résolutoire bien rédigée limite le risque d'impayés prolongés, et la clause de résidence principale protège contre une utilisation du bien incompatible avec l'engagement social du dispositif.
+Pour un investisseur qui s'engage dans le cadre du [statut du bailleur privé (dispositif Jeanbrun)](/dispositif-jeanbrun), lequel repose sur la location nue à usage de résidence principale avec un engagement de 9 ans, la conformité du bail est une condition de sécurité importante. Une clause résolutoire bien rédigée limite le risque d'impayés prolongés, et la clause de résidence principale protège contre une utilisation du bien incompatible avec l'engagement social du dispositif.
 
 Pour aller plus loin :
 

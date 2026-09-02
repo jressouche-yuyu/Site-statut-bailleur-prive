@@ -13,7 +13,7 @@ faq:
   - question: "Que se passe-t-il si aucune loi n'est votée avant le 23 novembre 2026 ?"
     answer: "Sans intervention législative avant le 23 novembre 2026, l'expérimentation expire automatiquement. Paris, Lyon, Bordeaux, Lille, Montpellier et Grenoble perdent leur base légale pour appliquer le loyer de référence. L'encadrement à la relocation, lui, reste en vigueur jusqu'au 31 juillet 2027 car il repose sur un décret distinct."
   - question: "L'expiration de l'encadrement des niveaux de loyers modifie-t-elle les plafonds du dispositif Jeanbrun ?"
-    answer: "Non. Le dispositif Jeanbrun impose ses propres plafonds de loyer — environ 15 % sous le marché local — indépendamment de l'encadrement des niveaux de loyers. L'expiration de l'expérimentation ne modifie pas ces conditions, qui sont fixées par la loi de finances 2026 et s'appliquent sur toute la durée de l'engagement de 12 ans."
+    answer: "Non. Le dispositif Jeanbrun impose ses propres plafonds de loyer, exprimés en euros par m² et par zone pour le loyer intermédiaire, indépendamment de l'encadrement des niveaux de loyers. L'expiration de l'expérimentation ne modifie pas ces conditions, qui sont fixées par la loi de finances 2026 et s'appliquent sur toute la durée de l'engagement de 9 ans."
 sources:
   - label: "ANIL — Expérimentation de l'encadrement du niveau des loyers dans les zones tendues"
     url: "https://www.anil.org/aj-experimentation-encadrement-niveau-loyers-zones-tendues/"

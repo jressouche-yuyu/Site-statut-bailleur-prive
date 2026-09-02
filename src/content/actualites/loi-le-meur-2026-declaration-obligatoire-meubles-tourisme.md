@@ -13,7 +13,7 @@ faq:
   - question: "Quelle amende risque-t-on sans numéro d'enregistrement pour un meublé de tourisme ?"
     answer: "L'omission ou la fausse déclaration est passible d'une amende jusqu'à 10 000 €. La transmission d'un faux numéro d'enregistrement peut entraîner une amende de 20 000 €. Ces sanctions s'appliquent depuis le 20 mai 2026, date d'entrée en vigueur de l'obligation nationale."
   - question: "La loi Le Meur affecte-t-elle les investisseurs relevant du dispositif Jeanbrun ?"
-    answer: "Non. Le dispositif Jeanbrun concerne la location nue longue durée, avec loyers encadrés et engagement de 12 ans. La loi Le Meur régule uniquement les meublés de tourisme courte durée. Ces deux régimes s'adressent à des marchés locatifs distincts et sont incompatibles."
+    answer: "Non. Le dispositif Jeanbrun concerne la location nue longue durée, avec loyers encadrés et engagement de 9 ans. La loi Le Meur régule uniquement les meublés de tourisme courte durée. Ces deux régimes s'adressent à des marchés locatifs distincts et sont incompatibles."
 sources:
   - label: "Légifrance — LOI n° 2024-1039 du 19 novembre 2024 visant à renforcer les outils de régulation des meublés de tourisme"
     url: "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000050612711"
@@ -29,7 +29,7 @@ La loi Le Meur est la loi n° 2024-1039 du 19 novembre 2024, qui renforce la ré
 
 La loi Le Meur concerne exclusivement les propriétaires de **meublés de tourisme** — logements proposés à la location saisonnière de courte durée, notamment sur des plateformes numériques (Airbnb, Abritel, Booking.com). Elle ne s'applique ni à la location nue longue durée, ni à la location meublée classique à titre de résidence principale du locataire.
 
-[Le statut du bailleur privé (dispositif Jeanbrun)](/dispositif-jeanbrun) est un mécanisme d'amortissement fiscal entièrement distinct, destiné aux investisseurs qui louent leur bien vide à titre de résidence principale du locataire, avec loyers encadrés, sur une durée d'engagement minimale de 12 ans. Ces deux régimes ne se cumulent pas et ne doivent pas être confondus.
+[Le statut du bailleur privé (dispositif Jeanbrun)](/dispositif-jeanbrun) est un mécanisme d'amortissement fiscal entièrement distinct, destiné aux investisseurs qui louent leur bien vide à titre de résidence principale du locataire, avec loyers encadrés, sur une durée d'engagement minimale de 9 ans. Ces deux régimes ne se cumulent pas et ne doivent pas être confondus.
 
 ## La déclaration nationale depuis le 20 mai 2026
 

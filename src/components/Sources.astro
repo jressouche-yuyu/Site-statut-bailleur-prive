@@ -31,9 +31,9 @@ interface Props {
 
 const DEFAUT: Source[] = [
   {
-    label: 'Statut du bailleur privé : un levier gagnant pour tous',
-    editeur: 'Ministères Transition écologique et Logement',
-    url: 'https://www.ecologie.gouv.fr/presse/statut-du-bailleur-prive-levier-gagnant-tous',
+    label: 'Statut du bailleur privé : ce que permet le dispositif',
+    editeur: 'service-public.gouv.fr — notice du 24 février 2026',
+    url: 'https://www.service-public.gouv.fr/particuliers/actualites/A18817',
   },
   {
     label: 'Analyse juridique : loi de finances pour 2026',
@@ -41,14 +41,9 @@ const DEFAUT: Source[] = [
     url: 'https://www.anil.org/aj-loi-finances-2026/',
   },
   {
-    label: 'Texte de la loi de finances pour 2026',
-    editeur: 'Légifrance',
-    url: 'https://www.legifrance.gouv.fr/',
-  },
-  {
-    label: 'Dossier législatif « Relance et décentralisation du logement »',
-    editeur: 'Sénat',
-    url: 'https://www.senat.fr/dossier-legislatif/pjl25-801.html',
+    label: 'Statut du bailleur privé : un levier gagnant pour tous',
+    editeur: 'Ministères Transition écologique et Logement',
+    url: 'https://www.ecologie.gouv.fr/presse/statut-du-bailleur-prive-levier-gagnant-tous',
   },
   {
     label: 'Déclarer les loyers perçus d’un logement loué vide',
@@ -61,7 +56,7 @@ const {
   items,
   extra = [],
   title = 'Sources officielles',
-  note = 'Les paramètres définitifs du dispositif dépendent des décrets d’application. En cas de doute, le texte publié fait foi.',
+  note = 'Base légale : article 47 de la loi n° 2026-103 du 19 février 2026, codifié aux i et j du 1° du I de l’article 31 du code général des impôts. Aucun commentaire administratif (BOFiP) propre au dispositif n’a été publié à ce jour : en cas de doute, le texte fait foi.',
 } = Astro.props;
 
 const sources = items ?? [...DEFAUT, ...extra];

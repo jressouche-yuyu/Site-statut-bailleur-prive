@@ -75,7 +75,7 @@ Les étapes pour déposer une convention Loc'Avantages :
 Pour un investisseur en 2026, le choix entre Loc'Avantages et [le statut du bailleur privé (dispositif Jeanbrun)](/dispositif-jeanbrun) dépend de la situation de départ :
 
 - **Loc'Avantages** convient à un propriétaire qui possède déjà un bien et souhaite le louer solidairement en échange d'un avantage fiscal immédiat sur l'IR, sans acquisition nouvelle.
-- **Le dispositif Jeanbrun** s'adresse à une acquisition réalisée **entre le 21 février 2026 et le 31 décembre 2028**, avec un mécanisme d'amortissement sur 12 ans (de 3,5 % à 5,5 % selon le niveau de loyer choisi).
+- **Le dispositif Jeanbrun** s'adresse à une acquisition réalisée **entre le 21 février 2026 et le 31 décembre 2028**, avec un engagement de location de 9 ans minimum et un amortissement annuel de 3,5 % à 5,5 % selon le niveau de loyer choisi.
 
 Les deux dispositifs ne sont **pas cumulables sur un même logement**. Avant de vous engager, nous vous recommandons d'utiliser [notre simulateur](/simulateur) pour comparer les gains fiscaux selon votre situation, et de [vérifier votre éligibilité](/eligibilite) au dispositif Jeanbrun si vous envisagez une acquisition. Pour aller plus loin, consultez également [notre guide sur les conditions d'éligibilité du dispositif Jeanbrun](/guides/conditions-eligibilite-dispositif-jeanbrun).
 

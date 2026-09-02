@@ -12,9 +12,18 @@
 
 export const dispositif = {
   /** Dernière revue éditoriale des chiffres (ISO 8601). */
-  lastReviewed: '2026-08-31',
-  /** Part du prix d'acquisition amortissable (le reste = quote-part terrain). */
+  lastReviewed: '2026-09-02',
+  /**
+   * Part amortissable de la base. Le foncier est estimé forfaitairement à 20 %
+   * du prix d'acquisition **net de frais** — le prix hors frais de notaire et
+   * frais d'acquisition, donc.
+   */
   amortizableShare: 0.8,
+  /** Plafond annuel de déduction, par an et par FOYER FISCAL. */
+  deductionCapHousehold: 8000,
+  /** Majorations du plafond si 50 % au moins des revenus bruts des logements
+   *  amortis relèvent de la catégorie concernée. */
+  deductionCapBonus: { social: 2000, tresSocial: 4000 },
   /** Durée minimale d'engagement de location (en années). */
   engagementYears: 9,
   /** Entrée en vigueur (sous réserve de confirmation du texte applicable). */
@@ -36,7 +45,14 @@ export interface LoyerTier {
   rateNeuf: number;
   /** Taux d'amortissement annuel pour l'ancien rénové (fraction). */
   rateAncien: number;
-  /** Plafond annuel de déduction au titre de l'amortissement (en €). */
+  /**
+   * Plafond annuel atteignable AVEC cette catégorie de loyer — à condition que
+   * 50 % au moins des revenus bruts tirés des logements amortis relèvent de
+   * cette catégorie. Ce n'est PAS un plafond attaché au logement : la loi pose
+   * un plafond de 8 000 € par an et **par foyer fiscal**, tous logements
+   * amortis confondus, majoré de 2 000 € (social) ou 4 000 € (très social).
+   * Un bailleur détenant trois logements amortis a 8 000 €, pas 24 000 €.
+   */
   deductionCap: number;
   /** Description courte de l'effort de loyer demandé. */
   effort: string;
@@ -74,7 +90,7 @@ export const conditions: { label: string; detail: string }[] = [
   {
     label: 'Logement collectif',
     detail:
-      "Seuls les appartements situés dans un immeuble collectif sont éligibles ; les maisons individuelles sont exclues.",
+      "Le logement doit se trouver dans un bâtiment d'habitation collectif au sens de l'article L. 111-1 du code de la construction : plus de deux logements, superposés au moins en partie. Sont donc exclus les maisons individuelles, mais aussi un immeuble de deux logements et un ensemble de maisons accolées sans superposition.",
   },
   {
     label: 'Location nue, résidence principale',
@@ -94,7 +110,7 @@ export const conditions: { label: string; detail: string }[] = [
   {
     label: 'Pas de location à un proche',
     detail:
-      "Le logement ne peut être loué à un membre du foyer fiscal ni à un proche : le locataire doit être un tiers respectant les plafonds de ressources.",
+      "Le locataire ne peut être ni un membre du foyer fiscal, ni un parent ou allié jusqu'au deuxième degré inclus — enfant, parent, grand-parent, frère ou sœur. Loger son enfant étudiant tout en amortissant n'est donc pas possible.",
   },
   {
     label: 'Acquisitions du 21 février 2026 au 31 décembre 2028',
@@ -102,9 +118,9 @@ export const conditions: { label: string; detail: string }[] = [
       "Le mécanisme d'amortissement vise les logements acquis dans cette fenêtre (dates sous réserve de confirmation du texte applicable).",
   },
   {
-    label: 'Ancien : travaux ≥ 30 % + DPE A ou B',
+    label: 'Ancien : trois voies alternatives',
     detail:
-      "Dans l'ancien, l'éligibilité suppose des travaux d'au moins 30 % du prix et l'atteinte d'une étiquette énergétique performante (A ou B selon les sources) après rénovation.",
+      "L'ancien ouvre droit au dispositif par l'une de trois voies au choix : des travaux concourant à la production d'un immeuble neuf au sens fiscal ; des travaux d'amélioration représentant au moins 30 % du prix d'acquisition ; ou une réhabilitation lourde. La condition d'étiquette énergétique A ou B ne s'attache qu'à cette troisième voie — elle n'est pas exigée sur les deux premières.",
   },
 ];
 
@@ -129,9 +145,19 @@ export const formatPct = (n: number) => pct.format(n);
  * @param tier catégorie de loyer
  * @param segment neuf ou ancien
  */
-export function computeAmortization(price: number, tier: LoyerTier, segment: Segment) {
+export function computeAmortization(
+  price: number,
+  tier: LoyerTier,
+  segment: Segment,
+  /** Montant des travaux (ancien uniquement) : il entre dans la base amortissable. */
+  travaux = 0,
+) {
   const rate = segment === 'neuf' ? tier.rateNeuf : tier.rateAncien;
-  const base = price * dispositif.amortizableShare;
+  // Dans l'ancien, la base est assise sur le prix d'acquisition MAJORÉ des
+  // travaux, avant application des 80 %. L'omettre sous-estimait le dispositif
+  // d'environ 30 % sur une opération à 30 % de travaux.
+  const assiette = price + (segment === 'ancien' ? travaux : 0);
+  const base = assiette * dispositif.amortizableShare;
   const annualRaw = base * rate;
   const annual = Math.min(annualRaw, tier.deductionCap);
   const capped = annualRaw > tier.deductionCap;

@@ -50,11 +50,11 @@ export const guides: Guide[] = [
     sections: [
       {
         heading: 'Comment les plafonds sont-ils fixés ?',
-        body: "<p>Le statut du bailleur privé est créé par l'<strong>article 12 octies de la loi de finances pour 2026</strong>. Point important confirmé par un courrier du ministre Vincent Jeanbrun du 20 mars 2026 : <strong>aucun décret d'application n'est nécessaire</strong> pour le cœur du dispositif. Les plafonds de loyer et de ressources sont fixés <strong>par renvoi à des barèmes existants</strong>, ce qui a permis une entrée en application rapide.</p><p>Le <a href=\"/glossaire#zonage\">zonage</a> ne conditionne pas l'éligibilité (on peut investir partout), mais il sert à déterminer les plafonds : le <strong>loyer intermédiaire</strong> et les ressources associées se réfèrent au <strong>zonage A/A bis/B1/B2/C</strong> (logique Pinel / logement locatif intermédiaire) ; le <strong>loyer social et très social</strong> et les ressources sont fixés à l'<strong>échelle communale</strong> (logique Loc'Avantages).</p>",
+        body: "<p>Le statut du bailleur privé est créé par l'<strong>article 47 de la loi n° 2026-103 du 19 février 2026</strong> de finances pour 2026, codifié aux <strong>i et j du 1° du I de l'article 31 du code général des impôts</strong>. À ce jour, <strong>aucun décret d'application propre au dispositif ni aucun commentaire BOFiP n'a été identifié</strong> : les plafonds de loyer et de ressources sont fixés par renvoi à des barèmes existants, ce qui a permis une entrée en application rapide.</p><p>Le <a href=\"/glossaire#zonage\">zonage</a> ne conditionne pas l'éligibilité (on peut investir partout), mais il sert à déterminer les plafonds : le <strong>loyer intermédiaire</strong> et les ressources associées se réfèrent au <strong>zonage A/A bis/B1/B2/C</strong> (logique Pinel / logement locatif intermédiaire) ; le <strong>loyer social et très social</strong> et les ressources sont fixés à l'<strong>échelle communale</strong> (logique Loc'Avantages).</p>",
       },
       {
         heading: 'Barème des plafonds de loyer 2026 (€/m²/mois)',
-        body: "<p>À titre indicatif, voici les plafonds de loyer mensuels au m² applicables en 2026, alignés sur les barèmes de référence (logement intermédiaire et Loc'Avantages) :</p><div class=\"table-wrap\"><table><thead><tr><th>Zone</th><th>Intermédiaire</th><th>Social</th><th>Très social</th></tr></thead><tbody><tr><th scope=\"row\">A bis</th><td>19,71 €</td><td>≈ 13,68 €</td><td>≈ 10,93 €</td></tr><tr><th scope=\"row\">A</th><td>14,64 €</td><td>≈ 10,17 €</td><td>≈ 8,12 €</td></tr><tr><th scope=\"row\">B1</th><td>11,80 €</td><td>≈ 8,20 €</td><td>≈ 6,55 €</td></tr><tr><th scope=\"row\">B2 / C</th><td>10,26 €</td><td>communal</td><td>communal</td></tr></tbody></table></div><p>Ces plafonds s'appliquent après un <strong>coefficient de surface</strong> de 0,7 + 19/S (plafonné à 1,2), où S est la surface habitable : plus le logement est petit, plus le loyer au m² autorisé est élevé. Les niveaux social et très social sont fixés commune par commune ; les valeurs ci-dessus sont des ordres de grandeur issus du barème Loc'Avantages.</p>",
+        body: "<p>Le plafond du <strong>loyer intermédiaire</strong> est fixé par zone. Voici le barème 2026 en €/m²/mois :</p><div class=\"table-wrap\"><table><thead><tr><th scope=\"col\">Zone</th><th scope=\"col\">Loyer intermédiaire</th></tr></thead><tbody><tr><th scope=\"row\">A bis</th><td>19,71 €</td></tr><tr><th scope=\"row\">A</th><td>14,64 €</td></tr><tr><th scope=\"row\">B1</th><td>11,80 €</td></tr><tr><th scope=\"row\">B2 / C</th><td>10,26 €</td></tr></tbody></table></div><p>Ce plafond s'applique après un <strong>coefficient de surface</strong> de 0,7 + 19/S, plafonné à 1,2, où S est la surface habitable : plus le logement est petit, plus le loyer au m² autorisé est élevé.</p><p><strong>Pour le loyer social et le très social, il n'existe pas de barème par zone.</strong> Ces plafonds sont fixés <strong>commune par commune</strong>, par renvoi au barème de Loc'Avantages. Nous ne publions donc aucune valeur régionale : elle serait inventée. La seule manière d'obtenir le plafond applicable à un logement précis est de le rechercher sur le simulateur de l'Anah pour sa commune.</p>",
       },
       {
         heading: 'Plafonds de ressources des locataires',
@@ -66,7 +66,7 @@ export const guides: Guide[] = [
       },
       {
         heading: 'Sources & méthode',
-        body: "<p>Cet article s'appuie sur l'article 12 octies de la loi de finances pour 2026, les communications du ministère de la Ville et du Logement (courrier du 20 mars 2026), les barèmes de référence du logement intermédiaire et de <a href=\"https://www.service-public.fr\">Loc'Avantages</a>, ainsi que sur les analyses de la presse patrimoniale et de l'<a href=\"https://www.anil.org\">ANIL</a>. Les barèmes étant réévalués chaque année et certaines modalités encore en cours de précision, nous datons et mettons à jour cette page régulièrement.</p>",
+        body: "<p>Cette page s'appuie sur l'<a href=\"https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000048847629\" rel=\"noopener\">article 31 du CGI (i et j du 1° du I)</a>, sur la <a href=\"https://www.service-public.gouv.fr/particuliers/actualites/A18817\" rel=\"noopener\">notice service-public.gouv.fr du 24 février 2026</a>, sur les barèmes de plafonds de loyer publiés au BOFiP, et sur l'<a href=\"https://www.anil.org/aj-loi-finances-2026/\" rel=\"noopener\">analyse juridique de la loi de finances pour 2026 de l'ANIL</a>. Les barèmes étant réévalués chaque année et certaines modalités restant en attente de commentaire administratif, nous datons et mettons à jour cette page.</p>",
       },
     ],
     faq: [
@@ -151,7 +151,7 @@ export const guides: Guide[] = [
       },
       {
         heading: "La question clé : amortissement réintégré ou non ?",
-        body: "<p>C'est le point le plus discuté. <strong>Deux lectures coexistent</strong> dans les analyses professionnelles :</p><ul><li>pour certains, les amortissements déduits seraient <strong>réintégrés à la plus-value imposable</strong> à la revente, sur le modèle de la réforme du <a href=\"/glossaire#lmnp\">LMNP</a> de 2025 ;</li><li>pour d'autres, à l'inverse, ils <strong>ne seraient pas réintégrés</strong> dans le calcul de la plus-value du particulier.</li></ul><p>L'enjeu est majeur : la réintégration réduit fortement l'intérêt du dispositif sur le long terme. Tant que la doctrine fiscale n'a pas tranché clairement, nous présentons les deux hypothèses sans trancher — et recommandons la prudence.</p>",
+        body: "<p>Ce point décide de la rentabilité finale, et il est tranché par la loi. Le <strong>III de l'article 150 VB du code général des impôts</strong>, dans sa version en vigueur depuis le 21 février 2026, prévoit que le prix d'acquisition est <strong>minoré du montant des amortissements admis en déduction</strong> en application des i et j du 1° du I de l'article 31 — c'est-à-dire précisément ceux du statut du bailleur privé, qui y sont nommément visés.</p><p>Concrètement : chaque euro d'amortissement déduit pendant la location <strong>augmente d'autant la plus-value imposable</strong> à la revente. L'avantage n'est donc pas définitivement acquis, il est en partie <strong>différé</strong> — sur le modèle de ce que la loi de finances pour 2025 a instauré pour le <a href=\"/glossaire#lmnp\">LMNP</a>.</p><p>Ce que la loi ne dit pas encore : les modalités pratiques de déclaration, qui relèveront du commentaire administratif. <strong>Aucun commentaire BOFiP propre au dispositif n'a été publié à ce jour.</strong> Cela ne rouvre pas la question de principe, qui est réglée par le texte.</p>",
       },
       {
         heading: "Vente ou changement avant la fin des 9 ans",
@@ -197,7 +197,7 @@ export const guides: Guide[] = [
       },
       {
         heading: "Quel niveau de DPE viser ?",
-        body: "<p>Sur la cible énergétique, les sources varient : plusieurs analyses évoquent l'atteinte d'une <strong>classe A ou B</strong> au DPE après travaux ; d'autres mentionnent A à C. Par prudence, <strong>visez A ou B</strong> : c'est l'exigence la plus stricte rapportée, et elle sécurise l'éligibilité quelle que soit l'interprétation retenue. Ce point mérite d'être confirmé avec le texte applicable avant de chiffrer un projet.</p>",
+        body: "<p>Contrairement à ce qui circule souvent, <strong>l'étiquette énergétique n'est pas une condition générale de l'ancien</strong>. Le texte ouvre <strong>trois voies alternatives</strong> : des travaux concourant à la production d'un immeuble neuf au sens fiscal ; des travaux d'amélioration représentant au moins 30 % du prix d'acquisition ; ou une réhabilitation lourde. <strong>Seule cette troisième voie</strong> emporte, par renvoi, une exigence de classe A ou B. Un projet passant par les 30 % de travaux n'a donc pas d'objectif de DPE à atteindre au titre du dispositif — ce qui ne dispense évidemment pas des obligations de décence énergétique de droit commun.</p>",
       },
       {
         heading: "Une base amortissable élargie",
@@ -397,7 +397,7 @@ export const guides: Guide[] = [
       {
         question: "Que se passe-t-il à la revente ?",
         answer:
-          "L'amortissement déduit pendant la location est en principe repris dans le calcul de la plus-value à la revente. Les modalités exactes seront fixées par les textes d'application : c'est un point à vérifier avant d'investir.",
+          "Oui. Le III de l'article 150 VB du CGI minore le prix d'acquisition du montant des amortissements déduits au titre du dispositif : la plus-value imposable à la revente augmente d'autant. L'avantage fiscal est donc en partie différé, pas définitivement acquis.",
       },
     ],
   },
@@ -427,7 +427,7 @@ export const guides: Guide[] = [
       },
       {
         heading: "Le cas de l'ancien : travaux et performance énergétique",
-        body: "<p>L'ancien est éligible, mais sous conditions renforcées : des <strong>travaux représentant au moins 30 % du prix</strong> du logement, permettant d'atteindre une étiquette <strong>DPE performante (A ou B selon les sources)</strong> après rénovation. L'objectif est d'orienter les capitaux vers la remise sur le marché de logements performants.</p>",
+        body: "<p>L'ancien est éligible par trois voies au choix : travaux concourant à la production d'un immeuble neuf au sens fiscal, <strong>travaux d'amélioration d'au moins 30 % du prix</strong>, ou réhabilitation lourde. La voie des 30 % est la plus courante ; elle ne comporte <strong>pas</strong> d'exigence de classe énergétique au titre du dispositif, contrairement à la réhabilitation lourde.</p>",
       },
       {
         heading: "L'engagement de 9 ans",
@@ -465,7 +465,7 @@ export const guides: Guide[] = [
       },
       {
         heading: "L'ancien suppose des travaux d'au moins 30 %",
-        body: "<p>Pour être éligible dans l'ancien, il faut engager des <strong>travaux représentant au moins 30 % du prix</strong> et atteindre un <strong>DPE performant (A ou B selon les sources)</strong>. Cette contrainte renchérit le projet mais permet de cibler des emplacements de centre-ville rares dans le neuf, et de créer de la valeur via la rénovation.</p>",
+        body: "<p>La voie la plus courante dans l'ancien suppose des <strong>travaux représentant au moins 30 % du prix d'acquisition</strong>. Ces travaux entrent dans la base amortissable, aux côtés du prix. La contrainte renchérit le projet mais permet de cibler des emplacements de centre-ville rares dans le neuf, et de créer de la valeur par la rénovation.</p>",
       },
       {
         heading: 'Coûts annexes et délais',
@@ -485,7 +485,7 @@ export const guides: Guide[] = [
       {
         question: "Quels travaux sont exigés dans l'ancien ?",
         answer:
-          "Des travaux représentant au moins 30 % du prix d'acquisition et permettant d'atteindre une étiquette DPE performante (A ou B selon les sources) après rénovation.",
+          "Au choix : des travaux concourant à la production d'un immeuble neuf au sens fiscal, des travaux d'amélioration d'au moins 30 % du prix d'acquisition, ou une réhabilitation lourde — cette dernière étant la seule à emporter une exigence de classe A ou B.",
       },
     ],
   },

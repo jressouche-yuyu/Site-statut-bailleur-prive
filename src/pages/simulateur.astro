@@ -118,6 +118,12 @@ const jsonLd = [
         </div>
       </div>
 
+      <div class="field" id="field-travaux" hidden>
+        <label for="travaux">Montant des travaux (€)</label>
+        <input type="number" id="travaux" name="travaux" min="0" step="1000" value="60000" inputmode="numeric" />
+        <p class="hint">Dans l'ancien, les travaux s'ajoutent au prix avant application des 80 %. Ils doivent représenter au moins 30 % du prix d'acquisition.</p>
+      </div>
+
       <div class="field">
         <label for="tier">Catégorie de loyer</label>
         <select id="tier" name="tier">
@@ -263,10 +269,20 @@ const jsonLd = [
     if (!tier) return;
     const aRate = segment === 'neuf' ? tier.rateNeuf : tier.rateAncien;
 
+    // Le champ travaux ne concerne que l'ancien.
+    const champTravaux = document.getElementById('field-travaux');
+    champTravaux.hidden = segment !== 'ancien';
+    const travaux = segment === 'ancien' ? num('travaux') : 0;
+
     const loyers = rent * 12;
-    const base = price * config.share;
+    // Assiette : prix d'acquisition net de frais, MAJORÉ des travaux dans
+    // l'ancien, puis 80 % (les 20 % restants représentent le foncier).
+    const base = (price + travaux) * config.share;
     const amortRaw = base * aRate;
-    const amort = Math.min(amortRaw, tier.cap); // plafonné par an
+    // `tier.cap` est le plafond du FOYER FISCAL atteignable avec cette
+    // catégorie, pas un plafond attaché au logement : il est partagé entre tous
+    // les logements amortis du foyer. Le simulateur raisonne sur un seul bien.
+    const amort = Math.min(amortRaw, tier.cap);
 
     // Sans dispositif
     const netSans = loyers - charges - interests;

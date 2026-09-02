@@ -46,7 +46,7 @@ Le tableau ci-dessous récapitule les principaux paramètres du dispositif tels 
 | --- | --- | --- |
 | Taux d'amortissement (neuf) | 5,5 / 4,5 / 3,5 % | Selon loyer très social, social ou intermédiaire |
 | Période concernée | 21/02/2026 – 31/12/2028 | Acquisitions ou dépôts de permis |
-| Engagement de location | 12 ans | Location nue |
+| Engagement de location | 9 ans | Location nue |
 | Régime fiscal | Réel simplifié | Bascule automatique |
 | Promulgation | 20/02/2026 | Loi de finances pour 2026 |
 

@@ -36,7 +36,7 @@ Le tableau ci-dessous compare le périmètre actuel du dispositif et ce que pré
 | Taux d'amortissement — loyer très social | 5,5 % par an | 5,5 % par an (inchangé) |
 | Taux d'amortissement — loyer social | 4,5 % par an | 4,5 % par an (inchangé) |
 | Taux d'amortissement — loyer intermédiaire | 3,5 % par an | 3,5 % par an (inchangé) |
-| Engagement de location | 12 ans | 12 ans (inchangé) |
+| Engagement de location | 9 ans | 9 ans (inchangé) |
 | Stade législatif | En vigueur depuis le 21/02/2026 | Adoptée en 1re lecture — Sénat à venir |
 
 Pour une présentation complète du fonctionnement actuel du dispositif, consultez notre page de référence sur [le statut du bailleur privé (dispositif Jeanbrun)](/dispositif-jeanbrun) et notre guide sur [le fonctionnement détaillé du statut](/guides/comment-fonctionne-statut-bailleur-prive).

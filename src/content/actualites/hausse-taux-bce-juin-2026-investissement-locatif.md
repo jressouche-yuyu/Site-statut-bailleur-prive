@@ -52,7 +52,7 @@ Les taux directeurs de la BCE ne se répercutent pas mécaniquement ni instantan
 Le [statut du bailleur privé (dispositif Jeanbrun)](/dispositif-jeanbrun) permet aux investisseurs en location nue d'amortir chaque année entre 3,5 % et 5,5 % de la valeur du bien, en fonction du niveau de loyer pratiqué. Cette mécanique fiscale conserve sa valeur même dans un contexte de taux légèrement en hausse, pour deux raisons structurelles :
 
 1. **L'amortissement réduit la base imposable des revenus fonciers** — les intérêts d'emprunt, déjà déductibles dans le régime réel, sont complétés par cet amortissement, ce qui atténue le surcoût financier d'un crédit un peu plus cher.
-2. **Le dispositif vise le long terme (engagement de 12 ans)** — un cycle de remontée de taux de quelques mois ne remet pas en cause la rentabilité globale d'un investissement sur une douzaine d'années.
+2. **Le dispositif vise le long terme (engagement de 9 ans)** — un cycle de remontée de taux de quelques mois ne remet pas en cause la rentabilité globale d'un investissement sur près d'une décennie.
 
 Pour mesurer l'impact précis sur votre situation, [notre simulateur](/simulateur) intègre les paramètres de loyer, de zone géographique et de fiscalité personnelle.
 

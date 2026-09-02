@@ -27,7 +27,7 @@ export const faq: FaqItem[] = [
   {
     question: 'Quelles sont les conditions pour en bénéficier ?',
     answer:
-      "Il faut acquérir un logement collectif (appartement) dans la fenêtre d'éligibilité (du 21 février 2026 au 31 décembre 2028, sous réserve de confirmation), le louer nu comme résidence principale pendant au moins 9 ans, sans louer à un proche, et respecter les plafonds de loyer et de ressources du locataire. Dans l'ancien, des travaux d'au moins 30 % du prix amenant à un DPE performant (A ou B) sont requis.",
+      "Il faut acquérir un logement collectif (appartement) dans la fenêtre d'éligibilité (du 21 février 2026 au 31 décembre 2028, sous réserve de confirmation), le louer nu comme résidence principale pendant au moins 9 ans, sans louer à un proche, et respecter les plafonds de loyer et de ressources du locataire. Dans l'ancien, trois voies alternatives ouvrent le droit : des travaux concourant à la production d'un immeuble neuf au sens fiscal, des travaux d'amélioration d'au moins 30 % du prix d'acquisition, ou une réhabilitation lourde. La condition d'étiquette énergétique A ou B ne s'applique qu'à cette dernière voie.",
   },
   {
     question: 'Le dispositif Jeanbrun remplace-t-il le Pinel ?',

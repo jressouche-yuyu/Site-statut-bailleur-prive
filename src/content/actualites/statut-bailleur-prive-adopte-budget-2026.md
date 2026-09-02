@@ -36,7 +36,7 @@ Le statut du bailleur privé change la logique de l'aide : il remplace la réduc
 | --- | --- | --- |
 | Nature de l'avantage | Réduction d'impôt | Amortissement du bien |
 | Type de location | Nue | Nue |
-| Engagement de location | 6, 9 ou 12 ans | 12 ans |
+| Engagement de location | 6, 9 ou 12 ans | 9 ans |
 | Régime fiscal | Foncier classique | Réel simplifié (automatique) |
 | Période concernée | Clos le 31/12/2024 | 21/02/2026 – 31/12/2028 |
 
