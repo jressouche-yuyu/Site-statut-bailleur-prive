@@ -20,7 +20,7 @@
  *   node scripts/photos-dedupe.mjs            # diagnostic seul
  *   node scripts/photos-dedupe.mjs --apply    # réattribue (nécessite la clé)
  */
-import { readFile, readdir } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
@@ -69,6 +69,23 @@ for (const [cle, val] of Object.entries(photos)) {
 
 const doublons = [...groupes.entries()].filter(([, cles]) => cles.length > 1);
 
+/**
+ * Choisit le contenu qui garde l'image : celui dont le slug correspond au nom
+ * du fichier. Sans ce tri, on pouvait désigner « gardien » un article qui ne
+ * fait qu'emprunter le fichier d'un autre ; réillustrer le véritable
+ * propriétaire réécrivait alors le fichier partagé, et les deux restaient
+ * jumeaux. C'est exactement ce qui a laissé un doublon au premier passage.
+ */
+function gardien(cles) {
+  const proprietaire = cles.find((c) => {
+    const v = photos[c];
+    if (!v || !v.src) return false;
+    const base = v.src.split('/').pop().replace(/\.[^.]+$/, '');
+    return c.replace(/^(post|guide|home):/, '') === base;
+  });
+  return proprietaire || cles[0];
+}
+
 if (!doublons.length) {
   console.log('✓ Aucun visuel partagé : chaque contenu a son illustration.');
   process.exit(0);
@@ -77,10 +94,10 @@ if (!doublons.length) {
 console.log(`${doublons.length} visuel(s) partagé(s) par plusieurs contenus :\n`);
 const aRefaire = [];
 for (const [, cles] of doublons) {
-  const garde = cles[0];
+  const garde = gardien(cles);
   console.log(`  ${photos[garde].src}`);
   console.log(`     conservé par : ${garde}`);
-  for (const c of cles.slice(1)) {
+  for (const c of cles.filter((x) => x !== garde)) {
     console.log(`     à réattribuer : ${c}`);
     if (c.startsWith('post:')) aRefaire.push(c.slice('post:'.length));
     else console.log('        (contenu hors « post: » — réattribution manuelle)');
