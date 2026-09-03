@@ -52,7 +52,7 @@ const reviewedLabel = reviewed.toLocaleDateString('fr-FR', {
       <span class="brand-mono" aria-hidden="true">BP</span>
       <span class="brand-text">
         <span class="brand-name">Bailleur Privé</span>
-        <span class="brand-sub">Le dispositif Jeanbrun décrypté</span>
+        <span class="brand-sub">Le dispositif décrypté</span>
       </span>
     </a>
 
@@ -192,8 +192,8 @@ const reviewedLabel = reviewed.toLocaleDateString('fr-FR', {
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
-    min-height: 34px;
-    padding-block: var(--space-1);
+    min-height: 38px;
+    padding-block: var(--space-2);
   }
   .util-freshness {
     margin: 0;
@@ -241,12 +241,14 @@ const reviewedLabel = reviewed.toLocaleDateString('fr-FR', {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-6);
-    min-height: 78px;
+    /* Deux fois l'écart entre deux entrées de menu : la hiérarchie visuelle
+       tient à ce rapport, pas à la valeur absolue. */
+    gap: var(--space-16);
+    min-height: 88px;
     transition: min-height 0.2s ease;
   }
   .site-header.is-stuck .header-inner {
-    min-height: 66px;
+    min-height: 72px;
   }
 
   .brand {
@@ -292,7 +294,7 @@ const reviewedLabel = reviewed.toLocaleDateString('fr-FR', {
   .brand-sub {
     font-size: 0.7rem;
     text-transform: uppercase;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.11em;
     color: var(--text-muted);
     margin-top: 2px;
   }
@@ -415,12 +417,18 @@ const reviewedLabel = reviewed.toLocaleDateString('fr-FR', {
   /* Mesuré : marque 290 + nav 356 + bouton 258 + gouttières = 984px requis,
      alors que le menu replié ne prend le relais qu'à 900px. Entre les deux, le
      libellé long du bouton est raccourci — 834px suffisent alors. */
+  @media (max-width: 1180px) {
+    .header-inner {
+      gap: var(--space-8);
+    }
+  }
+
   @media (max-width: 1080px) {
     .nav-list {
       gap: var(--space-6);
     }
     .header-inner {
-      gap: var(--space-4);
+      gap: var(--space-6);
     }
     .cta-long {
       display: none;
