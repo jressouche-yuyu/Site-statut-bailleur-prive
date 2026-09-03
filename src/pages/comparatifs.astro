@@ -1,0 +1,252 @@
+---
+/**
+ * Page pilier des comparatifs de dispositifs.
+ *
+ * Cible l'intention comparative, où le site a un avantage réel : le statut du
+ * bailleur privé est récent, personne n'occupe encore « jeanbrun ou X ».
+ * Elle fédère les guides de catégorie « Comparer » et porte le tableau
+ * d'ensemble.
+ *
+ * Règle : seules les valeurs vérifiées sur source officielle figurent ici.
+ * Ce qui n'est pas établi est dit, pas lissé.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Callout from '../components/Callout.astro';
+import Sources from '../components/Sources.astro';
+import Faq from '../components/Faq.astro';
+import { breadcrumbSchema, faqSchema } from '../lib/schema';
+import { guides } from '../data/guides';
+import { url } from '../lib/url';
+import { SITE } from '../consts';
+
+const crumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: 'Comparatifs', path: '/comparatifs' },
+];
+
+const comparaisons = guides.filter((g) => g.category === 'Comparer');
+
+const faq = [
+  {
+    question: 'Quel dispositif choisit-on quand on paie peu d’impôt ?',
+    answer:
+      "Une réduction d'impôt, pas une déduction. Le Denormandie et Loc'Avantages accordent un pourcentage fixe, indépendant de votre tranche. L'amortissement du statut du bailleur privé, lui, ne vaut que votre taux d'imposition : en dessous de 30 % de tranche marginale, il perd presque mécaniquement.",
+  },
+  {
+    question: 'Quel dispositif efface de l’impôt sur le salaire ?',
+    answer:
+      "Le déficit foncier, et lui seul parmi ceux comparés ici. Il s'impute sur le revenu global à hauteur de 10 700 € par an. L'amortissement du statut du bailleur privé ne s'impute que sur des revenus fonciers : sans revenus fonciers existants, son effet la première année est quasi nul.",
+  },
+  {
+    question: 'Faut-il acheter un bien pour défiscaliser ?',
+    answer:
+      "Pas toujours. Loc'Avantages et le déficit foncier s'appliquent à un logement que vous détenez déjà. Le statut du bailleur privé et le Denormandie supposent une acquisition dans une fenêtre précise.",
+  },
+  {
+    question: 'Peut-on cumuler ces dispositifs entre eux ?',
+    answer:
+      "Nous ne l'affirmons pour aucune combinaison : les règles de non-cumul n'ont pas été vérifiées sur les textes eux-mêmes. Une lecture du texte de Loc'Avantages suggère même que le cumul avec le statut du bailleur privé serait exclu sur un même logement. À faire trancher par un professionnel avant tout montage.",
+  },
+];
+
+const jsonLd = [
+  breadcrumbSchema(crumbs),
+  faqSchema(faq),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Comparatifs des dispositifs d’investissement locatif',
+    url: `${SITE.url}/comparatifs/`,
+    itemListElement: comparaisons.map((g, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: g.title,
+      url: `${SITE.url}/guides/${g.slug}/`,
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title="Comparatifs : Jeanbrun, Denormandie, LLI, Loc'Avantages, déficit foncier"
+  description="Quel dispositif locatif pour quel profil ? Comparaison sourcée du statut du bailleur privé avec le Denormandie, le LLI, Loc'Avantages, le déficit foncier et le LMNP."
+  path="/comparatifs"
+  jsonLd={jsonLd}
+>
+  <div class="container">
+    <Breadcrumbs items={crumbs} />
+    <p class="eyebrow">Comparatifs</p>
+    <h1>Quel dispositif pour quel projet ?</h1>
+    <p class="lead">
+      Le statut du bailleur privé n'est pas seul sur le terrain. Selon votre tranche
+      d'imposition, selon que vous achetez ou détenez déjà, selon que vous avez ou non
+      des revenus fonciers, un autre régime peut lui être nettement supérieur.
+      Voici les comparaisons, sourcées, et sans masquer les cas où il perd.
+    </p>
+
+    <Callout title="Le premier calcul à faire">
+      <p>
+        Distinguez les <strong>réductions d'impôt</strong> — Denormandie, Loc'Avantages —
+        des <strong>déductions en base</strong> — statut du bailleur privé, déficit foncier.
+        Une réduction vaut la même chose pour tout le monde. Une déduction ne vaut que
+        votre taux d'imposition : 1 000 € déduits valent 472 € à 30 % de tranche marginale,
+        282 € à 11 %. <strong>C'est ce seul écart qui décide de la majorité des cas.</strong>
+      </p>
+    </Callout>
+
+    <h2>Le tableau d’ensemble</h2>
+    <div class="table-wrap">
+      <table class="cmp-table">
+        <caption class="sr-only">
+          Comparaison des dispositifs d'investissement locatif : nature de l'avantage,
+          support, durée d'engagement et statut au 2 septembre 2026.
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Dispositif</th>
+            <th scope="col">Nature de l’avantage</th>
+            <th scope="col">Ce qu’il rapporte</th>
+            <th scope="col">Engagement</th>
+            <th scope="col">Faut-il acheter ?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Statut du bailleur privé</th>
+            <td>Déduction en base sur les revenus fonciers</td>
+            <td>3 à 5,5 % du prix par an selon le loyer consenti, dans la limite de 8 000 € par foyer fiscal</td>
+            <td>9 ans</td>
+            <td>Oui, du 21/02/2026 au 31/12/2028</td>
+          </tr>
+          <tr>
+            <th scope="row">Denormandie</th>
+            <td>Réduction d’impôt</td>
+            <td>12, 18 ou 21 % du prix selon la durée, base plafonnée à 300 000 €</td>
+            <td>6, 9 ou 12 ans</td>
+            <td>Oui, jusqu’au 31/12/2027, en commune éligible</td>
+          </tr>
+          <tr>
+            <th scope="row">Loc’Avantages</th>
+            <td>Réduction d’impôt</td>
+            <td>15 à 65 % des loyers bruts selon le niveau et l’intermédiation</td>
+            <td>6 ans</td>
+            <td>Non, sur un bien déjà détenu</td>
+          </tr>
+          <tr>
+            <th scope="row">Déficit foncier</th>
+            <td>Déduction de charges réelles sur le revenu global</td>
+            <td>Jusqu’à 10 700 € par an, 21 400 € pour certains travaux énergétiques</td>
+            <td>3 ans</td>
+            <td>Non</td>
+          </tr>
+          <tr>
+            <th scope="row">LLI</th>
+            <td>Baisse du prix d’achat (TVA)</td>
+            <td>TVA à 10 % au lieu de 20 %, plus une créance liée à la taxe foncière</td>
+            <td>20 ans d’exposition réelle</td>
+            <td>Oui, et via une société uniquement</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">
+      Les plafonds de loyer social et très social ne figurent pas dans ce tableau :
+      ils sont fixés commune par commune et aucun barème par zone n’existe. Le sort du
+      statut du bailleur privé au regard du plafonnement global des niches fiscales
+      n’est pas établi à ce jour.
+    </p>
+
+    <h2>Les comparaisons en détail</h2>
+    <ul class="cmp-list">
+      {
+        comparaisons.map((g) => (
+          <li>
+            <a href={url(`/guides/${g.slug}`)}>
+              <span class="cmp-titre">{g.title}</span>
+              <span class="cmp-desc">{g.description}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <h2>Trois cas où le statut du bailleur privé n’est pas le bon choix</h2>
+    <p>
+      Un site consacré à un dispositif a une pente naturelle : le présenter comme la
+      réponse. Voici les situations, fréquentes, où il ne l’est pas.
+    </p>
+    <ol class="cas">
+      <li>
+        <strong>Vous n’avez pas encore de revenus fonciers.</strong> L’amortissement ne
+        s’impute que sur cette catégorie. La première année, votre impôt ne bougera
+        quasiment pas — alors que le déficit foncier mordrait immédiatement sur votre
+        impôt sur le revenu.
+      </li>
+      <li>
+        <strong>Votre tranche marginale est de 11 ou 30 %.</strong> Une déduction ne vaut
+        que votre taux. Une réduction d’impôt vous rapportera davantage à effort égal.
+      </li>
+      <li>
+        <strong>Vous achetez une maison.</strong> Le statut du bailleur privé exige un
+        bâtiment d’habitation collectif. Le Denormandie et le déficit foncier, non.
+      </li>
+    </ol>
+
+    <Faq items={faq} title="Questions fréquentes sur le choix d’un dispositif" />
+
+    <Sources />
+  </div>
+</BaseLayout>
+
+<style>
+  .cmp-table th[scope='row'] {
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .table-note {
+    margin-top: var(--space-4);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    max-width: 70ch;
+  }
+  .cmp-list {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-6) 0 0;
+    display: grid;
+    gap: 1px;
+    background: var(--border);
+    border-block: 1px solid var(--border-strong);
+  }
+  .cmp-list li {
+    margin: 0;
+    background: var(--surface);
+  }
+  .cmp-list a {
+    display: grid;
+    gap: var(--space-1);
+    padding: var(--space-4) var(--space-2);
+    text-decoration: none;
+  }
+  .cmp-list a:hover .cmp-titre {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .cmp-titre {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--primary);
+  }
+  .cmp-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+  .cas {
+    max-width: 70ch;
+  }
+  .cas li {
+    margin-bottom: var(--space-4);
+  }
+</style>

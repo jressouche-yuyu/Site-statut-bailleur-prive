@@ -8,6 +8,8 @@
  * liens internes). Garder un ton sobre, factuel et daté (E-E-A-T).
  */
 
+import { comparatifs } from './comparatifs';
+
 export interface Guide {
   slug: string;
   title: string;
@@ -531,4 +533,5 @@ export const guides: Guide[] = [
       },
     ],
   },
+  ...comparatifs,
 ];

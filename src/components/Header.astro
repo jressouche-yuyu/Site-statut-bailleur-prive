@@ -113,7 +113,7 @@ const reviewedLabel = reviewed.toLocaleDateString('fr-FR', {
   const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
   const nav = document.getElementById('primary-nav');
   const header = document.querySelector('.site-header');
-  const mq = window.matchMedia('(max-width: 900px)');
+  const mq = window.matchMedia('(max-width: 940px)');
 
   function setOpen(open: boolean) {
     if (!toggle || !header) return;
@@ -433,7 +433,7 @@ const reviewedLabel = reviewed.toLocaleDateString('fr-FR', {
     }
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 940px) {
     .util-bar {
       display: none;
     }

@@ -54,6 +54,7 @@ export const NAV: { label: string; href: string }[] = [
   { label: 'Le dispositif', href: '/dispositif-jeanbrun' },
   { label: 'Guides', href: '/guides' },
   { label: 'Éligibilité', href: '/eligibilite' },
+  { label: 'Comparatifs', href: '/comparatifs' },
   { label: 'Actualités', href: '/actualites' },
 ];
 

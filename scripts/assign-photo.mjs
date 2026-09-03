@@ -16,7 +16,9 @@
  *   ex. node scripts/assign-photo.mjs "ma-news" "vote loi budget assemblée"
  */
 import { writeFile, mkdir, readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
+import { readdirSync, readFileSync } from 'node:fs';
 
 const ROOT = path.resolve(process.cwd());
 const JSON_PATH = path.join(ROOT, 'src/data/photos.json');
@@ -82,32 +84,86 @@ function creditForSrc(photos, src) {
   return 'Photo : Pexels';
 }
 
-/** Les `src` des N dernières entrées post: (ordre d'insertion = proxy de récence). */
-function recentlyUsed(photos, n = 4) {
-  const srcs = Object.entries(photos).filter(([k]) => k.startsWith('post:')).map(([, v]) => v.src);
-  return new Set(srcs.slice(-n));
+/**
+ * Nombre d'articles déjà illustrés par chaque `src`.
+ * L'ancienne version ne regardait que les 4 dernières entrées : au-delà, elle
+ * réattribuait joyeusement une image déjà prise. On compte désormais tout le
+ * corpus, pour choisir systématiquement la photo la moins employée.
+ */
+function usageParSrc(photos) {
+  const compte = new Map();
+  for (const [k, v] of Object.entries(photos)) {
+    if (!k.startsWith('post:') || !v || !v.src) continue;
+    compte.set(v.src, (compte.get(v.src) || 0) + 1);
+  }
+  return compte;
+}
+
+/** Empreintes md5 de toutes les images déjà présentes dans le dépôt. */
+function empreintesExistantes() {
+  const set = new Set();
+  for (const dir of ['public/images/blog', 'public/images/guides', 'public/images/home']) {
+    let noms = [];
+    try { noms = readdirSync(path.join(ROOT, dir)); } catch { continue; }
+    for (const n of noms) {
+      if (!/\.(jpe?g|png|webp|avif)$/i.test(n)) continue;
+      try {
+        set.add(createHash('md5').update(readFileSync(path.join(ROOT, dir, n))).digest('hex'));
+      } catch { /* fichier illisible : ignoré */ }
+    }
+  }
+  return set;
+}
+
+/** Identifiants Pexels déjà attribués, lus depuis le manifeste. */
+function idsPexelsUtilises(photos) {
+  return new Set(Object.values(photos).map((v) => v && v.photoId).filter(Boolean));
 }
 
 async function tryPexels(slug, queryEn, altFr, photos) {
   if (!KEY) return false;
   const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), 8000);
+  const t = setTimeout(() => ctrl.abort(), 15000);
   try {
-    const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(queryEn)}&orientation=landscape&size=large&per_page=1`;
+    // `per_page=1` renvoyait toujours la MÊME photo pour une requête donnée :
+    // deux articles de la même catégorie thématique repartaient donc avec le
+    // même visuel, enregistré sous deux noms de fichier différents. C'est
+    // précisément le motif que cherchent les détections de fermes de contenu.
+    // On demande un lot de candidats et on prend le premier réellement inédit.
+    const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(queryEn)}&orientation=landscape&size=large&per_page=20`;
     const res = await fetch(url, { headers: { Authorization: KEY }, signal: ctrl.signal });
     if (!res.ok) throw new Error(`Pexels ${res.status}`);
-    const photo = (await res.json()).photos?.[0];
-    if (!photo) throw new Error('aucun résultat');
+    const candidats = (await res.json()).photos || [];
+    if (!candidats.length) throw new Error('aucun résultat');
+
+    const dejaVus = idsPexelsUtilises(photos);
+    const empreintes = empreintesExistantes();
     const rel = `/images/blog/${slug}.jpg`;
-    const dl = await fetch(photo.src.landscape || photo.src.large || photo.src.original, { signal: ctrl.signal });
-    if (!dl.ok) throw new Error(`download ${dl.status}`);
-    await mkdir(path.join(ROOT, 'public/images/blog'), { recursive: true });
-    await writeFile(path.join(ROOT, 'public', rel), Buffer.from(await dl.arrayBuffer()));
-    photos[`post:${slug}`] = { src: rel, credit: `Photo : ${photo.photographer} / Pexels`, alt: altFr };
-    console.log(`✓ Pexels : ${rel} (${photo.photographer})`);
-    return true;
+
+    for (const photo of candidats) {
+      if (dejaVus.has(photo.id)) continue; // déjà attribué à un autre contenu
+      const dl = await fetch(photo.src.landscape || photo.src.large || photo.src.original, { signal: ctrl.signal });
+      if (!dl.ok) continue;
+      const buf = Buffer.from(await dl.arrayBuffer());
+      const md5 = createHash('md5').update(buf).digest('hex');
+      // Deuxième filet : même si l'identifiant diffère, le binaire peut être
+      // identique à une image déjà en place.
+      if (empreintes.has(md5)) continue;
+
+      await mkdir(path.join(ROOT, 'public/images/blog'), { recursive: true });
+      await writeFile(path.join(ROOT, 'public', rel), buf);
+      photos[`post:${slug}`] = {
+        src: rel,
+        credit: `Photo : ${photo.photographer} / Pexels`,
+        alt: altFr,
+        photoId: photo.id,
+      };
+      console.log(`✓ Pexels : ${rel} (${photo.photographer}, id ${photo.id})`);
+      return true;
+    }
+    throw new Error(`${candidats.length} candidats, tous déjà utilisés`);
   } catch (e) {
-    console.log(`ℹ️  Pexels indisponible (${e.message}) : repli bibliothèque locale.`);
+    console.log(`ℹ️  Pexels écarté (${e.message}) : repli bibliothèque locale.`);
     return false;
   } finally {
     clearTimeout(t);
@@ -131,13 +187,18 @@ async function main() {
   }
 
   // Étage 2 — bibliothèque locale (garanti)
-  const used = recentlyUsed(photos, 4);
-  let id = cat.primary;
-  if (used.has(LIB[id])) {
-    const free = (cat.alternates || []).find((a) => !used.has(LIB[a]));
-    if (free) id = free;
-  }
+  // On prend, parmi la catégorie retenue puis ses alternatives, l'image la
+  // moins déjà utilisée. Un ex aequo se départage par l'ordre de priorité.
+  const compte = usageParSrc(photos);
+  const candidats = [cat.primary, ...(cat.alternates || []), DEFAULT.primary, ...(DEFAULT.alternates || [])]
+    .filter((id, i, a) => LIB[id] && a.indexOf(id) === i);
+  const id = candidats.reduce((meilleur, c) =>
+    (compte.get(LIB[c]) || 0) < (compte.get(LIB[meilleur]) || 0) ? c : meilleur,
+  candidats[0]);
   const src = LIB[id];
+  if ((compte.get(src) || 0) > 0) {
+    console.warn(`⚠️  Toutes les images de repli sont déjà employées : « ${src} » illustrera un article de plus. Envisagez d'enrichir la bibliothèque.`);
+  }
   photos[`post:${slug}`] = { src, credit: creditForSrc(photos, src), alt: cat.alt };
   await saveJson(photos);
   console.log(`✓ Bibliothèque locale : ${src} (catégorie ${cat.id})`);

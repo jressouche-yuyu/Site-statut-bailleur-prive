@@ -1,0 +1,64 @@
+name: Illustrations — réparer les doublons
+
+# Réattribue une photo inédite à chaque contenu qui partage son visuel avec un
+# autre. Deux causes historiques : `assign-photo.mjs` demandait une seule photo
+# à Pexels (deux articles d'une même catégorie repartaient donc avec la même),
+# et une déduplication antérieure a fait pointer plusieurs entrées du manifeste
+# vers un seul fichier.
+#
+# La cause est corrigée dans assign-photo.mjs ; ce workflow répare l'existant.
+# Lancement : onglet Actions → « Illustrations — réparer les doublons ».
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: 'Réattribuer réellement (sinon : diagnostic seul)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  dedupe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Diagnostiquer et réparer
+        env:
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+        run: node scripts/photos-dedupe.mjs ${{ inputs.apply && '--apply' || '' }}
+
+      - name: Commiter et déclencher le déploiement
+        if: ${{ inputs.apply }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/images src/data/photos.json
+          if git diff --staged --quiet; then
+            echo "Aucune illustration modifiée."
+          else
+            git commit -m "Illustrations : une photo distincte par contenu"
+            git push origin main
+            # Les commits poussés par GITHUB_TOKEN ne déclenchent pas d'autres
+            # workflows : on relance explicitement le déploiement.
+            gh workflow run deploy.yml --ref main
+          fi
