@@ -70,9 +70,10 @@
     "alt": "Vue aérienne de Lyon, ses deux fleuves et son architecture historique."
   },
   "post:proposition-loi-letard-extension-dispositif-jeanbrun": {
-    "src": "/images/guides/ancien-travaux-dpe.jpg",
-    "credit": "Photo : Budget Bizar / Pexels",
-    "alt": "Façade d'immeuble ancien en rénovation, illustrant le volet ancien du dispositif Jeanbrun."
+    "src": "/images/blog/proposition-loi-letard-extension-dispositif-jeanbrun.jpg",
+    "credit": "Photo : Conor Kehoe / Pexels",
+    "alt": "Façade du Palais Bourbon, illustrant l’examen parlementaire du dispositif Jeanbrun.",
+    "photoId": 19685876
   },
   "post:hausse-taux-bce-juin-2026-investissement-locatif": {
     "src": "/images/blog/hausse-taux-bce-juin-2026-investissement-locatif.jpg",
@@ -85,9 +86,10 @@
     "alt": "Façade d’immeuble moderne, illustrant le dispositif Jeanbrun."
   },
   "post:projet-loi-relance-logement-juin-2026-bailleurs": {
-    "src": "/images/blog/budget-2026.jpg",
-    "credit": "Photo : Mathias Reding / Pexels",
-    "alt": "Façade du Palais Bourbon, illustrant l’examen parlementaire du dispositif Jeanbrun."
+    "src": "/images/blog/projet-loi-relance-logement-juin-2026-bailleurs.jpg",
+    "credit": "Photo : Abhishek  Navlakha / Pexels",
+    "alt": "Façade du Palais Bourbon, illustrant l’examen parlementaire du dispositif Jeanbrun.",
+    "photoId": 31103512
   },
   "post:passoires-thermiques-fg-relance-logement-location-2026": {
     "src": "/images/blog/passoires-thermiques-fg-relance-logement-location-2026.jpg",
@@ -101,13 +103,15 @@
   },
   "post:decret-contrat-bail-type-octobre-2026-bailleurs": {
     "src": "/images/blog/decret-contrat-bail-type-octobre-2026-bailleurs.jpg",
-    "credit": "Photo : Thirdman / Pexels",
-    "alt": "Poignée de main sur un contrat immobilier, illustrant les acteurs du dispositif."
+    "credit": "Photo : Kadir Avşar / Pexels",
+    "alt": "Façade du Palais Bourbon, illustrant l’examen parlementaire du dispositif Jeanbrun.",
+    "photoId": 20170226
   },
   "post:senat-adopte-loi-relance-logement-juillet-2026": {
-    "src": "/images/blog/budget-2026.jpg",
-    "credit": "Photo : Mathias Reding / Pexels",
-    "alt": "Façade du Palais Bourbon, illustrant l’examen parlementaire du dispositif Jeanbrun."
+    "src": "/images/blog/senat-adopte-loi-relance-logement-juillet-2026.jpg",
+    "credit": "Photo : Khaled___ Ameur / Pexels",
+    "alt": "Façade du Palais Bourbon, illustrant l’examen parlementaire du dispositif Jeanbrun.",
+    "photoId": 19881369
   },
   "post:dpe-coefficient-electricite-1-7-bailleurs-2027": {
     "src": "/images/blog/dpe-coefficient-electricite-1-7-bailleurs-2027.jpg",
@@ -130,9 +134,10 @@
     "alt": "Toits parisiens, illustrant les plafonds de loyer du dispositif Jeanbrun."
   },
   "post:tvlh-2027-nouvelle-taxe-logements-vacants-bailleurs": {
-    "src": "/images/blog/locavantages-2026-convention-anah-reduction-impot-bailleurs.jpg",
-    "credit": "Photo : Atlantic Ambience / Pexels",
-    "alt": "Calculatrice et documents financiers, illustrant la fiscalité du dispositif Jeanbrun."
+    "src": "/images/blog/tvlh-2027-nouvelle-taxe-logements-vacants-bailleurs.jpg",
+    "credit": "Photo : Tara Winstead / Pexels",
+    "alt": "Calculatrice et documents financiers, illustrant la fiscalité du dispositif Jeanbrun.",
+    "photoId": 7111593
   },
   "post:lmnp-prelevements-sociaux-18-6-avis-imposition-2026": {
     "src": "/images/blog/lmnp-prelevements-sociaux-18-6-avis-imposition-2026.jpg",
@@ -150,9 +155,10 @@
     "alt": "Façade d’immeuble ancien en rénovation, illustrant le volet ancien du dispositif Jeanbrun."
   },
   "post:taxe-fonciere-2026-bailleur-avis-hausse-teom": {
-    "src": "/images/blog/locavantages-2026-convention-anah-reduction-impot-bailleurs.jpg",
-    "credit": "Photo : Atlantic Ambience / Pexels",
-    "alt": "Calculatrice et documents financiers, illustrant la fiscalité du dispositif Jeanbrun."
+    "src": "/images/blog/taxe-fonciere-2026-bailleur-avis-hausse-teom.jpg",
+    "credit": "Photo : Nataliya Vaitkevich / Pexels",
+    "alt": "Calculatrice et documents financiers, illustrant la fiscalité du dispositif Jeanbrun.",
+    "photoId": 7173046
   },
   "post:encadrement-niveaux-loyers-expiration-novembre-2026-bailleurs": {
     "src": "/images/blog/encadrement-niveaux-loyers-expiration-novembre-2026-bailleurs.jpg",
@@ -166,13 +172,15 @@
   },
   "post:locavantages-2026-convention-anah-reduction-impot-bailleurs": {
     "src": "/images/blog/locavantages-2026-convention-anah-reduction-impot-bailleurs.jpg",
-    "credit": "Photo : Atlantic Ambience / Pexels",
-    "alt": "Calculatrice et documents financiers, illustrant la fiscalité du dispositif Jeanbrun."
+    "credit": "Photo : olia danilevich / Pexels",
+    "alt": "Calculatrice et documents financiers, illustrant la fiscalité du dispositif Jeanbrun.",
+    "photoId": 5466793
   },
   "post:marche-immobilier-ancien-bilan-t2-2026-bailleurs": {
     "src": "/images/blog/marche-immobilier-ancien-bilan-t2-2026-bailleurs.jpg",
-    "credit": "Photo : Willian Justen de Vasconcellos / Pexels",
-    "alt": "Vue aérienne d’une ville française, illustrant les territoires d’investissement."
+    "credit": "Photo : Anastasia  Shuraeva / Pexels",
+    "alt": "Poignée de main sur un contrat immobilier, illustrant les acteurs du dispositif.",
+    "photoId": 7647760
   },
   "post:avis-imposition-2026-bailleurs-acomptes-revenus-fonciers": {
     "src": "/images/blog/avis-imposition-2026-bailleurs-acomptes-revenus-fonciers.jpg",
@@ -181,12 +189,14 @@
   },
   "post:cee-renovation-ampleur-logements-efg-septembre-2026-bailleurs": {
     "src": "/images/blog/cee-renovation-ampleur-logements-efg-septembre-2026-bailleurs.jpg",
-    "credit": "Photo : Budget Bizar / Pexels",
-    "alt": "Façade d’immeuble ancien en rénovation, illustrant le volet ancien du dispositif Jeanbrun."
+    "credit": "Photo : Francesco Ungaro / Pexels",
+    "alt": "Façade d’immeuble ancien en rénovation, illustrant le volet ancien du dispositif Jeanbrun.",
+    "photoId": 19265075
   },
   "post:arrete-dpe-coefficient-electricite-1-7-janvier-2027-bailleurs": {
-    "src": "/images/guides/neuf-ou-ancien.jpg",
-    "credit": "Photo : Francesco Ungaro / Pexels",
-    "alt": "Façade d’immeuble ancien en rénovation, illustrant le volet ancien du dispositif Jeanbrun."
+    "src": "/images/blog/arrete-dpe-coefficient-electricite-1-7-janvier-2027-bailleurs.jpg",
+    "credit": "Photo : Ramon Karolan / Pexels",
+    "alt": "Façade d’immeuble ancien en rénovation, illustrant le volet ancien du dispositif Jeanbrun.",
+    "photoId": 38326993
   }
 }
