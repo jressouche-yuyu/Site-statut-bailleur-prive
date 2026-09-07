@@ -14,8 +14,7 @@
       "sourceUrl": null,
       "date": "2025-12-02",
       "origin": "seed"
-    }
-    ,
+    },
     {
       "slug": "proposition-loi-letard-extension-dispositif-jeanbrun",
       "title": "Le statut du bailleur privé étendu aux maisons individuelles : la proposition de loi Létard",
@@ -189,6 +188,13 @@
       "title": "Rentrée parlementaire 2026 : loi logement et PLF 2027, ce que les bailleurs doivent suivre jusqu'en décembre",
       "sourceUrl": "https://www.assemblee-nationale.fr/dyn/17/dossiers/PJL_relance_decentralisation_logement_2",
       "date": "2026-09-04",
+      "origin": "auto"
+    },
+    {
+      "slug": "dpe-coefficient-electricite-arrete-aout-2026-attestation-bailleurs",
+      "title": "DPE électrique : l'arrêté du 19 août 2026 confirme le coefficient à 1,7 — ce que les bailleurs doivent faire",
+      "sourceUrl": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000054747079",
+      "date": "2026-09-07",
       "origin": "auto"
     }
   ]
