@@ -259,6 +259,13 @@
       "sourceUrl": "https://www.immonot.com/tendance-marche-immobilier-notaire.html",
       "date": "2026-10-12",
       "origin": "auto"
+    },
+    {
+      "slug": "irl-t3-2026-revision-loyers-bailleurs",
+      "title": "IRL T3 2026 : révisez votre loyer en octobre avec l'indice à +1,57 %",
+      "sourceUrl": "https://www.insee.fr/fr/statistiques/9081853",
+      "date": "2026-10-21",
+      "origin": "auto"
     }
   ]
 }
