@@ -3,7 +3,7 @@ title: "Dispositif Jeanbrun dans l'ancien : conditions, taux et assouplissements
 metaTitle: "Jeanbrun dans l'ancien : taux et conditions 2026 | Bailleur Privé"
 description: "Le dispositif Jeanbrun s'applique aux logements anciens, à des taux réduits. DPE A/B, seuil de 30 % de travaux et assouplissements attendus au Sénat."
 publishedAt: 2026-07-07
-updatedAt: 2026-07-07
+updatedAt: 2026-11-28
 tags: ["dispositif Jeanbrun", "logement ancien", "amortissement", "investissement locatif"]
 readingMinutes: 5
 author: "La rédaction Bailleur Privé"
@@ -13,10 +13,12 @@ faq:
   - question: "Comment calculer le seuil de 30 % de travaux pour l'ancien ?"
     answer: "Le seuil de 30 % se calcule en divisant le montant des travaux par le prix d'acquisition hors travaux. Pour un bien acheté 150 000 €, les travaux doivent atteindre au moins 45 000 € pour satisfaire cette condition d'éligibilité au dispositif Jeanbrun."
   - question: "Peut-on accéder au dispositif Jeanbrun dans l'ancien sans atteindre le DPE A ou B ?"
-    answer: "Oui. L'étiquette A ou B n'est pas une condition générale de l'ancien : elle ne s'attache qu'à la voie de la réhabilitation lourde. Un projet passant par des travaux d'amélioration d'au moins 30 % du prix d'acquisition n'a pas d'objectif de DPE à atteindre au titre du dispositif."
+    answer: "La loi exige que le logement satisfasse les critères d'une réhabilitation lourde, notamment de performance énergétique. Selon l'ANIL, cela implique notamment une classe A ou B, avec des critères spécifiques dans les départements et régions d'outre-mer. Vérifiez les textes et votre situation avant toute décision."
 sources:
   - label: "ANIL — Analyse juridique : loi de finances 2026"
     url: "https://www.anil.org/aj-loi-finances-2026/"
+  - label: "Légifrance — Article 47 de la loi de finances pour 2026"
+    url: "https://www.legifrance.gouv.fr/jorf/article_jo/JORFARTI000053508409"
   - label: "Sénat — Dossier législatif PJL 25-801 (relance et décentralisation du logement)"
     url: "https://www.senat.fr/dossier-legislatif/pjl25-801.html"
 ---
@@ -29,13 +31,14 @@ Le dispositif Jeanbrun, instauré par la loi de finances 2026 et applicable depu
 
 L'amortissement repose sur le même principe que pour le neuf : chaque année, le bailleur déduit de ses revenus fonciers un pourcentage du coût d'acquisition, réduisant ainsi sa base imposable. Pour les logements anciens, la déduction s'applique sur 80 % du coût total de l'opération (achat et travaux), pendant toute la durée de l'engagement locatif de 9 ans.
 
-## Ancien : trois voies alternatives, pas trois conditions cumulatives
+## Ancien : travaux et réhabilitation lourde sont à vérifier ensemble
 
-C'est la confusion la plus répandue sur ce dispositif. Pour qu'un logement ancien ouvre droit au [statut du bailleur privé (dispositif Jeanbrun)](/dispositif-jeanbrun), il faut emprunter **l'une** des trois voies suivantes — pas les trois :
+Pour bénéficier du [statut du bailleur privé (dispositif Jeanbrun)](/dispositif-jeanbrun), le logement ancien doit avoir fait l'objet de l'un des deux types de travaux suivants :
 
 - **Travaux de production d'un immeuble neuf** au sens fiscal, c'est-à-dire une opération si lourde qu'elle équivaut fiscalement à une construction neuve.
-- **Travaux d'amélioration d'au moins 30 %** du prix d'acquisition. C'est la voie la plus courante. Elle ne comporte **aucune exigence de classe énergétique** au titre du dispositif.
-- **Réhabilitation lourde**, seule voie qui emporte, par renvoi, une exigence d'étiquette **A ou B** après travaux.
+- **Travaux d'amélioration d'au moins 30 %** du prix d'acquisition.
+
+Dans les deux cas, le logement doit **aussi satisfaire les critères d'une réhabilitation lourde**, notamment de performance énergétique. L'ANIL indique notamment une classe A ou B, avec des critères spécifiques outre-mer. L'exigence énergétique ne disparaît donc pas lorsque les travaux atteignent 30 %.
 
 En revanche, une condition est bien commune à toutes les voies : le logement doit se trouver dans un **bâtiment d'habitation collectif** — plus de deux logements, superposés au moins en partie. Les maisons individuelles sont exclues, mais aussi un immeuble de deux logements et un ensemble de maisons accolées sans superposition.
 
@@ -43,21 +46,21 @@ Les [conditions d'éligibilité complètes](/guides/conditions-eligibilite-dispo
 
 ## Taux d'amortissement : neuf et ancien comparés
 
-Les taux applicables dans l'ancien sont inférieurs de 0,5 point à ceux du neuf pour chaque niveau de loyer. Ce différentiel s'explique par le coût de rénovation déjà inclus dans l'assiette d'amortissement et par la complexité technique des opérations de réhabilitation.
+Les taux applicables dans l'ancien sont inférieurs à ceux du neuf : l'écart dépend du niveau de loyer choisi.
 
 | Critère | Logement neuf | Logement ancien (avec travaux) |
 |---|---|---|
 | Taux intermédiaire | 3,5 % / an | 3 % / an |
 | Taux social | 4,5 % / an | 3,5 % / an |
 | Taux très social | 5,5 % / an | 4 % / an |
-| Condition travaux | Aucune (neuf ou VEFA) | ≥ 30 % du prix d'acquisition (voie la plus courante) |
-| Exigence énergétique | Logement neuf (RE2020) | Aucune sur la voie des 30 % de travaux ; A ou B en réhabilitation lourde |
+| Condition travaux | Aucune (neuf ou VEFA) | Travaux de production d'un immeuble neuf au sens fiscal ou amélioration ≥ 30 % du prix |
+| Exigence énergétique | Réglementation applicable au neuf | Critères de réhabilitation lourde à respecter dans les deux cas |
 
 Pour aller plus loin sur le choix entre les deux types de biens, notre guide [neuf ou ancien dans le dispositif Jeanbrun](/guides/neuf-ou-ancien-dispositif-jeanbrun) présente une analyse comparative complète.
 
 ## L'impact fiscal en pratique
 
-> **À retenir** : pour un investissement total de 200 000 € (achat + travaux) avec un loyer pratiqué au niveau très social, l'amortissement annuel s'élève à **6 400 €** (80 % × 200 000 € × 4 %). Sur les 9 ans d'engagement, cela représente 57 600 € de revenus fonciers soustraits de l'imposition.
+> **Exemple simplifié** : pour une assiette éligible de 200 000 € (achat et travaux retenus) avec un loyer très social, l'amortissement théorique est de **6 400 € par an** (80 % × 200 000 € × 4 %). Le montant effectivement déductible dépend notamment des autres amortissements du foyer et des revenus fonciers disponibles.
 
 Cet avantage s'ajoute à la déductibilité classique des charges (intérêts d'emprunt, taxe foncière, frais de gestion) puisque le dispositif impose une bascule automatique au régime réel simplifié. Pour mesurer le gain fiscal propre à votre situation, notre [simulateur](/simulateur) permet d'effectuer ce calcul en quelques minutes.
 
@@ -73,6 +76,6 @@ Les principaux axes discutés portent sur :
 - l'assouplissement de l'exigence d'un DPE A ou B après rénovation ;
 - l'extension du dispositif aux maisons individuelles anciennes.
 
-Ces modifications ne sont pas encore adoptées définitivement. Pour les investisseurs, le cadre légal en vigueur reste celui de la loi de finances 2026 : 30 % de travaux et DPE A ou B obligatoires pour tout logement ancien acquisitionné avant une éventuelle promulgation d'un nouveau texte.
+Ces modifications ne sont pas encore définitives. La loi de finances pour 2026 exige soit les travaux de production d'un immeuble neuf au sens fiscal, soit des travaux d'amélioration d'au moins 30 % du prix, ainsi que les critères d'une réhabilitation lourde. Le [projet adopté par l'Assemblée en première lecture](/actualites/loi-relance-logement-assouplissements-jeanbrun-assemblee-novembre-2026) peut encore évoluer avant une éventuelle promulgation.
 
 Si les assouplissements aboutissaient, le dispositif Jeanbrun dans l'ancien deviendrait accessible à un parc de biens bien plus large, notamment des logements classés C ou D ne nécessitant qu'une rénovation modérée.

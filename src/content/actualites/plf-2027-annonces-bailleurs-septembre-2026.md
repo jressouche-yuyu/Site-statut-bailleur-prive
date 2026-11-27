@@ -9,7 +9,7 @@ readingMinutes: 4
 author: "La rédaction Bailleur Privé"
 faq:
   - question: "Le dispositif Jeanbrun est-il remis en cause par le PLF 2027 ?"
-    answer: "Non. Le statut du bailleur privé a été adopté dans la loi de finances 2026, promulguée le 20 février 2026. Il s'applique aux acquisitions et dépôts de permis de construire réalisés jusqu'au 31 décembre 2028 : le PLF 2027 ne modifie pas ce cadre légal déjà voté."
+    answer: "Non. Le statut du bailleur privé a été adopté dans la loi de finances 2026, promulguée le 19 février 2026. Il s'applique aux acquisitions et dépôts de permis de construire réalisés jusqu'au 31 décembre 2028 : le PLF 2027 ne modifie pas ce cadre légal déjà voté."
   - question: "Qu'est-ce que le PTZ Parentalité annoncé pour 2027 ?"
     answer: "Le PTZ Parentalité est un prêt à taux zéro de jusqu'à 180 000 euros pour les familles s'agrandissant à l'arrivée d'un enfant. Contrairement au PTZ classique, il n'est pas réservé aux primo-accédants et peut financer un logement neuf ou ancien. Il doit encore être voté au Parlement avant d'ouvrir tout droit."
   - question: "Quand le PLF 2027 sera-t-il définitivement adopté ?"
@@ -27,7 +27,7 @@ Le projet de loi de finances (PLF) 2027 est le texte budgétaire par lequel le g
 
 ## Le statut du bailleur privé reste acquis, indépendamment du PLF 2027
 
-Le dispositif Jeanbrun — amortissement fiscal modulé selon l'effort social du bailleur — n'est pas touché par le PLF 2027. Adopté dans la loi de finances 2026 (promulguée le 20 février 2026), ce cadre court jusqu'au 31 décembre 2028 sans qu'une décision budgétaire annuelle soit nécessaire pour le maintenir.
+Le dispositif Jeanbrun — amortissement fiscal modulé selon l'effort social du bailleur — n'est pas touché par le PLF 2027. Adopté dans la loi de finances 2026 (promulguée le 19 février 2026), ce cadre court jusqu'au 31 décembre 2028 sans qu'une décision budgétaire annuelle soit nécessaire pour le maintenir.
 
 Les acquisitions ou dépôts de permis de construire réalisés entre le 21 février 2026 et le 31 décembre 2028 continuent d'ouvrir droit aux taux d'amortissement légaux suivants :
 
@@ -35,7 +35,7 @@ Les acquisitions ou dépôts de permis de construire réalisés entre le 21 fév
 - **4,5 %** par an pour un loyer social
 - **3,5 %** par an pour un loyer intermédiaire
 
-L'amortissement s'applique sur 80 % du coût d'acquisition, avec un engagement locatif de 12 ans et une bascule automatique au régime réel simplifié. Tous les détails des conditions d'accès sont sur notre page [le statut du bailleur privé (dispositif Jeanbrun)](/dispositif-jeanbrun).
+L'amortissement s'applique sur 80 % du coût d'acquisition, avec un engagement locatif d'au moins neuf ans et une bascule automatique au régime réel simplifié. Tous les détails des conditions d'accès sont sur notre page [le statut du bailleur privé (dispositif Jeanbrun)](/dispositif-jeanbrun).
 
 ## Le PTZ Parentalité : une nouvelle aide à l'accession annoncée le 20 septembre
 

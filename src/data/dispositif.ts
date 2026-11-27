@@ -118,17 +118,16 @@ export const conditions: { label: string; detail: string }[] = [
       "Le mécanisme d'amortissement vise les logements acquis dans cette fenêtre (dates sous réserve de confirmation du texte applicable).",
   },
   {
-    label: 'Ancien : trois voies alternatives',
+    label: 'Ancien : travaux et réhabilitation lourde',
     detail:
-      "L'ancien ouvre droit au dispositif par l'une de trois voies au choix : des travaux concourant à la production d'un immeuble neuf au sens fiscal ; des travaux d'amélioration représentant au moins 30 % du prix d'acquisition ; ou une réhabilitation lourde. La condition d'étiquette énergétique A ou B ne s'attache qu'à cette troisième voie — elle n'est pas exigée sur les deux premières.",
+      "Le logement ancien doit avoir fait l'objet soit de travaux concourant à la production d'un immeuble neuf au sens fiscal, soit de travaux d'amélioration représentant au moins 30 % du prix d'acquisition. Dans les deux cas, il doit également satisfaire les critères d'une réhabilitation lourde, notamment de performance énergétique. Vérifiez les conditions précises avec les textes officiels et un professionnel.",
   },
 ];
 
 /** Repères chronologiques (signal de fraîcheur + contexte E-E-A-T). */
 export const timeline: { date: string; label: string }[] = [
   { date: '17 octobre 2025', label: "Annonce de l'amendement « statut du bailleur privé » au PLF 2026." },
-  { date: '14 novembre 2025', label: "Adoption par l'Assemblée nationale." },
-  { date: '30 novembre 2025', label: 'Adoption par le Sénat.' },
+  { date: '19 février 2026', label: 'Promulgation de la loi de finances pour 2026.' },
   { date: '21 février 2026', label: 'Entrée en vigueur du dispositif (acquisitions éligibles).' },
   { date: '31 décembre 2028', label: "Fin de la fenêtre d'acquisition éligible (à confirmer)." },
 ];

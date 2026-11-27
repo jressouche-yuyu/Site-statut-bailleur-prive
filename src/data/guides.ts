@@ -172,7 +172,7 @@ export const guides: Guide[] = [
       {
         question: "L'amortissement Jeanbrun est-il repris à la revente comme en LMNP ?",
         answer:
-          "Les analyses divergent à ce stade : certaines l'affirment (sur le modèle de la réforme LMNP 2025), d'autres l'excluent. Le point n'est pas définitivement tranché : faites-le confirmer par un professionnel avant d'arbitrer.",
+          "Oui. La loi prévoit que les amortissements déduits minorent le prix d'acquisition retenu pour calculer la plus-value immobilière. Le montant final dépend notamment des frais, des abattements et de la durée de détention.",
       },
       {
         question: "Que se passe-t-il si je vends avant 9 ans ?",
@@ -195,11 +195,11 @@ export const guides: Guide[] = [
     sections: [
       {
         heading: "Les conditions propres à l'ancien",
-        body: "<p>Comme dans le neuf, le bien doit être un <strong>logement collectif</strong> (appartement), loué <strong>nu</strong> en résidence principale pendant <strong>9 ans</strong>, à loyer plafonné et à des locataires sous plafonds de ressources, sans louer à un proche. S'ajoutent deux exigences spécifiques : des <strong>travaux d'au moins 30 % du prix d'acquisition</strong> et l'atteinte d'une <strong>haute performance énergétique</strong> après rénovation.</p>",
+        body: "<p>Comme dans le neuf, le bien doit être situé dans un <strong>bâtiment collectif</strong>, loué <strong>nu</strong> en résidence principale pendant au moins <strong>9 ans</strong>, à loyer plafonné et sous conditions de ressources. Dans l'ancien, les travaux et les critères de réhabilitation lourde doivent aussi respecter les conditions prévues par la loi.</p>",
       },
       {
         heading: "Quel niveau de DPE viser ?",
-        body: "<p>Contrairement à ce qui circule souvent, <strong>l'étiquette énergétique n'est pas une condition générale de l'ancien</strong>. Le texte ouvre <strong>trois voies alternatives</strong> : des travaux concourant à la production d'un immeuble neuf au sens fiscal ; des travaux d'amélioration représentant au moins 30 % du prix d'acquisition ; ou une réhabilitation lourde. <strong>Seule cette troisième voie</strong> emporte, par renvoi, une exigence de classe A ou B. Un projet passant par les 30 % de travaux n'a donc pas d'objectif de DPE à atteindre au titre du dispositif — ce qui ne dispense évidemment pas des obligations de décence énergétique de droit commun.</p>",
+        body: "<p>Dans l'ancien, la loi prévoit deux types de travaux : ceux concourant à la production ou à la livraison d'un immeuble neuf au sens fiscal, ou des travaux d'amélioration représentant au moins 30 % du prix d'acquisition. <strong>Dans les deux cas, le logement doit également satisfaire les critères d'une réhabilitation lourde.</strong> Selon l'analyse de l'ANIL, ceux-ci comprennent notamment l'atteinte d'une classe A ou B, avec des critères spécifiques outre-mer. Vérifiez le détail de votre projet avec un professionnel.</p>",
       },
       {
         heading: "Une base amortissable élargie",
@@ -218,7 +218,7 @@ export const guides: Guide[] = [
       {
         question: "Quel montant de travaux faut-il dans l'ancien ?",
         answer:
-          "Au moins 30 % du prix d'acquisition du logement, sous forme d'une rénovation lourde (isolation, chauffage, ventilation…) permettant d'atteindre une haute performance énergétique après travaux.",
+          "La loi vise soit des travaux concourant à la production ou à la livraison d'un immeuble neuf au sens fiscal, soit des travaux d'amélioration d'au moins 30 % du prix d'acquisition. Le logement doit aussi satisfaire les critères d'une réhabilitation lourde.",
       },
       {
         question: "Les travaux entrent-ils dans la base amortissable ?",
@@ -429,7 +429,7 @@ export const guides: Guide[] = [
       },
       {
         heading: "Le cas de l'ancien : travaux et performance énergétique",
-        body: "<p>L'ancien est éligible par trois voies au choix : travaux concourant à la production d'un immeuble neuf au sens fiscal, <strong>travaux d'amélioration d'au moins 30 % du prix</strong>, ou réhabilitation lourde. La voie des 30 % est la plus courante ; elle ne comporte <strong>pas</strong> d'exigence de classe énergétique au titre du dispositif, contrairement à la réhabilitation lourde.</p>",
+        body: "<p>Dans l'ancien, le logement doit avoir fait l'objet soit de travaux concourant à la production ou à la livraison d'un immeuble neuf au sens fiscal, soit de <strong>travaux d'amélioration représentant au moins 30 % du prix d'acquisition</strong>. Il doit aussi satisfaire les critères d'une <strong>réhabilitation lourde</strong>, notamment de performance énergétique. Des critères spécifiques s'appliquent outre-mer ; consultez l'analyse de l'ANIL dans les sources.</p>",
       },
       {
         heading: "L'engagement de 9 ans",
@@ -466,8 +466,8 @@ export const guides: Guide[] = [
         body: "<p>Le neuf bénéficie des meilleurs taux : 3,5 % (intermédiaire), 4,5 % (social) et 5,5 % (très social) par an. L'ancien rénové est un cran en dessous : 3 %, 3,5 % et 4 %. À prix égal, l'avantage fiscal annuel est donc supérieur dans le neuf.</p>",
       },
       {
-        heading: "L'ancien suppose des travaux d'au moins 30 %",
-        body: "<p>La voie la plus courante dans l'ancien suppose des <strong>travaux représentant au moins 30 % du prix d'acquisition</strong>. Ces travaux entrent dans la base amortissable, aux côtés du prix. La contrainte renchérit le projet mais permet de cibler des emplacements de centre-ville rares dans le neuf, et de créer de la valeur par la rénovation.</p>",
+        heading: "L'ancien impose des travaux et une réhabilitation lourde",
+        body: "<p>Le logement ancien doit avoir fait l'objet de travaux concourant à la production d'un immeuble neuf au sens fiscal ou de travaux d'amélioration représentant au moins 30 % du prix d'acquisition. Il doit aussi respecter les critères d'une réhabilitation lourde. Certains travaux entrent dans la base amortissable, aux côtés du prix. Vérifiez les conditions applicables à votre opération avant l'achat.</p>",
       },
       {
         heading: 'Coûts annexes et délais',
@@ -487,7 +487,7 @@ export const guides: Guide[] = [
       {
         question: "Quels travaux sont exigés dans l'ancien ?",
         answer:
-          "Au choix : des travaux concourant à la production d'un immeuble neuf au sens fiscal, des travaux d'amélioration d'au moins 30 % du prix d'acquisition, ou une réhabilitation lourde — cette dernière étant la seule à emporter une exigence de classe A ou B.",
+          "Il faut soit des travaux concourant à la production ou à la livraison d'un immeuble neuf au sens fiscal, soit des travaux d'amélioration d'au moins 30 % du prix d'acquisition. Le logement doit aussi répondre aux critères d'une réhabilitation lourde.",
       },
     ],
   },

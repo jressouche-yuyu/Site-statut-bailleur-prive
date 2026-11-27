@@ -26,8 +26,20 @@ const crumbs = [
   { name: guide.title, path: `/guides/${guide.slug}` },
 ];
 
-// Autres guides pour le maillage interne.
-const related = guides.filter((g) => g.slug !== guide.slug).slice(0, 3);
+// Guides utiles à la question traitée, plutôt qu'une liste identique partout.
+const relatedSlugs: Record<string, string[]> = {
+  'conditions-eligibilite-dispositif-jeanbrun': ['comment-fonctionne-statut-bailleur-prive', 'dispositif-jeanbrun-ancien-travaux-dpe', 'risques-limites-dispositif-jeanbrun'],
+  'comment-fonctionne-statut-bailleur-prive': ['conditions-eligibilite-dispositif-jeanbrun', 'rentabilite-dispositif-jeanbrun-exemple-chiffre', 'revente-plus-value-amortissement-jeanbrun'],
+  'risques-limites-dispositif-jeanbrun': ['conditions-eligibilite-dispositif-jeanbrun', 'rentabilite-dispositif-jeanbrun-exemple-chiffre', 'revente-plus-value-amortissement-jeanbrun'],
+  'revente-plus-value-amortissement-jeanbrun': ['risques-limites-dispositif-jeanbrun', 'comment-fonctionne-statut-bailleur-prive', 'rentabilite-dispositif-jeanbrun-exemple-chiffre'],
+  'dispositif-jeanbrun-ancien-travaux-dpe': ['conditions-eligibilite-dispositif-jeanbrun', 'neuf-ou-ancien-dispositif-jeanbrun', 'risques-limites-dispositif-jeanbrun'],
+};
+const preferred = relatedSlugs[guide.slug] ?? [];
+const related = [
+  ...preferred.map((slug) => guides.find((g) => g.slug === slug)).filter((g) => g !== undefined),
+  ...guides.filter((g) => g.slug !== guide.slug && !preferred.includes(g.slug) && g.category === guide.category),
+  ...guides.filter((g) => g.slug !== guide.slug && !preferred.includes(g.slug) && g.category !== guide.category),
+].slice(0, 3);
 
 const jsonLd = [
   breadcrumbSchema(crumbs),
@@ -72,7 +84,7 @@ const fmtDate = (iso: string) =>
 
       <Callout title="Rappel">
         <p>
-          Contenu informatif tenu à jour de la version adoptée fin 2025. Il ne
+          Contenu informatif fondé sur la loi de finances pour 2026. Il ne
           remplace pas un conseil fiscal personnalisé : vérifiez les textes en
           vigueur avant toute décision. Voir la
           <a href={url('/dispositif-jeanbrun')}> page de référence du dispositif</a>.

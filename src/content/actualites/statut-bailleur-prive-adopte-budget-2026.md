@@ -1,14 +1,14 @@
 ---
 title: "Le statut du bailleur privé adopté dans le budget 2026"
 metaTitle: "Statut du bailleur privé : adopté dans le budget 2026"
-description: "Adopté par l'Assemblée puis le Sénat, le statut du bailleur privé (dispositif Jeanbrun) figure dans la loi de finances 2026, promulguée le 20 février 2026."
+description: "Adopté par l'Assemblée puis le Sénat, le statut du bailleur privé (dispositif Jeanbrun) figure dans la loi de finances 2026, promulguée le 19 février 2026."
 publishedAt: 2026-06-20
 updatedAt: 2026-06-20
 tags: ["loi de finances", "dispositif Jeanbrun"]
 readingMinutes: 4
 faq:
   - question: "Le statut du bailleur privé est-il définitivement adopté ?"
-    answer: "Oui. La mesure a été votée par l'Assemblée nationale puis le Sénat, et figure dans la loi de finances pour 2026, promulguée le 20 février 2026."
+    answer: "Oui. La mesure a été votée par l'Assemblée nationale puis le Sénat, et figure dans la loi de finances pour 2026, promulguée le 19 février 2026."
   - question: "Quels sont les taux d'amortissement dans le neuf ?"
     answer: "Le taux atteint 5,5 % pour un loyer très social, 4,5 % pour un loyer social et 3,5 % pour un loyer intermédiaire. Plus le loyer est bas, plus le taux est élevé."
   - question: "Quand peut-on bénéficier du dispositif ?"

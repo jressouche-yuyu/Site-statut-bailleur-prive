@@ -121,7 +121,7 @@ const jsonLd = [
       <div class="field" id="field-travaux" hidden>
         <label for="travaux">Montant des travaux (€)</label>
         <input type="number" id="travaux" name="travaux" min="0" step="1000" value="60000" inputmode="numeric" />
-        <p class="hint">Dans l'ancien, les travaux s'ajoutent au prix avant application des 80 %. Ils doivent représenter au moins 30 % du prix d'acquisition.</p>
+        <p class="hint">Dans l'ancien, certains travaux s'ajoutent au prix avant application des 80 %. L'éligibilité dépend des travaux et des critères de réhabilitation lourde : ce calcul ne les vérifie pas.</p>
       </div>
 
       <div class="field">
@@ -238,7 +238,9 @@ const jsonLd = [
         Calcul simplifié : il ne tient pas compte de toute votre situation (autres
         revenus fonciers, déficit imputable sur le revenu global, plus-value à la
         revente, plafonds spécifiques). Les taux et plafonds reflètent la version
-        adoptée fin 2025 et peuvent évoluer. Pour la méthode, voir
+        issue de la loi de finances pour 2026 et peuvent évoluer. Ce simulateur
+        ne vérifie ni votre éligibilité ni les plafonds de loyer applicables.
+        Pour la méthode, voir
         <a href={url('/guides/comment-fonctionne-statut-bailleur-prive')}> notre guide</a>.
       </p>
     </Callout>

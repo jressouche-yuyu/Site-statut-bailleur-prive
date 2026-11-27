@@ -80,7 +80,7 @@ export const glossaire: GlossaryTerm[] = [
     term: 'DPE',
     slug: 'dpe',
     definition:
-      "Diagnostic de Performance Énergétique, classant un logement de A à G. Dans l'ancien, le statut du bailleur privé n'impose une étiquette A ou B que sur la voie de la réhabilitation lourde ; la voie des travaux d'amélioration à 30 % du prix ne comporte pas de condition énergétique.",
+      "Diagnostic de performance énergétique, classant un logement de A à G. Pour le dispositif dans l'ancien, la loi exige notamment de satisfaire les critères d'une réhabilitation lourde, qui comprennent une condition de performance énergétique. Des règles particulières s'appliquent outre-mer.",
   },
   {
     term: 'Dispositif Pinel',

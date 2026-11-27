@@ -48,7 +48,7 @@ Les investisseurs en LMNP se retrouvent dans une position d'incertitude : la mes
 
 ## Ce que cela ne change pas : le dispositif Jeanbrun
 
-Le [statut du bailleur privé (dispositif Jeanbrun)](/dispositif-jeanbrun) **n'est pas concerné par le PLF 2027**. Il a été créé par la loi de finances pour 2026, promulguée le 20 février 2026, et son cadre juridique est établi pour les acquisitions réalisées entre le 21 février 2026 et le 31 décembre 2028. Les taux d'amortissement (5,5 %, 4,5 %, 3,5 % selon l'effort social consenti sur le loyer) et l'engagement de douze ans sont sécurisés, indépendamment du sort du PLF 2027.
+Le [statut du bailleur privé (dispositif Jeanbrun)](/dispositif-jeanbrun) **n'est pas concerné par le PLF 2027**. Il a été créé par la loi de finances pour 2026, promulguée le 19 février 2026, et son cadre juridique est établi pour les acquisitions réalisées entre le 21 février 2026 et le 31 décembre 2028. Les taux d'amortissement (5,5 %, 4,5 %, 3,5 % selon l'effort social consenti sur le loyer) et l'engagement minimal de neuf ans résultent de la loi de finances pour 2026 ; leur évolution éventuelle dépend des textes futurs.
 
 Pour les investisseurs en location nue qui souhaitent [simuler le gain fiscal du dispositif](/simulateur), la procédure budgétaire actuelle n'introduit aucune incertitude sur leurs droits. En revanche, pour ceux qui [comparent le dispositif Jeanbrun et le LMNP](/guides/dispositif-jeanbrun-vs-pinel-lmnp), les incertitudes sur la fiscalité des meublés renforcent l'intérêt du statut de bailleur privé, dont les règles sont désormais stabilisées par la loi.
 

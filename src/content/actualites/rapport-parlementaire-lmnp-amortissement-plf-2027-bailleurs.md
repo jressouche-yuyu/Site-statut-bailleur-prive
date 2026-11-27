@@ -3,7 +3,7 @@ title: "PLF 2027 : ce que le rapport Mattei–de Courson recommande pour la fisc
 metaTitle: "LMNP et PLF 2027 : les risques à surveiller | Bailleur Privé"
 description: "Le rapport parlementaire n°3056 (juillet 2026) recommande de plafonner les amortissements LMNP. Ce que les bailleurs doivent anticiper avant le PLF 2027."
 publishedAt: 2026-08-13
-updatedAt: 2026-08-13
+updatedAt: 2026-11-28
 tags: ["LMNP", "PLF 2027", "fiscalité immobilière"]
 readingMinutes: 5
 author: "La rédaction Bailleur Privé"
@@ -11,10 +11,14 @@ faq:
   - question: "Le rapport Mattei–de Courson est-il une loi ?"
     answer: "Non. Un rapport parlementaire est un document de travail qui formule des recommandations. Il n'a aucune valeur contraignante à ce jour. Les mesures évoquées dans le rapport n°3056 ne deviendront obligatoires que si elles sont reprises dans un texte de loi adopté par le Parlement."
   - question: "Le plafonnement des amortissements LMNP s'appliquerait-il aux investissements déjà en cours ?"
-    answer: "Le rapport n°3056 ne précise aucune règle transitoire. Si une mesure de plafonnement était adoptée dans le PLF 2027, son champ d'application — nouvelles acquisitions uniquement, ou ensemble du parc LMNP — serait défini dans le texte de loi lui-même, attendu pour début octobre 2026."
-  - question: "Quand le PLF 2027 sera-t-il présenté au Parlement ?"
-    answer: "Le projet de loi de finances pour 2027 doit être déposé à l'Assemblée nationale au plus tard le premier mardi d'octobre 2026, soit aux alentours du 7 octobre 2026. C'est à cette date que les mesures fiscales immobilières retenues seront connues."
+    answer: "Le rapport ne fixe pas de règle transitoire. Dans le cadre du PLF 2027, le Sénat a adopté en séance un amendement visant certaines locations commencées au plus tard le 1er octobre 2026. Cette protection reste subordonnée au texte définitif."
+  - question: "Quand le PLF 2027 a-t-il été présenté au Parlement ?"
+    answer: "Le projet de loi de finances pour 2027 a été déposé à l'Assemblée nationale le 1er octobre 2026. Son examen parlementaire se poursuit et son contenu n'est pas définitif."
 sources:
+  - label: "Assemblée nationale — Dossier du projet de loi de finances pour 2027"
+    url: "https://www.assemblee-nationale.fr/dyn/17/dossiers/PLF_2027"
+  - label: "Sénat — Amendement I-882 rectifié ter adopté en séance"
+    url: "https://www.senat.fr/enseance/2026-2027/155/Amdt_I-882.html"
   - label: "Assemblée nationale — Rapport n°3056 de la commission d'enquête sur la fiscalité des hauts patrimoines, 8 juillet 2026"
     url: "https://www.assemblee-nationale.fr/dyn/17/rapports/cepat/l17b3056-t2_rapport-enquete.pdf"
   - label: "impots.gouv.fr — Location meublée non professionnelle : régime réel BIC"
@@ -27,7 +31,7 @@ Le rapport n°3056 de l'Assemblée nationale, déposé le 8 juillet 2026, recomm
 
 Le rapport n°3056 est un document de commission d'enquête de l'Assemblée nationale, enregistré le 8 juillet 2026. Présidé par Jean-Paul Mattei et rapporté par Charles de Courson, il analyse l'imposition des plus hauts patrimoines et des revenus les plus élevés, et formule des recommandations susceptibles d'alimenter les travaux du PLF 2027. Ce rapport n'est ni une loi ni un projet de loi : aucune de ses recommandations ne crée d'obligation pour les propriétaires ou les investisseurs à ce jour.
 
-Le PLF 2027 devra être déposé à l'Assemblée nationale au plus tard aux alentours du **7 octobre 2026**, date à laquelle les mesures réellement retenues seront connues.
+Le PLF 2027 a été déposé le **1er octobre 2026**. Son article 7 comprend une proposition distincte concernant l'amortissement en location meublée. Le Sénat a adopté en séance un amendement de protection pour certaines activités préexistantes ; le texte final reste à arrêter. Voir notre [analyse de la clause grand-père LMNP](/actualites/plf-2027-senat-clause-grand-pere-lmnp-novembre-2026).
 
 ## La recommandation n°8 : plafonner les amortissements LMNP
 
@@ -53,23 +57,16 @@ Au-delà du LMNP, le rapport Mattei–de Courson explore plusieurs leviers fisca
 - **IFI** : une extension de l'Impôt sur la Fortune Immobilière aux actifs immobiliers « improductifs » est mentionnée — sans qu'une définition précise soit arrêtée.
 - **Loyers fictifs** : la mise à disposition gratuite de logements entre proches est abordée comme une piste de rendement budgétaire.
 
-> **Focus** — Selon la FNAIM, seules 10 000 opérations d'investissement locatif privé ont été réalisées en 2025, cinq fois moins qu'avant la crise du logement. Toute mesure fiscale supplémentaire pèsera sur un parc locatif déjà fragilisé.
-
 ## Le statut du bailleur privé : un amortissement légalement encadré et non visé
 
 [Le statut du bailleur privé (dispositif Jeanbrun)](/dispositif-jeanbrun) offre un amortissement défini par la loi de finances pour 2026 : **3,5 %**, **4,5 %** ou **5,5 %** par an selon l'effort social consenti — loyer intermédiaire, social ou très social. Ces taux légaux sont inscrits dans la loi et ne sont pas visés par la recommandation n°8, qui cible exclusivement le régime réel BIC de la location **meublée**.
 
 Contrairement au LMNP, le statut du bailleur privé porte sur la **location nue**, qui relève des revenus fonciers et non du régime BIC. C'est une distinction fondamentale que nous détaillons dans [notre comparaison du Jeanbrun avec le LMNP](/guides/dispositif-jeanbrun-vs-pinel-lmnp).
 
-Les investisseurs qui souhaitent sécuriser leur situation fiscale avant la présentation du PLF 2027 peuvent [simuler le gain fiscal du dispositif Jeanbrun](/simulateur) et vérifier [leurs conditions d'éligibilité](/guides/conditions-eligibilite-dispositif-jeanbrun).
+Les investisseurs qui souhaitent sécuriser leur situation fiscale pour comparer les options de location nue peuvent [simuler le gain fiscal du dispositif Jeanbrun](/simulateur) et vérifier [leurs conditions d'éligibilité](/guides/conditions-eligibilite-dispositif-jeanbrun).
 
-## Le calendrier à surveiller d'ici décembre 2026
+## Où en est le PLF 2027 ?
 
-Plusieurs rendez-vous structureront l'agenda fiscal des bailleurs durant l'automne parlementaire :
+Le projet de loi de finances pour 2027 a été déposé le 1er octobre 2026. En séance au Sénat, un amendement prévoit une exception au plafonnement et aux restrictions de report pour certaines activités LMNP commencées au plus tard le 1er octobre 2026, tant que le propriétaire reste inchangé. Cette disposition est issue d'un vote parlementaire et ne constitue pas une loi définitive.
 
-- **Vers le 7 octobre 2026** : dépôt du PLF 2027 à l'Assemblée nationale — premier texte officiel révélant les mesures immobilières retenues.
-- **15 octobre 2026** : publication par l'INSEE de l'IRL T3 2026, référence pour les révisions de loyer d'octobre.
-- **Automne 2026** : examen du projet de loi Relance Logement par l'Assemblée nationale, qui pourrait assouplir les conditions d'accès au dispositif Jeanbrun dans l'ancien.
-- **23 novembre 2026** : expiration de l'expérimentation d'encadrement des niveaux de loyers, dont l'avenir reste incertain.
-
-Les recommandations du rapport Mattei–de Courson n'ont à ce jour aucune valeur contraignante : nous les suivrons de près et mettrons cet article à jour dès la publication du PLF 2027.
+Le rapport Mattei–de Courson reste une source de recommandations : il ne doit pas être confondu avec le projet de loi ni avec les mesures qui pourraient finalement être promulguées. Consultez le [dossier législatif du Sénat](https://www.senat.fr/dossier-legislatif/pjlf2027.html) pour suivre les étapes ultérieures.

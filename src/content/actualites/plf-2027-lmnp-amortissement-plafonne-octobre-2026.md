@@ -56,7 +56,7 @@ Cette distinction est importante : les bailleurs LMNP disposant d'un stock d'amo
 
 Trois points restent inchangés si le texte était adopté en l'état :
 
-**Le dispositif Jeanbrun concerne la location nue, pas le meublé.** Le statut du bailleur privé (loi de finances 2026, promulguée le 20 février 2026) repose sur un amortissement fiscal modulé, applicable uniquement à la **location nue** conventionnée. Il n'est pas concerné par l'article 7 du PLF 2027. Pour comprendre [les conditions d'éligibilité au dispositif Jeanbrun](/guides/conditions-eligibilite-dispositif-jeanbrun) ou [comparer Jeanbrun et LMNP](/guides/dispositif-jeanbrun-vs-pinel-lmnp), retrouvez nos guides dédiés.
+**Le dispositif Jeanbrun concerne la location nue, pas le meublé.** Le statut du bailleur privé (loi de finances 2026, promulguée le 19 février 2026) repose sur un amortissement fiscal modulé, applicable uniquement à la **location nue** conventionnée. Il n'est pas concerné par l'article 7 du PLF 2027. Pour comprendre [les conditions d'éligibilité au dispositif Jeanbrun](/guides/conditions-eligibilite-dispositif-jeanbrun) ou [comparer Jeanbrun et LMNP](/guides/dispositif-jeanbrun-vs-pinel-lmnp), retrouvez nos guides dédiés.
 
 **Le régime micro-BIC reste inchangé.** L'abattement forfaitaire applicable aux bailleurs meublés qui n'optent pas pour le réel n'est pas modifié par cet article. Seuls les loueurs meublés au **régime réel BIC** sont visés.
 

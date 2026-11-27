@@ -55,7 +55,7 @@ Les bénéficiaires éligibles sont :
 
 Un investisseur qui reçoit un don familial en H1 2027 peut l'affecter librement à l'achat d'un bien locatif. Le don allège la transmission de patrimoine ; le dispositif Jeanbrun optimise la fiscalité locative pendant douze ans. Les deux mécanismes sont indépendants et ne font l'objet d'aucune incompatibilité légale.
 
-Le dispositif Jeanbrun permet d'amortir fiscalement 3,5 %, 4,5 % ou 5,5 % du prix d'acquisition selon le niveau de modération de loyer consenti, au régime réel simplifié, sur un engagement de douze ans. L'apport issu d'un don familial réduit le recours à l'emprunt et améliore directement [la rentabilité avec un exemple chiffré](/guides/rentabilite-dispositif-jeanbrun-exemple-chiffre). Pour [simuler le gain fiscal du dispositif](/simulateur), notre outil en ligne est disponible.
+Le dispositif Jeanbrun permet d'amortir fiscalement 3,5 %, 4,5 % ou 5,5 % d'une base représentant 80 % du prix d'acquisition net de frais pour un logement neuf, selon le niveau de loyer, avec un engagement de location d'au moins neuf ans. L'apport issu d'un don familial réduit le recours à l'emprunt et améliore directement [la rentabilité avec un exemple chiffré](/guides/rentabilite-dispositif-jeanbrun-exemple-chiffre). Pour [simuler le gain fiscal du dispositif](/simulateur), notre outil en ligne est disponible.
 
 La période ouverte par l'article 4 (1er janvier – 30 juin 2027) s'inscrit dans la fenêtre d'éligibilité au dispositif Jeanbrun (21 février 2026 – 31 décembre 2028). Un acquéreur qui reçoit un don début 2027 dispose du premier semestre pour préparer et concrétiser son acquisition dans ce cadre.
 
@@ -67,7 +67,7 @@ Trois points restent inchangés si le texte était adopté en l'état :
 
 - Le **barème des successions immobilières** (de 5 % à 45 % en ligne directe) et l'abattement de 100 000 € par enfant ne sont pas touchés.
 - Les **donations d'immobilier en pleine propriété ou en démembrement** relèvent du barème ordinaire, sans bénéficier du taux à 6 %.
-- Le **statut du bailleur privé** : aucune modification n'est prévue dans le PLF 2027 ; les taux et [conditions d'éligibilité au dispositif Jeanbrun](/guides/conditions-eligibilite-dispositif-jeanbrun) restent ceux fixés par la loi de finances 2026 promulguée le 20 février 2026.
+- Le **statut du bailleur privé** : aucune modification n'est prévue dans le PLF 2027 ; les taux et [conditions d'éligibilité au dispositif Jeanbrun](/guides/conditions-eligibilite-dispositif-jeanbrun) restent ceux fixés par la loi de finances 2026 promulguée le 19 février 2026.
 
 Pour [comparer Jeanbrun et LMNP](/guides/dispositif-jeanbrun-vs-pinel-lmnp) à la lumière des évolutions fiscales en cours, notre guide dédié fait le point.
 

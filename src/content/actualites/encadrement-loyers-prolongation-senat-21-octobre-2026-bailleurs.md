@@ -59,7 +59,7 @@ Voici les réflexes à adopter dès maintenant :
 
 ## Dispositif Jeanbrun et encadrement des loyers : une double contrainte à simuler
 
-Dans les villes encadrées, le [statut du bailleur privé (dispositif Jeanbrun)](/dispositif-jeanbrun) et l'encadrement du niveau des loyers peuvent se superposer : c'est le plafond le plus bas des deux systèmes qui s'applique. L'investisseur doit simuler son loyer en tenant compte des deux contraintes avant de signer un engagement de douze ans.
+Dans les villes encadrées, le [statut du bailleur privé (dispositif Jeanbrun)](/dispositif-jeanbrun) et l'encadrement du niveau des loyers peuvent se superposer : c'est le plafond le plus bas des deux systèmes qui s'applique. L'investisseur doit simuler son loyer en tenant compte des deux contraintes avant de signer un engagement de location d'au moins neuf ans.
 
 Les [plafonds de loyer du dispositif Jeanbrun](/guides/plafonds-loyer-ressources-dispositif-jeanbrun) varient selon la zone ABC (de 19,71 €/m² en zone A bis à 10,26 €/m² en zones B2 et C). Dans une ville encadrée, si le loyer de référence majoré de la préfecture est inférieur à ce plafond, c'est lui qui s'impose.
 

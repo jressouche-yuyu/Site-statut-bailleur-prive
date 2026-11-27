@@ -59,7 +59,7 @@ La remontée des taux de crédit ne supprime pas l'intérêt d'un investissement
 
 Plusieurs points méritent l'attention des bailleurs en cours de projet :
 
-- **L'avantage fiscal reste inchangé** : le dispositif Jeanbrun permet un amortissement de 3,5 % à 5,5 % selon le niveau de loyer pratiqué, sur 80 % du prix d'acquisition, pendant 12 ans. Ce levier fiscal ne dépend pas des décisions de la BCE.
+- **L'avantage fiscal reste inchangé** : le dispositif Jeanbrun permet un amortissement de 3,5 % à 5,5 % selon le niveau de loyer pratiqué, sur 80 % du prix d'acquisition, avec un engagement de location d'au moins neuf ans. Ce levier fiscal ne dépend pas des décisions de la BCE.
 - **La rentabilité nette intègre le coût du crédit** : un taux à 3,70 % au lieu de 3,40 % sur 20 ans réduit la rentabilité nette de 0,2 à 0,4 point selon le montant emprunté. Notre [simulateur du dispositif Jeanbrun](/simulateur) intègre le paramètre du taux de crédit pour mesurer cet impact sur votre projet.
 - **La fenêtre de financement favorable se resserre** : les projets bouclés avant la prochaine révision de barème bénéficieront de conditions plus avantageuses. La prochaine réunion BCE (29 octobre 2026) pourrait conduire à un troisième relèvement.
 - **La comparaison entre location nue sous Jeanbrun et LMNP** dépend en partie du coût de financement : notre [comparatif Jeanbrun / Pinel / LMNP](/guides/dispositif-jeanbrun-vs-pinel-lmnp) permet d'arbitrer selon votre situation fiscale et votre taux d'emprunt.

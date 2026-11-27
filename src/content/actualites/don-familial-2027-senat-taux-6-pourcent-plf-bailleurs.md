@@ -61,7 +61,7 @@ Le don familial exonéré peut servir d'apport personnel pour l'acquisition d'un
 Pour un investisseur souhaitant bénéficier du dispositif Jeanbrun, les points à retenir sont les suivants :
 
 - Le don familial constitue un **apport personnel** comme un autre : il n'ouvre pas droit à l'amortissement, mais il réduit le montant emprunté et donc les intérêts déductibles ;
-- Les conditions d'éligibilité au dispositif Jeanbrun (acquisition entre le 21/02/2026 et le 31/12/2028, engagement de 12 ans, loyers plafonnés) **sont indépendantes** du mode de financement ;
+- Les conditions d'éligibilité au dispositif Jeanbrun (acquisition entre le 21/02/2026 et le 31/12/2028, engagement minimal de neuf ans, loyers plafonnés) **sont indépendantes** du mode de financement ;
 - Pour [les conditions d'éligibilité complètes au dispositif Jeanbrun](/guides/conditions-eligibilite-dispositif-jeanbrun), y compris les plafonds de loyer et de ressources des locataires, nous vous renvoyons à notre guide dédié.
 
 > **À titre d'exemple :** avec un don familial de 100 000 € (50 000 € de chaque parent), entièrement exonéré grâce au nouveau plafond sénatorial, un investisseur finance la moitié d'un logement neuf acquis à 200 000 € sous le dispositif Jeanbrun au taux social (4,5 %). L'amortissement annuel déductible s'établit à 9 000 €, soit environ 2 700 € d'impôt économisé pour un foyer imposé à 30 %. Pour affiner ce calcul à votre situation, utilisez notre [simulateur de gain fiscal](/simulateur).

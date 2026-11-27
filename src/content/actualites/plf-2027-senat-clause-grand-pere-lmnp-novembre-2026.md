@@ -1,71 +1,48 @@
 ---
-title: "PLF 2027 au Sénat : la clause grand-père LMNP — ce que l'amendement du 12 novembre protège concrètement"
-metaTitle: "PLF 2027 : amortissement LMNP au Sénat | Bailleur Privé"
-description: "En commission, le Sénat a adopté le 12 novembre une clause grand-père : les LMNP lancés avant le 1er octobre 2026 échapperaient au plafond de 7 000 €/an."
+title: "PLF 2027 : que prévoit la clause grand-père LMNP examinée au Sénat ?"
+metaTitle: "PLF 2027 : clause grand-père LMNP au Sénat | Bailleur Privé"
+description: "Le Sénat a adopté en séance un amendement sur les amortissements LMNP existants. Conditions, limites et état du PLF 2027."
 publishedAt: 2026-11-19
-updatedAt: 2026-11-19
+updatedAt: 2026-11-28
 tags: ["LMNP", "PLF 2027", "fiscalité immobilière"]
 readingMinutes: 4
 author: "La rédaction Bailleur Privé"
 faq:
-  - question: "Les LMNP en cours avant le 1er octobre 2026 seront-ils vraiment protégés par la clause grand-père du Sénat ?"
-    answer: "Oui, si l'amendement FINC.16 est confirmé en loi : les meublés loués avant le 1er octobre 2026 dont le propriétaire reste inchangé échapperaient au plafond de 7 000 €/an fixé par l'article 7 du PLF 2027. Rien n'est définitif avant la promulgation."
-  - question: "Quel est le plafond d'amortissement LMNP prévu dans le PLF 2027 ?"
-    answer: "Le PLF 2027 plafonne l'amortissement des LMNP à 2,5 % du prix d'acquisition et 7 000 € par foyer et par an, avec suppression du report des amortissements non déduits. Les meublés de tourisme seraient limités à 1,5 % et 5 000 €/an."
-  - question: "Quand le PLF 2027 sera-t-il définitivement adopté ?"
-    answer: "Le Sénat examine le texte en séance publique à partir du 20 novembre 2026, avec un vote solennel le 9 décembre, puis une commission mixte paritaire Assemblée-Sénat avant l'adoption définitive attendue fin décembre."
+  - question: "La clause grand-père LMNP est-elle définitive ?"
+    answer: "Non. Un amendement a été adopté en séance au Sénat, mais le projet de loi de finances pour 2027 poursuit son parcours parlementaire. Son contenu peut encore évoluer avant une éventuelle promulgation."
+  - question: "Qui serait concerné par l'exception ?"
+    answer: "L'amendement adopté vise les activités LMNP commencées au plus tard le 1er octobre 2026, tant que le propriétaire du logement demeure inchangé. Son application dépend du texte définitivement adopté."
+  - question: "Le dispositif Jeanbrun est-il identique au LMNP ?"
+    answer: "Non. Jeanbrun concerne la location nue imposée dans la catégorie des revenus fonciers ; le LMNP concerne la location meublée imposée dans la catégorie des bénéfices industriels et commerciaux."
 sources:
-  - label: "Sénat — Dossier législatif PLF 2027"
+  - label: "Sénat — Amendement I-882 rectifié ter adopté en séance"
+    url: "https://www.senat.fr/enseance/2026-2027/155/Amdt_I-882.html"
+  - label: "Assemblée nationale — Dossier du PLF 2027"
+    url: "https://www.assemblee-nationale.fr/dyn/17/dossiers/PLF_2027"
+  - label: "Sénat — Dossier législatif du PLF 2027"
     url: "https://www.senat.fr/dossier-legislatif/pjlf2027.html"
-  - label: "Légifiscal — PLF 2027 : articles adoptés en commission des finances du Sénat"
-    url: "https://www.legifiscal.fr/actualites-fiscales/4735-plf-2027-principaux-articles-adoptes-commission-finances-senat.html"
 ---
 
-La commission des finances du Sénat a adopté le **12 novembre 2026** une **clause grand-père** pour les loueurs en meublé non professionnels (LMNP) : les locations meublées démarrées avant le **1er octobre 2026** seraient exemptées du plafond d'amortissement de 7 000 €/an que l'article 7 du PLF 2027 instaure. L'examen du texte en séance publique s'ouvre au Sénat à partir du **20 novembre 2026**. Voici ce que cela change concrètement selon votre situation.
+Le projet de loi de finances pour 2027 propose de modifier les règles d'amortissement des locations meublées non professionnelles. Le Sénat a adopté en séance un amendement introduisant une exception pour certaines activités existantes. **Il ne s'agit pas d'une loi définitive** : les règles peuvent encore changer au cours de la procédure parlementaire.
 
-## Rappel : le plafond d'amortissement LMNP prévu à l'article 7
+## Que prévoit l'amendement adopté ?
 
-Le loueur en meublé non professionnel (LMNP) est un statut fiscal permettant à un particulier de louer un bien meublé sous le régime réel simplifié, en déduisant l'**amortissement comptable** du bien pour réduire son revenu imposable. Ce mécanisme n'était jusqu'ici soumis à aucun plafond.
+L'amendement I-882 rectifié ter vise les activités LMNP ayant débuté **au plus tard le 1er octobre 2026**, tant que le propriétaire du logement demeure inchangé. Il prévoit, pour les logements concernés, une exception au plafonnement envisagé et aux nouvelles restrictions de report mentionnées dans l'amendement.
 
-L'article 7 du projet de loi de finances pour 2027, déposé le 1er octobre 2026, prévoit de plafonner cet amortissement à **7 000 € par foyer et par an** (soit 2,5 % du prix d'acquisition), et à **5 000 €/an** pour les meublés de tourisme (1,5 %). Il supprime en outre le **report** des amortissements non déduits sur les années suivantes.
+Pour les activités qui ne rempliraient pas ces conditions, il faut attendre le texte final avant de déterminer précisément les règles applicables. Une activité débutée le 1er octobre est incluse dans la rédaction de l'amendement ; la date du début de l'activité et l'identité du propriétaire sont à examiner pour chaque situation.
 
-L'Assemblée nationale avait supprimé ce plafonnement fin octobre, mais le rejet de la première partie du PLF le **4 novembre 2026** a remis le texte gouvernemental initial à l'ordre du jour du Sénat.
+| Situation | Effet prévu par l'amendement | Statut |
+|---|---|---|
+| Activité débutée au plus tard le 1er octobre 2026, propriétaire inchangé | Exception au plafonnement et aux restrictions de report visées | Amendement adopté en séance, texte non définitif |
+| Activité débutée après le 1er octobre 2026 | Pas d'exception au titre de cette clause | Règles définitives à attendre |
+| Changement de propriétaire | La condition de propriétaire inchangé n'est plus remplie | Situation à examiner selon le texte final |
 
-## Ce que propose l'amendement FINC.16 du Sénat
+## Quel plafonnement est proposé ?
 
-Face aux inquiétudes des bailleurs meublés existants, la rapporteure générale Christine Lavarde a défendu en commission un amendement de protection des droits acquis :
+L'article 7 du projet prévoit un plafond annuel de déduction de **2,5 % de la valeur d'origine du bien**, dans la limite de **7 000 € par foyer** ; les limites prévues pour les meublés de tourisme sont de **1,5 % et 5 000 €**. Le projet modifie aussi les règles de report. Ces chiffres décrivent une proposition, sous réserve des amendements et du texte qui sera finalement adopté.
 
-- Les locations meublées non professionnelles **commencées au plus tard le 1er octobre 2026** seraient exclues du plafond, **tant que le propriétaire du bien demeure inchangé** ;
-- Cette exemption couvre la déductibilité de l'amortissement et le report des amortissements non déduits ;
-- Les nouvelles acquisitions ou premières locations **après le 1er octobre 2026** resteraient soumises au plafond si le texte final le maintient.
+## Que faire en attendant ?
 
-La commission des finances a voté cet amendement le 12 novembre 2026. Il sera examiné en séance publique à partir du **20 novembre**.
+Conservez les justificatifs de début d'activité, d'acquisition et d'amortissement. Suivez le dossier parlementaire avant de prendre une décision et faites examiner votre situation par un expert-comptable ou un professionnel qualifié. Une exception votée à une étape de la procédure ne garantit pas son maintien dans la loi finale.
 
-## Comparatif selon votre profil
-
-| Profil de bailleur | Texte gouvernemental initial | Amendement Sénat (FINC.16) | Statut au 19/11/2026 |
-|---|---|---|---|
-| LMNP lancé avant le 01/10/2026 | Plafond 7 000 €/an + perte du report | Exempté si propriétaire inchangé | En examen au Sénat |
-| LMNP lancé après le 01/10/2026 | Plafond 7 000 €/an + perte du report | Plafond maintenu | En examen au Sénat |
-| Meublé de tourisme avant 01/10/2026 | Plafond 5 000 €/an + perte du report | Exempté si propriétaire inchangé | En examen au Sénat |
-| Meublé de tourisme après 01/10/2026 | Plafond 5 000 €/an + perte du report | Plafond maintenu | En examen au Sénat |
-| Revente du bien après l'exemption | Sans objet | Exemption perdue à la revente | En examen au Sénat |
-
-> **Important :** la clause grand-père n'est pas une loi. Le vote solennel du Sénat est prévu le **9 décembre 2026**, suivi d'une commission mixte paritaire Assemblée-Sénat. Jusqu'à la promulgation, **aucun changement ne s'applique** aux déductions LMNP en cours.
-
-## Calendrier des prochaines étapes
-
-Nous suivons ce calendrier pour vous tenir informés :
-
-- **20 novembre 2026** : ouverture de la séance publique au Sénat
-- **9 décembre 2026** : vote solennel du Sénat
-- **Mi-décembre 2026** : commission mixte paritaire Assemblée nationale – Sénat
-- **Fin décembre 2026** : adoption définitive et promulgation attendues
-
-## Ce que cela signifie pour les bailleurs en location nue
-
-Le statut LMNP est distinct du [statut du bailleur privé (dispositif Jeanbrun)](/dispositif-jeanbrun), qui concerne exclusivement la **location nue** avec un amortissement modulé selon le niveau social du loyer (3,5 %, 4,5 % ou 5,5 %). Pour ces bailleurs, l'article 7 du PLF 2027 ne s'applique pas.
-
-Nous vous invitons à [comparer les régimes Pinel, LMNP et dispositif Jeanbrun](/guides/dispositif-jeanbrun-vs-pinel-lmnp) pour mesurer l'impact des changements fiscaux en cours selon votre stratégie, et à consulter les [plafonds de loyer et de ressources du dispositif Jeanbrun](/guides/plafonds-loyer-ressources-dispositif-jeanbrun) si vous envisagez une location nue conventionnée.
-
-Pour estimer votre gain fiscal selon votre situation actuelle, utilisez notre [simulateur](/simulateur).
+Pour comparer les régimes, consultez notre [comparatif Jeanbrun, Pinel et LMNP](/guides/dispositif-jeanbrun-vs-pinel-lmnp). Le [dispositif Jeanbrun](/dispositif-jeanbrun) porte sur la location nue et obéit à des règles distinctes du LMNP.
