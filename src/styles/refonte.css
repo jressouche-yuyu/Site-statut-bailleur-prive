@@ -77,7 +77,7 @@ th { background: var(--bg-soft); }
 .reading-rail a:hover { text-decoration: underline; }
 .reading-content { min-width: 0; max-width: 790px; }
 .reading-content .prose > .lead { font-family: var(--font-editorial); color: var(--text); font-size: clamp(1.25rem, 2vw, 1.55rem); line-height: 1.5; }
-.reading-content .related { border: 0; border-radius: 0; background: var(--accent-soft); }
+.reading-shell .reading-content .related { border: 0; border-top: 1px solid var(--border-strong); border-radius: 0; background: transparent; padding: 1.5rem 0 0; }
 .article-hero { display: grid; gap: 2rem; margin-block: 1.5rem 4rem; align-items: stretch; }
 .article-hero-copy { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
 .article-hero h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); }

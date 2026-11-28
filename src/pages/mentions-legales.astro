@@ -21,19 +21,19 @@ const jsonLd = [breadcrumbSchema(crumbs)];
   <div class="container container-narrow prose">
     <Breadcrumbs items={crumbs} />
     <h1>Mentions légales</h1>
-    <p class="lead">Dernière mise à jour : juin 2026.</p>
+    <p class="lead">Dernière mise à jour : 28 novembre 2026.</p>
 
     <h2>Éditeur du site</h2>
     <p>
-      Le site {SITE.name} ({SITE.url}) est édité par [Raison sociale / Nom de
-      l'éditeur], [forme juridique et capital], dont le siège social est situé
-      [adresse]. SIREN : [numéro]. Directeur de la publication : [nom].
+      Le site {SITE.name} ({SITE.url}) est édité à titre personnel par Jonas Ressouche.
       Contact : <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
     </p>
 
     <h2>Hébergement</h2>
     <p>
-      Le site est hébergé par [nom de l'hébergeur], [adresse de l'hébergeur].
+      Le site est hébergé par GitHub Pages, un service de GitHub, Inc.,
+      88 Colin P Kelly Jr Street, San Francisco, CA 94107, États-Unis.
+      <a href="https://support.github.com/">Contacter GitHub</a>.
     </p>
 
     <h2>Propriété intellectuelle</h2>
@@ -62,8 +62,8 @@ const jsonLd = [breadcrumbSchema(crumbs)];
     </p>
 
     <p class="placeholder">
-      <strong>À compléter</strong> — renseigner les informations légales réelles
-      de l'éditeur avant mise en production (champs entre crochets).
+      <strong>À compléter</strong> — les coordonnées complémentaires de l'éditeur
+      et les informations relatives à la direction de la publication restent à vérifier.
     </p>
   </div>
 </BaseLayout>
@@ -71,10 +71,10 @@ const jsonLd = [breadcrumbSchema(crumbs)];
 <style>
   .placeholder {
     margin-top: var(--space-8);
-    padding: var(--space-4);
-    background: var(--warning-soft);
-    border: 1px solid rgba(185, 119, 10, 0.3);
-    border-radius: var(--radius-sm);
+    padding: var(--space-4) 0 0;
+    border: 0;
+    border-top: 1px solid var(--border-strong);
+    background: transparent;
     font-size: 0.9rem;
   }
 </style>

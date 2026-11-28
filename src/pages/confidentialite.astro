@@ -21,29 +21,30 @@ const jsonLd = [breadcrumbSchema(crumbs)];
   <div class="container container-narrow prose">
     <Breadcrumbs items={crumbs} />
     <h1>Politique de confidentialité</h1>
-    <p class="lead">Dernière mise à jour : juin 2026.</p>
+    <p class="lead">Dernière mise à jour : 28 novembre 2026.</p>
 
     <h2>Données collectées</h2>
     <p>
       {SITE.name} est un site éditorial statique. Nous ne collectons pas de compte
-      utilisateur. Les seules données personnelles traitées sont celles que vous
-      nous transmettez volontairement, par exemple lorsque vous nous écrivez à
+      utilisateur. Lorsque vous nous écrivez à
       <a href={`mailto:${SITE.email}`}> {SITE.email}</a> (nom, adresse e-mail,
-      contenu du message).
+      contenu du message). GitHub Pages, l'hébergeur, indique également
+      enregistrer l'adresse IP des visiteurs pour des raisons de sécurité.
+      <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">En savoir plus sur GitHub Pages</a>.
     </p>
 
     <h2>Finalités</h2>
     <p>
-      Ces données servent uniquement à répondre à votre demande. Elles ne sont ni
-      vendues, ni cédées à des tiers à des fins commerciales.
+      Les informations que vous nous envoyez servent à répondre à votre demande.
+      L'hébergeur traite les données techniques de connexion pour la sécurité
+      de son service, selon sa propre politique de confidentialité.
     </p>
 
     <h2>Mesure d'audience et cookies</h2>
     <p>
-      Le site peut recourir à une mesure d'audience respectueuse de la vie privée.
-      Aucun cookie publicitaire de suivi n'est déposé sans votre consentement
-      lorsque la réglementation l'exige. Vous pouvez configurer votre navigateur
-      pour refuser les cookies.
+      Les éventuels outils de mesure d'audience et les modalités de gestion des
+      cookies doivent encore être vérifiés pour ce site. Vous pouvez configurer
+      votre navigateur pour refuser les cookies.
     </p>
 
     <h2>Vos droits</h2>
@@ -63,10 +64,10 @@ const jsonLd = [breadcrumbSchema(crumbs)];
 <style>
   .placeholder {
     margin-top: var(--space-8);
-    padding: var(--space-4);
-    background: var(--warning-soft);
-    border: 1px solid rgba(185, 119, 10, 0.3);
-    border-radius: var(--radius-sm);
+    padding: var(--space-4) 0 0;
+    border: 0;
+    border-top: 1px solid var(--border-strong);
+    background: transparent;
     font-size: 0.9rem;
   }
 </style>
