@@ -4,13 +4,11 @@ import { glob } from 'astro/loaders';
 /**
  * Collection « actualités » : LE blog du site. Il accueille indifféremment :
  *  - les publications éditoriales de la rédaction (actualités, analyses, dossiers) ;
- *  - les articles partenaires (netlinking) — un simple .md avec `partner: true`,
- *    rédigé comme un article normal et contenant le lien du client (dofollow).
+ *  - les articles partenaires identifiés avec `partner: true`. Les liens
+ *    rémunérés doivent porter rel="sponsored" dans le contenu.
  *
- * Les deux types sont mélangés et présentés à l'identique. Ajoute un fichier .md
- * dans src/content/actualites/ avec le frontmatter ci-dessous : il apparaît
- * automatiquement dans /actualites, le sitemap et le flux RSS. Les dates récentes
- * sont un signal de fraîcheur SEO/GEO.
+ * Les articles publiés apparaissent dans les actualités, le sitemap et le RSS.
+ * La date de mise à jour est renseignée lors d'une modification éditoriale réelle.
  */
 const actualites = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/actualites' }),
@@ -24,7 +22,7 @@ const actualites = defineCollection({
     tags: z.array(z.string()).default([]),
     /**
      * FAQ structurée (3 Q/R recommandé). Rendue en bas d'article ET injectée en
-     * JSON-LD FAQPage — levier GEO majeur pour les contenus YMYL/juridiques.
+     * JSON-LD FAQPage. Son affichage dans les résultats dépend des moteurs.
      */
     faq: z.array(z.object({ question: z.string(), answer: z.string() })).default([]),
     /** Sources officielles citées (Légifrance, service-public.fr…) : E-E-A-T + citabilité. */
@@ -38,8 +36,7 @@ const actualites = defineCollection({
     /** Signature affichée. Par défaut, la rédaction (voir SITE.author). */
     author: z.string().optional(),
     /**
-     * Article partenaire (lien vendu / netlinking). Usage interne : ne change
-     * rien à l'affichage tant que EDITORIAL.disclosePartner = false.
+     * Article partenaire : active la mention visible sur la page.
      */
     partner: z.boolean().default(false),
     /** Mettre à true pour ne pas publier. */

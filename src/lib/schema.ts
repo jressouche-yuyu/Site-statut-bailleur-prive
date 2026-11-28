@@ -1,10 +1,8 @@
 /**
  * Fabriques de données structurées schema.org (JSON-LD).
  *
- * Les données structurées sont déterminantes pour le SEO (rich results) et le
- * GEO : elles donnent aux moteurs génératifs un contenu factuel, désambiguïsé
- * et directement citable. On privilégie les types les plus exploités :
- * Organization, WebSite, BreadcrumbList, Article, FAQPage, HowTo, ItemList.
+ * Ces données décrivent le contenu visible. Leur présence ne garantit ni
+ * résultat enrichi ni visibilité dans les moteurs de recherche ou d'IA.
  */
 import { SITE } from '../consts';
 import type { Guide } from '../data/guides';
@@ -66,7 +64,7 @@ export function breadcrumbSchema(items: { name: string; path: string }[]) {
   };
 }
 
-/** FAQ structurée — fortement reprise dans les AI Overviews et les réponses génératives. */
+/** Questions et réponses présentes sur la page. */
 export function faqSchema(faq: { question: string; answer: string }[]) {
   return {
     '@context': 'https://schema.org',
@@ -79,7 +77,7 @@ export function faqSchema(faq: { question: string; answer: string }[]) {
   };
 }
 
-/** Tutoriel pas-à-pas → schéma HowTo, très exploité par les moteurs génératifs (GEO). */
+/** Tutoriel pas-à-pas présent sur la page. */
 export function howToSchema(howTo: {
   name: string;
   description: string;
@@ -100,17 +98,17 @@ export function howToSchema(howTo: {
 }
 
 /** Article éditorial (guides). */
-export function articleSchema(guide: Guide) {
+export function articleSchema(guide: Guide, image?: string) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: guide.title,
     description: guide.description,
-    image: abs(guide.cover ?? SITE.defaultOgImage),
+    ...(image ? { image: abs(image) } : {}),
     inLanguage: SITE.lang,
     datePublished: guide.publishedAt,
     dateModified: guide.lastUpdated,
-    author: { '@type': 'Organization', name: SITE.author },
+    author: { '@type': 'Organization', name: SITE.author, url: abs('/a-propos') },
     publisher: { '@id': `${SITE.url}/#organization` },
     mainEntityOfPage: abs(`/guides/${guide.slug}`),
   };
@@ -123,17 +121,21 @@ export function newsArticleSchema(post: {
   slug: string;
   publishedAt: Date;
   updatedAt?: Date;
+  image?: string;
+  author?: string;
 }) {
   return {
     '@context': 'https://schema.org',
     '@type': 'NewsArticle',
     headline: post.title,
     description: post.description,
-    image: abs(SITE.defaultOgImage),
+    ...(post.image ? { image: abs(post.image) } : {}),
     inLanguage: SITE.lang,
     datePublished: post.publishedAt.toISOString(),
-    dateModified: (post.updatedAt ?? post.publishedAt).toISOString(),
-    author: { '@type': 'Organization', name: SITE.author },
+    ...(post.updatedAt ? { dateModified: post.updatedAt.toISOString() } : {}),
+    author: post.author && post.author !== SITE.author
+      ? { name: post.author }
+      : { '@type': 'Organization', name: SITE.author, url: abs('/a-propos') },
     publisher: { '@id': `${SITE.url}/#organization` },
     mainEntityOfPage: abs(`/actualites/${post.slug}`),
   };

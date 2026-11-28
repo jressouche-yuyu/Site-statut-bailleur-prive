@@ -139,13 +139,13 @@ export const guides: Guide[] = [
     slug: 'revente-plus-value-amortissement-jeanbrun',
     title: "Revente et plus-value : que devient l'amortissement Jeanbrun ?",
     description:
-      "L'amortissement déduit est-il repris lors de la revente, comme en LMNP ? Vente avant 9 ans, plus-value des particuliers : ce qui est établi et ce qui reste à confirmer sur le statut du bailleur privé.",
+      "Comment les amortissements Jeanbrun influencent-ils la plus-value à la revente ? Prix d'acquisition, durée de détention et vente avant neuf ans.",
     category: "Fiscalité",
     publishedAt: "2026-06-15",
-    lastUpdated: "2026-06-15",
+    lastUpdated: "2026-11-28",
     readingMinutes: 7,
     intro:
-      "C'est la question qui décide de la rentabilité finale : à la revente, les amortissements déduits pendant la location sont-ils « repris » dans le calcul de la plus-value ? Sur ce point, les analyses divergent encore — voici ce qui est établi et ce qui ne l'est pas.",
+      "À la revente, les amortissements Jeanbrun déduits peuvent réduire le prix d'acquisition retenu pour calculer la plus-value. Voici la règle, ses effets et les points à examiner avant une vente.",
     sections: [
       {
         heading: "Rappel : la plus-value immobilière des particuliers",
@@ -153,7 +153,7 @@ export const guides: Guide[] = [
       },
       {
         heading: "La question clé : amortissement réintégré ou non ?",
-        body: "<p>Ce point décide de la rentabilité finale, et il est tranché par la loi. Le <strong>III de l'article 150 VB du code général des impôts</strong>, dans sa version en vigueur depuis le 21 février 2026, prévoit que le prix d'acquisition est <strong>minoré du montant des amortissements admis en déduction</strong> en application des i et j du 1° du I de l'article 31 — c'est-à-dire précisément ceux du statut du bailleur privé, qui y sont nommément visés.</p><p>Concrètement : chaque euro d'amortissement déduit pendant la location <strong>augmente d'autant la plus-value imposable</strong> à la revente. L'avantage n'est donc pas définitivement acquis, il est en partie <strong>différé</strong> — sur le modèle de ce que la loi de finances pour 2025 a instauré pour le <a href=\"/glossaire#lmnp\">LMNP</a>.</p><p>Ce que la loi ne dit pas encore : les modalités pratiques de déclaration, qui relèveront du commentaire administratif. <strong>Aucun commentaire BOFiP propre au dispositif n'a été publié à ce jour.</strong> Cela ne rouvre pas la question de principe, qui est réglée par le texte.</p>",
+        body: "<p>Ce point décide de la rentabilité finale, et il est tranché par la loi. Le <strong>III de l'article 150 VB du code général des impôts</strong>, dans sa version en vigueur depuis le 21 février 2026, prévoit que le prix d'acquisition est <strong>minoré du montant des amortissements admis en déduction</strong> en application des i et j du 1° du I de l'article 31 — c'est-à-dire précisément ceux du statut du bailleur privé, qui y sont nommément visés.</p><p>Cette minoration peut augmenter la <strong>plus-value brute</strong> à la revente, avant application des frais, abattements et exonérations applicables. Le texte prévoit des exceptions pour certaines dépenses : le calcul dépend du dossier. Un mécanisme comparable existe pour le <a href=\"/glossaire#lmnp\">LMNP</a>.</p><p>Pour une estimation personnalisée et les modalités déclaratives applicables à votre situation, rapprochez-vous d'un professionnel et consultez les textes et la doctrine administrative en vigueur.</p>",
       },
       {
         heading: "Vente ou changement avant la fin des 9 ans",
@@ -165,7 +165,7 @@ export const guides: Guide[] = [
       },
       {
         heading: "Notre conseil",
-        body: "<p>Avant d'investir en visant une revente, faites trancher deux points par un professionnel (notaire, CGP, expert-comptable) : le <strong>sort des amortissements à la revente</strong> et la <strong>date limite d'acquisition</strong>. Ces deux paramètres changent radicalement le rendement à long terme. Ce contenu est informatif et ne remplace pas un conseil personnalisé.</p>",
+        body: "<p>Avant d'investir en visant une revente, faites calculer par un professionnel les effets des amortissements, des frais et de la durée de détention. Vérifiez également les dates et conditions applicables à votre acquisition. Ce contenu est informatif et ne remplace pas un conseil personnalisé.</p>",
       },
     ],
     faq: [
@@ -234,7 +234,7 @@ export const guides: Guide[] = [
       "Loyers plafonnés, engagement de 9 ans, incertitudes réglementaires, dépendance à la fiscalité : les vrais inconvénients du statut du bailleur privé, sans langue de bois.",
     category: "Comprendre",
     publishedAt: "2026-06-15",
-    lastUpdated: "2026-06-15",
+    lastUpdated: "2026-11-28",
     readingMinutes: 6,
     intro:
       "Le dispositif Jeanbrun est séduisant, mais ce n'est pas un cadeau sans contrepartie. Avant d'investir, il faut peser ses limites : un avantage qui dépend de votre fiscalité, des loyers bridés, un engagement long et quelques zones d'incertitude. Tour d'horizon honnête.",
@@ -253,7 +253,7 @@ export const guides: Guide[] = [
       },
       {
         heading: "Des incertitudes réglementaires à surveiller",
-        body: "<p>Deux points ne sont pas encore parfaitement tranchés : le <strong>sort de l'amortissement à la revente</strong> (réintégré dans la plus-value, comme en LMNP, ou non ?) et certaines <strong>modalités d'application</strong>. La <a href=\"/guides/revente-plus-value-amortissement-jeanbrun\">question de la plus-value</a> peut changer la rentabilité finale : à faire confirmer avant d'investir.</p>",
+        body: "<p>La loi prévoit une <strong>minoration du prix d'acquisition par les amortissements déduits</strong> pour le calcul de la plus-value, sous les conditions et exceptions applicables. Son effet dépend notamment de la durée de détention et des frais. La <a href=\"/guides/revente-plus-value-amortissement-jeanbrun\">question de la plus-value</a> peut changer la rentabilité finale : à faire confirmer avant d'investir.</p>",
       },
       {
         heading: "Les risques classiques de l'immobilier locatif",
@@ -264,7 +264,7 @@ export const guides: Guide[] = [
       {
         question: "Le dispositif Jeanbrun a-t-il des inconvénients ?",
         answer:
-          "Oui : loyers plafonnés (rendement bridé), engagement de 9 ans peu liquide, avantage proportionnel à votre tranche d'imposition, et quelques incertitudes réglementaires (notamment le sort de l'amortissement à la revente). À peser avant d'investir.",
+          "Oui : loyers plafonnés, engagement de location, avantage dépendant de votre fiscalité et effet possible des amortissements sur la plus-value de revente. Ces éléments doivent être chiffrés avant d'investir.",
       },
       {
         question: "Que risque-t-on en cas de revente avant 9 ans ?",
@@ -399,7 +399,7 @@ export const guides: Guide[] = [
       {
         question: "Que se passe-t-il à la revente ?",
         answer:
-          "Oui. Le III de l'article 150 VB du CGI minore le prix d'acquisition du montant des amortissements déduits au titre du dispositif : la plus-value imposable à la revente augmente d'autant. L'avantage fiscal est donc en partie différé, pas définitivement acquis.",
+          "Le III de l'article 150 VB du CGI prévoit, sous conditions, une minoration du prix d'acquisition par les amortissements déduits : la plus-value brute peut augmenter avant prise en compte des abattements et des autres règles applicables. Le résultat dépend du projet et de la durée de détention.",
       },
     ],
   },

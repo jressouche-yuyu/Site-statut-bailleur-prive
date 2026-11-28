@@ -7,7 +7,6 @@ import { breadcrumbSchema, newsArticleSchema, faqSchema } from '../../lib/schema
 import { photo } from '../../lib/photos';
 import { SITE, EDITORIAL } from '../../consts';
 import { url } from '../../lib/url';
-import gitDates from '../../data/git-dates.json';
 
 export async function getStaticPaths() {
   const posts = await getCollection('actualites', (p) => !p.data.draft);
@@ -22,20 +21,13 @@ const { Content } = await render(post);
 
 const dateFmt = (d: Date) => new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' }).format(d);
 const byline = post.data.author ?? SITE.author;
-// Mention partenaire : affichée uniquement si l'interrupteur est activé (off par défaut).
+const cover = photo(`post:${post.id}`);
+const coverSrc = cover?.src ?? post.data.cover;
+// Mention visible pour les contenus identifiés comme partenaires.
 const showPartnerNotice = EDITORIAL.disclosePartner && post.data.partner;
 
-// Données YMYL : fraîcheur (« à jour au »), FAQ structurée, sources officielles.
-// Ordre de priorité : `updatedAt` déclaré à la main > dernier commit ayant
-// touché le fichier > date de publication. Sans le second, 24 articles sur 25
-// annonçaient une modification à leur seconde exacte de publication.
-const gitISO = (gitDates as Record<string, string>)[post.id];
-const gitDate = gitISO ? new Date(gitISO) : undefined;
-const revised =
-  gitDate && gitDate.getTime() - post.data.publishedAt.getTime() > 36 * 3600 * 1000
-    ? gitDate
-    : undefined;
-const declared = post.data.updatedAt ?? revised;
+// Une modification déclarée est distincte d'un changement technique du fichier.
+const declared = post.data.updatedAt;
 // Une date de modification antérieure à la publication est incohérente et
 // invalide le JSON-LD. On la neutralise plutôt que de la propager.
 const updatedDate =
@@ -59,6 +51,8 @@ const jsonLd = [
     slug: post.id,
     publishedAt: post.data.publishedAt,
     updatedAt: updatedDate.getTime() > post.data.publishedAt.getTime() ? updatedDate : undefined,
+    image: coverSrc,
+    author: byline,
   }),
   ...(faq.length ? [faqSchema(faq)] : []),
 ];
@@ -69,9 +63,10 @@ const jsonLd = [
   metaTitle={post.data.metaTitle}
   description={post.data.description}
   path={`/actualites/${post.id}`}
+  image={coverSrc}
   ogType="article"
   publishedTime={post.data.publishedAt.toISOString()}
-  modifiedTime={updatedDate.toISOString()}
+  modifiedTime={updatedDate.getTime() > post.data.publishedAt.getTime() ? updatedDate.toISOString() : undefined}
   jsonLd={jsonLd}
 >
   <article class="container article">
@@ -82,17 +77,16 @@ const jsonLd = [
       <p class="meta">
         Par {byline} ·
         <time datetime={post.data.publishedAt.toISOString().slice(0, 10)}>{dateFmt(post.data.publishedAt)}</time>
-        {post.data.updatedAt && (
+        {updatedDate.getTime() > post.data.publishedAt.getTime() && (
           <>
             {' · Mis à jour le '}
-            <time datetime={post.data.updatedAt.toISOString().slice(0, 10)}>{dateFmt(post.data.updatedAt)}</time>
+            <time datetime={updatedDate.toISOString().slice(0, 10)}>{dateFmt(updatedDate)}</time>
           </>
         )}
         {` · ${post.data.readingMinutes} min de lecture`}
       </p>
-      <p class="freshness">À jour au {dateFmt(updatedDate)}</p>
     </header>
-      <Cover src={photo(`post:${post.id}`)?.src ?? post.data.cover} alt={photo(`post:${post.id}`)?.alt ?? post.data.coverAlt ?? post.data.title} credit={photo(`post:${post.id}`)?.credit ?? post.data.coverCredit} seed={post.id} variant="banner" icon="doc" loading="eager" class="article-cover" />
+      <Cover src={coverSrc} alt={cover?.alt ?? post.data.coverAlt ?? post.data.title} credit={cover?.credit ?? post.data.coverCredit} seed={post.id} variant="banner" icon="doc" loading="eager" class="article-cover" />
     </div>
     <div class="reading-shell">
       <aside class="reading-rail" aria-label="Navigation dans l’article">

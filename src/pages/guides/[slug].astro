@@ -19,6 +19,8 @@ export const getStaticPaths = (() => {
 }) satisfies GetStaticPaths;
 
 const { guide } = Astro.props;
+const cover = photo(`guide:${guide.slug}`);
+const coverSrc = cover?.src ?? guide.cover;
 
 const crumbs = [
   { name: 'Accueil', path: '/' },
@@ -43,7 +45,7 @@ const related = [
 
 const jsonLd = [
   breadcrumbSchema(crumbs),
-  articleSchema(guide),
+  articleSchema(guide, coverSrc),
   ...(guide.faq.length ? [faqSchema(guide.faq)] : []),
 ];
 
@@ -55,6 +57,7 @@ const fmtDate = (iso: string) =>
   title={guide.title}
   description={guide.description}
   path={`/guides/${guide.slug}`}
+  image={coverSrc}
   ogType="article"
   publishedTime={new Date(guide.publishedAt).toISOString()}
   modifiedTime={new Date(guide.lastUpdated).toISOString()}
@@ -67,12 +70,13 @@ const fmtDate = (iso: string) =>
         <span class="badge badge-accent">{guide.category} · Guide pratique</span>
         <h1>{guide.title}</h1>
         <p class="meta">
+          Par <a href={url('/a-propos')}>la rédaction Bailleur Privé</a> ·
           Publié le <time datetime={guide.publishedAt}>{fmtDate(guide.publishedAt)}</time> ·
           Mis à jour le <time datetime={guide.lastUpdated}>{fmtDate(guide.lastUpdated)}</time> ·
           {guide.readingMinutes} min de lecture
         </p>
       </div>
-      <Cover src={photo(`guide:${guide.slug}`)?.src ?? guide.cover} alt={photo(`guide:${guide.slug}`)?.alt ?? guide.coverAlt ?? guide.title} credit={photo(`guide:${guide.slug}`)?.credit ?? guide.coverCredit} seed={guide.slug} variant="banner" icon={categoryIcon[guide.category]} loading="eager" class="guide-cover" />
+      <Cover src={coverSrc} alt={cover?.alt ?? guide.coverAlt ?? guide.title} credit={cover?.credit ?? guide.coverCredit} seed={guide.slug} variant="banner" icon={categoryIcon[guide.category]} loading="eager" class="guide-cover" />
     </div>
     <div class="reading-shell">
       <aside class="reading-rail" aria-label="Sommaire du guide">
@@ -124,7 +128,7 @@ const fmtDate = (iso: string) =>
         </article>
         {guide.faq.length > 0 && <Faq items={guide.faq} />}
         <aside class="related"><h2>À lire aussi</h2><ul>{related.map((g) => <li><a href={url(`/guides/${g.slug}`)}>{g.title}</a></li>)}<li><a href={url('/simulateur')}>Simuler mon amortissement</a></li></ul></aside>
-        <Sources />
+        <Sources extra={guide.slug === 'revente-plus-value-amortissement-jeanbrun' || guide.slug === 'risques-limites-dispositif-jeanbrun' ? [{ label: 'Calcul de la plus-value : article 150 VB du code général des impôts', editeur: 'Légifrance', url: 'https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000024576901' }] : []} />
       </div>
     </div>
   </div>
