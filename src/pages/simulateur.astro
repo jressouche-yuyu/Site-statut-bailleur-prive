@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
-import Callout from '../components/Callout.astro';
 import { loyerTiers, dispositif } from '../data/dispositif';
 import { breadcrumbSchema, howToSchema } from '../lib/schema';
 import { url } from '../lib/url';
@@ -221,29 +220,23 @@ const jsonLd = [
       </div>
     </section>
 
-    <Callout title="Comment lire ce résultat ?">
+    <section class="sim-method" aria-labelledby="sim-method-title">
+      <h2 id="sim-method-title">Lire votre estimation</h2>
       <p>
-        L'amortissement est une déduction des revenus fonciers. Les montants
-        fiscaux affichés supposent une année pleine, un seul bien, aucun déficit
-        antérieur et un taux d'imposition constant. Le total sur neuf ans répète
-        ces hypothèses : il ne constitue pas un échéancier personnalisé.
-        En cas de déficit, le simulateur ne chiffre pas l'économie fiscale :
-        son imputation dépend notamment de l'ensemble de votre situation.
+        Les résultats supposent une année pleine, un seul bien, aucun déficit antérieur
+        et un taux d'imposition constant. Le total sur neuf ans répète ces hypothèses.
+        En cas de déficit, l'économie fiscale n'est pas calculée : son imputation dépend
+        de votre situation.
       </p>
-    </Callout>
-
-    <Callout title="Estimation indicative — pas un conseil fiscal" tone="warning">
       <p>
-        Calcul simplifié : il ne tient pas compte de toute votre situation (autres
-        revenus fonciers, déficits antérieurs, variation de taux d'imposition,
-        première année incomplète, plus-value à la revente, plafonds spécifiques). Les taux et plafonds reflètent la version
-        issue de la loi de finances pour 2026 et peuvent évoluer. Ce simulateur
-        ne vérifie ni votre éligibilité ni les plafonds de loyer applicables.
-        Pour la méthode, voir
-        <a href={url('/guides/comment-fonctionne-statut-bailleur-prive')}> notre guide</a> et la
-        <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F39735">fiche Service Public</a>.
+        Cette estimation ne vérifie ni votre éligibilité ni les plafonds de loyer.
+        Elle ne tient pas compte des autres revenus fonciers, d'une première année
+        incomplète, d'une variation d'imposition ou de la plus-value à la revente.
+        Les règles peuvent évoluer et ce résultat ne remplace pas un conseil fiscal.
+        Consultez <a href={url('/guides/comment-fonctionne-statut-bailleur-prive')}>notre guide</a>
+        et la <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F39735">fiche Service Public</a>.
       </p>
-    </Callout>
+    </section>
     <Sources />
   </div>
 </BaseLayout>
@@ -568,12 +561,25 @@ const jsonLd = [
   }
   .detail-narrative {
     margin: var(--space-6) 0 0;
-    padding: var(--space-5) var(--space-6);
-    background: var(--bg-soft);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-size: 1.02rem;
-    font-family: var(--font-display);
-    line-height: 1.55;
+    padding: var(--space-5) 0 0;
+    border-top: 1px solid var(--border);
+    color: var(--text);
+    font-size: 1rem;
+    line-height: 1.65;
   }
+  .sim-method {
+    margin: clamp(2.5rem, 6vw, 4rem) 0;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border-strong);
+    max-width: 68ch;
+  }
+  .sim-method h2 {
+    margin: 0 0 .9rem;
+    font-family: var(--font-editorial);
+    font-size: clamp(1.45rem, 2vw, 1.7rem);
+    letter-spacing: 0;
+  }
+  .sim-method p { line-height: 1.65; }
+  .sim-method p:last-child { margin-bottom: 0; }
+
 </style>

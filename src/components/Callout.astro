@@ -20,34 +20,38 @@ const { title = 'À retenir', tone = 'info' } = Astro.props;
 
 <style>
   .callout {
-    padding: var(--space-6);
-    margin: var(--space-8) 0;
-    background: var(--surface);
-    border: 1px solid var(--border);
-  }
-  .callout-warning {
-    background: var(--warning-soft);
-    border-color: rgba(164, 116, 43, 0.35);
+    display: grid;
+    gap: .55rem;
+    margin: clamp(2rem, 5vw, 3.5rem) 0;
+    padding: 1.15rem 0 0;
+    border: 0;
+    border-top: 1px solid var(--border-strong);
+    background: transparent;
   }
   .callout-kicker {
-    display: inline-block;
-    margin: 0 0 var(--space-4);
-    padding-bottom: 6px;
-    font-size: 0.72rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    color: var(--text);
-    border-bottom: 2px solid var(--accent);
-  }
-  .callout-body :global(ul) {
     margin: 0;
+    color: var(--text);
+    font-family: var(--font-editorial);
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.25;
+    text-transform: none;
+    text-wrap: balance;
   }
-  .callout-body :global(p:last-child) {
-    margin-bottom: 0;
+  .callout-body {
+    min-width: 0;
+    line-height: 1.65;
   }
-
-.callout { background: var(--bg-soft); border: 0; border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; }
-.callout-warning { background: var(--warning-soft); }
-.callout-kicker { color: var(--accent-ink); border: 0; margin-bottom: .7rem; padding: 0; letter-spacing: .11em; }
+  .callout-body :global(ul),
+  .callout-body :global(ol) { padding-left: 1.25rem; }
+  .callout-body :global(p:last-child),
+  .callout-body :global(ul:last-child),
+  .callout-body :global(ol:last-child) { margin-bottom: 0; }
+  @media (min-width: 720px) {
+    .callout {
+      grid-template-columns: minmax(9rem, .32fr) minmax(0, 1fr);
+      gap: clamp(1.5rem, 4vw, 3rem);
+    }
+  }
 </style>
