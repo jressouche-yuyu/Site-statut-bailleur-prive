@@ -127,4 +127,12 @@ const dateFmt = (d: Date) => new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long
     margin-top: var(--space-8);
     font-size: 0.9rem;
   }
+
+.post-list { gap: 0; margin-top: 3rem; }
+.post { border: 0; border-top: 1px solid var(--border-strong); border-radius: 0; background: transparent; box-shadow: none; padding-block: 1.6rem; gap: 1.5rem; }
+.post:hover { box-shadow: none; border-color: var(--primary); }
+.post-body { padding: 0; align-self: center; }
+.post h2 { font-size: clamp(1.35rem, 2vw, 1.8rem); }
+@media (min-width: 640px) { .post { grid-template-columns: minmax(190px, 32%) 1fr; } }
+@media (max-width: 639px) { .post :global(.post-cover) { border-radius: 0; } }
 </style>

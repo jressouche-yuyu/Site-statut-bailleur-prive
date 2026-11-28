@@ -46,4 +46,8 @@ const { title = 'À retenir', tone = 'info' } = Astro.props;
   .callout-body :global(p:last-child) {
     margin-bottom: 0;
   }
+
+.callout { background: var(--bg-soft); border: 0; border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; }
+.callout-warning { background: var(--warning-soft); }
+.callout-kicker { color: var(--accent-ink); border: 0; margin-bottom: .7rem; padding: 0; letter-spacing: .11em; }
 </style>

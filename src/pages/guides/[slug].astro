@@ -60,48 +60,73 @@ const fmtDate = (iso: string) =>
   modifiedTime={new Date(guide.lastUpdated).toISOString()}
   jsonLd={jsonLd}
 >
-  <div class="container container-narrow">
+  <div class="container">
     <Breadcrumbs items={crumbs} />
-    <Cover src={photo(`guide:${guide.slug}`)?.src ?? guide.cover} alt={photo(`guide:${guide.slug}`)?.alt ?? guide.coverAlt ?? guide.title} credit={photo(`guide:${guide.slug}`)?.credit ?? guide.coverCredit} seed={guide.slug} variant="banner" icon={categoryIcon[guide.category]} loading="eager" class="guide-cover" />
-    <article class="prose">
-      <span class="badge badge-accent">{guide.category}</span>
-      <h1>{guide.title}</h1>
-      <p class="meta">
-        Publié le <time datetime={guide.publishedAt}>{fmtDate(guide.publishedAt)}</time> ·
-        Mis à jour le <time datetime={guide.lastUpdated}>{fmtDate(guide.lastUpdated)}</time> ·
-        {guide.readingMinutes} min de lecture
-      </p>
-      <p class="lead">{guide.intro}</p>
-
-      {
-        guide.sections.map((section) => (
-          <section>
-            <h2>{section.heading}</h2>
-            <Fragment set:html={withBase(section.body)} />
-          </section>
-        ))
-      }
-
-      <Callout title="Rappel">
-        <p>
-          Contenu informatif fondé sur la loi de finances pour 2026. Il ne
-          remplace pas un conseil fiscal personnalisé : vérifiez les textes en
-          vigueur avant toute décision. Voir la
-          <a href={url('/dispositif-jeanbrun')}> page de référence du dispositif</a>.
+    <div class="article-hero">
+      <div class="article-hero-copy">
+        <span class="badge badge-accent">{guide.category} · Guide pratique</span>
+        <h1>{guide.title}</h1>
+        <p class="meta">
+          Publié le <time datetime={guide.publishedAt}>{fmtDate(guide.publishedAt)}</time> ·
+          Mis à jour le <time datetime={guide.lastUpdated}>{fmtDate(guide.lastUpdated)}</time> ·
+          {guide.readingMinutes} min de lecture
         </p>
-      </Callout>
-    </article>
-
-    {guide.faq.length > 0 && <Faq items={guide.faq} />}
-
-    <aside class="related">
-      <h2>À lire aussi</h2>
-      <ul>
-        {related.map((g) => <li><a href={url(`/guides/${g.slug}`)}>{g.title}</a></li>)}
-        <li><a href={url('/simulateur')}>Simuler mon amortissement</a></li>
-      </ul>
-    </aside>
-    <Sources />
+      </div>
+      <Cover src={photo(`guide:${guide.slug}`)?.src ?? guide.cover} alt={photo(`guide:${guide.slug}`)?.alt ?? guide.coverAlt ?? guide.title} credit={photo(`guide:${guide.slug}`)?.credit ?? guide.coverCredit} seed={guide.slug} variant="banner" icon={categoryIcon[guide.category]} loading="eager" class="guide-cover" />
+    </div>
+    <div class="reading-shell">
+      <aside class="reading-rail" aria-label="Sommaire du guide">
+        <p class="reading-rail-title">Dans ce guide</p>
+        <ol>
+          {guide.slug === 'conditions-eligibilite-dispositif-jeanbrun' && <li><a href="#criteres-apercu">Les critères en un coup d’œil</a></li>}
+          {guide.sections.map((section, index) => <li><a href={`#guide-section-${index + 1}`}>{section.heading}</a></li>)}
+        </ol>
+      </aside>
+      <div class="reading-content">
+        <article class="prose">
+          <p class="lead">{guide.intro}</p>
+          {guide.slug === 'conditions-eligibilite-dispositif-jeanbrun' && (
+            <>
+              <Callout title="L’essentiel">
+                <ul>
+                  <li>Un logement situé dans un immeuble collectif.</li>
+                  <li>Une location nue à titre de résidence principale, pendant au moins neuf ans.</li>
+                  <li>Des plafonds de loyer et de ressources à respecter.</li>
+                  <li>Dans l’ancien, des conditions spécifiques de travaux et de réhabilitation à examiner.</li>
+                </ul>
+              </Callout>
+              <section aria-labelledby="criteres-apercu">
+                <h2 id="criteres-apercu">Les critères en un coup d’œil</h2>
+                <p>Ces repères présentent les principaux points à vérifier. Le détail dépend du logement, du projet et des textes applicables.</p>
+                <div class="table-wrap" role="region" aria-label="Principaux critères d’éligibilité" tabindex="0">
+                  <table>
+                    <caption>Principaux critères à examiner</caption>
+                    <thead><tr><th scope="col">Critère</th><th scope="col">Point à examiner</th></tr></thead>
+                    <tbody>
+                      <tr><th scope="row">Logement</th><td>Logement situé dans un immeuble collectif.</td></tr>
+                      <tr><th scope="row">Location</th><td>Location nue à usage de résidence principale.</td></tr>
+                      <tr><th scope="row">Engagement</th><td>Au moins neuf ans, sous les conditions applicables.</td></tr>
+                      <tr><th scope="row">Plafonds</th><td>Loyer et ressources du locataire à vérifier selon le projet.</td></tr>
+                      <tr><th scope="row">Ancien</th><td>Conditions de travaux et critères de réhabilitation à examiner.</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            </>
+          )}
+          {guide.sections.map((section, index) => (
+            <section id={`guide-section-${index + 1}`}>
+              <h2>{section.heading}</h2>
+              <Fragment set:html={withBase(section.body)} />
+            </section>
+          ))}
+          <Callout title="Rappel"><p>Contenu informatif fondé sur la loi de finances pour 2026. Il ne remplace pas un conseil fiscal personnalisé : vérifiez les textes en vigueur avant toute décision. Voir la <a href={url('/dispositif-jeanbrun')}> page de référence du dispositif</a>.</p></Callout>
+        </article>
+        {guide.faq.length > 0 && <Faq items={guide.faq} />}
+        <aside class="related"><h2>À lire aussi</h2><ul>{related.map((g) => <li><a href={url(`/guides/${g.slug}`)}>{g.title}</a></li>)}<li><a href={url('/simulateur')}>Simuler mon amortissement</a></li></ul></aside>
+        <Sources />
+      </div>
+    </div>
   </div>
 </BaseLayout>
 

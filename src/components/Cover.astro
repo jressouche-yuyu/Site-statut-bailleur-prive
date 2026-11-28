@@ -126,4 +126,8 @@ const iconPaths: Record<NonNullable<Props['icon']>, string> = {
     object-fit: cover;
     display: block;
   }
+
+.cover, .cover-thumb { border-radius: 0; }
+.cover img { transition: transform .6s ease; }
+@media (prefers-reduced-motion: reduce) { .cover img { transition: none; } }
 </style>

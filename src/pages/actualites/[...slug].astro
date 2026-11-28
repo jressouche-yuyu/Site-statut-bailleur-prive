@@ -74,10 +74,10 @@ const jsonLd = [
   modifiedTime={updatedDate.toISOString()}
   jsonLd={jsonLd}
 >
-  <article class="container container-narrow article">
+  <article class="container article">
     <Breadcrumbs items={crumbs} />
-    <Cover src={photo(`post:${post.id}`)?.src ?? post.data.cover} alt={photo(`post:${post.id}`)?.alt ?? post.data.coverAlt ?? post.data.title} credit={photo(`post:${post.id}`)?.credit ?? post.data.coverCredit} seed={post.id} variant="banner" icon="doc" loading="eager" class="article-cover" />
-    <header>
+    <div class="article-hero">
+      <header class="article-hero-copy">
       <h1>{post.data.title}</h1>
       <p class="meta">
         Par {byline} ·
@@ -92,6 +92,14 @@ const jsonLd = [
       </p>
       <p class="freshness">À jour au {dateFmt(updatedDate)}</p>
     </header>
+      <Cover src={photo(`post:${post.id}`)?.src ?? post.data.cover} alt={photo(`post:${post.id}`)?.alt ?? post.data.coverAlt ?? post.data.title} credit={photo(`post:${post.id}`)?.credit ?? post.data.coverCredit} seed={post.id} variant="banner" icon="doc" loading="eager" class="article-cover" />
+    </div>
+    <div class="reading-shell">
+      <aside class="reading-rail" aria-label="Navigation dans l’article">
+        <p class="reading-rail-title">Dans cet article</p>
+        <ol><li><a href="#article-contenu">Lire l’article</a></li>{faq.length > 0 && <li><a href="#faq-title">Questions fréquentes</a></li>}{sources.length > 0 && <li><a href="#sources-title">Sources</a></li>}<li><a href={url('/actualites')}>Toutes les actualités</a></li></ol>
+      </aside>
+      <div class="reading-content" id="article-contenu">
 
     {showPartnerNotice && <p class="partner-notice">Contenu réalisé en partenariat.</p>}
 
@@ -136,6 +144,8 @@ const jsonLd = [
     <p style="margin-top: var(--space-12)">
       <a class="btn btn-ghost" href={url('/actualites')}>← Toutes les actualités</a>
     </p>
+      </div>
+    </div>
   </article>
 </BaseLayout>
 
@@ -225,4 +235,7 @@ const jsonLd = [
   .prose :global(blockquote p) {
     margin: 0;
   }
+
+  .article .article-hero header { margin-top: 0; }
+  .freshness, .partner-notice { border-radius: 0; }
 </style>

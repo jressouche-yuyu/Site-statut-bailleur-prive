@@ -71,4 +71,9 @@ const { items, title = 'Questions fréquentes' } = Astro.props;
     margin: var(--space-3) 0 0;
     color: var(--text-muted);
   }
+
+.faq-list { display: block; border-top: 1px solid var(--border-strong); }
+details { border: 0; border-bottom: 1px solid var(--border-strong); border-radius: 0; background: transparent; padding: 1.15rem 0; }
+summary { font-size: 1.04rem; }
+details p { max-width: 65ch; line-height: 1.65; }
 </style>
