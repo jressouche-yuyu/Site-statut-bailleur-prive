@@ -45,7 +45,7 @@ export const guides: Guide[] = [
       "Loyers plafonnés, ressources des locataires, zonage : comment sont fixés les plafonds du statut du bailleur privé en 2026, avec le barème par zone et catégorie (intermédiaire, social, très social).",
     category: 'Investir',
     publishedAt: '2026-06-15',
-    lastUpdated: '2026-06-15',
+    lastUpdated: "2026-11-28",
     readingMinutes: 8,
     intro:
       "Pour amortir avec le dispositif Jeanbrun, le bailleur s'engage sur un loyer plafonné et des locataires sous plafonds de ressources. Bonne nouvelle : ces plafonds ne dépendent pas d'un nouveau décret — ils renvoient à des barèmes déjà connus. Voici, catégorie par catégorie et zone par zone, ce qui s'applique en 2026.",
@@ -64,7 +64,7 @@ export const guides: Guide[] = [
       },
       {
         heading: 'Lien entre plafonds et amortissement',
-        body: "<p>Le choix de la catégorie de loyer commande directement l'avantage fiscal. Dans le <strong>neuf</strong>, l'amortissement annuel est de 3,5 % (intermédiaire), 4,5 % (social) ou 5,5 % (très social), dans la limite de <strong>8 000 €, 10 000 € et 12 000 €</strong> de déduction par an. Dans l'<strong>ancien rénové</strong>, les taux sont de 3 %, 3,5 % et 4 %.</p><p><strong>À vérifier :</strong> dans l'ancien, plusieurs analyses rattachent l'avantage au plafond du <a href=\"/glossaire#deficit-foncier\">déficit foncier</a> (10 700 € par an, voire 21 400 € en cas de rénovation énergétique, mesure prolongée jusqu'en 2027). Les modalités exactes de cumul restent à confirmer avec le texte définitif : recoupez avant d'arbitrer, et testez votre cas dans le <a href=\"/simulateur\">simulateur</a>.</p>",
+        body: "<p>Le choix de la catégorie de loyer commande directement l'avantage fiscal. Dans le <strong>neuf</strong>, l'amortissement annuel est de 3,5 % (intermédiaire), 4,5 % (social) ou 5,5 % (très social), dans la limite annuelle applicable au foyer fiscal, de <strong>8 000 €</strong>, portée sous conditions à 10 000 € ou 12 000 € selon la part des revenus issus des logements sociaux ou très sociaux. Dans l'<strong>ancien rénové</strong>, les taux sont de 3 %, 3,5 % et 4 %.</p><p><strong>À vérifier :</strong> dans l'ancien, plusieurs analyses rattachent l'avantage au plafond du <a href=\"/glossaire#deficit-foncier\">déficit foncier</a> (10 700 € par an, voire 21 400 € en cas de rénovation énergétique, mesure prolongée jusqu'en 2027). Le déficit éventuel s'impute selon les règles de droit commun et votre situation : vérifiez les conditions applicables avant d'arbitrer, et testez votre cas dans le <a href=\"/simulateur\">simulateur</a>.</p>",
       },
       {
         heading: 'Sources & méthode',
@@ -96,14 +96,14 @@ export const guides: Guide[] = [
       "Taux de crédit 2026, rendement locatif, amortissement et économie d'impôt : un exemple complet pour estimer la rentabilité réelle d'un investissement sous le statut du bailleur privé.",
     category: "Investir",
     publishedAt: "2026-06-15",
-    lastUpdated: "2026-06-15",
+    lastUpdated: "2026-11-28",
     readingMinutes: 9,
     intro:
       "La rentabilité d'un investissement Jeanbrun ne se résume pas à l'avantage fiscal : elle combine le rendement locatif, le coût du crédit et l'amortissement. Avec un exemple chiffré et les paramètres de marché de 2026, voici comment raisonner.",
     sections: [
       {
         heading: "Les paramètres de marché en 2026",
-        body: "<p>Deux chiffres encadrent tout calcul de rentabilité aujourd'hui. D'abord le <strong>coût du crédit</strong> : début 2026, les taux moyens tournent autour de <strong>3,2 % à 3,4 %</strong> sur 15 à 20 ans (observatoire Crédit Logement/CSA). Ensuite le <strong>rendement locatif brut</strong> : environ <strong>5,5 % en moyenne nationale</strong>, plutôt 4 à 4,5 % à Lyon, Bordeaux ou Rennes, et 5 à 6 % à Lille. Tant que le rendement brut dépasse le taux d'emprunt, l'<strong>effet de levier</strong> joue en votre faveur.</p>",
+        body: "<p>Deux chiffres encadrent tout calcul de rentabilité aujourd'hui. D'abord le <strong>coût du crédit</strong> : début 2026, les taux moyens tournent autour de <strong>3,2 % à 3,4 %</strong> sur 15 à 20 ans (observatoire Crédit Logement/CSA). Ensuite le <strong>rendement locatif brut</strong> : environ <strong>5,5 % en moyenne nationale</strong>, plutôt 4 à 4,5 % à Lyon, Bordeaux ou Rennes, et 5 à 6 % à Lille. Comparer rendement brut et taux d'emprunt ne suffit pas à établir la rentabilité : il faut intégrer les frais, les charges, la fiscalité et la vacance locative.</p>",
       },
       {
         heading: "Notre cas : un T2 neuf à 230 000 €",
@@ -111,11 +111,11 @@ export const guides: Guide[] = [
       },
       {
         heading: "L'effet sur l'impôt",
-        body: "<p>Sans le dispositif, le revenu foncier imposable serait de 8 280 − 2 200 − 5 200 = <strong>880 €</strong>. L'amortissement de 6 440 € l'efface intégralement : revenu foncier ramené à 0, et l'excédent (5 560 €) est <strong>reporté</strong> sur les années suivantes. À mesure que les intérêts d'emprunt diminuent, l'amortissement prend le relais pour neutraliser un revenu foncier croissant.</p><p>Pour un bailleur à TMI 30 % (+ 17,2 % de prélèvements sociaux), neutraliser durablement un revenu foncier de plusieurs milliers d'euros représente une économie qui se chiffre vite en <strong>milliers d'euros sur les 9 ans</strong>. Chiffrez votre propre scénario dans le <a href=\"/simulateur\">simulateur</a>.</p>",
+        body: "<p>Sans le dispositif, le revenu foncier imposable serait de 8 280 − 2 200 − 5 200 = <strong>880 €</strong>. Après l'amortissement théorique de 6 440 €, le résultat de cet exemple est de <strong>− 5 560 €</strong>. Il peut contribuer à un déficit foncier, dont l'imputation dépend notamment des intérêts, des autres revenus fonciers et de la situation du foyer : il ne faut pas assimiler automatiquement cet écart à un report d'amortissement.</p><p>L'économie d'impôt dépend du traitement de ce déficit et ne peut pas être déduite de cet exemple sans connaître l'ensemble de la situation fiscale. Chiffrez votre propre scénario dans le <a href=\"/simulateur\">simulateur</a>.</p>",
       },
       {
         heading: "Raisonner en cash-flow, pas seulement en impôt",
-        body: "<p>L'amortissement améliore le rendement <em>net</em>, mais ne paie pas la mensualité. Le bon réflexe : calculer le <strong>cash-flow</strong> = loyers − (mensualité de crédit + charges + taxe foncière) + économie d'impôt. Sur un bien à loyer plafonné, le cash-flow est souvent légèrement négatif les premières années, puis s'améliore avec la baisse des intérêts et la revalorisation des loyers. L'avantage Jeanbrun réduit cet effort d'épargne mensuel.</p>",
+        body: "<p>L'amortissement améliore le rendement <em>net</em>, mais ne paie pas la mensualité. Le bon réflexe : estimer le <strong>cash-flow</strong> = loyers − mensualités de crédit − charges réellement supportées − impôt. La taxe foncière ne doit être comptée qu'une seule fois. Sur un bien à loyer plafonné, le cash-flow est souvent légèrement négatif les premières années, puis s'améliore avec la baisse des intérêts et la revalorisation des loyers. L'avantage Jeanbrun réduit cet effort d'épargne mensuel.</p>",
       },
       {
         heading: "Ce qui fait (ou défait) la rentabilité",

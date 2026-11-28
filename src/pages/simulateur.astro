@@ -86,8 +86,7 @@ const jsonLd = [
     <p class="lead">
       Un simulateur complet et concret : il compare votre impôt foncier
       <strong> avec et sans</strong> le dispositif Jeanbrun, année par année, et
-      estime votre <strong>économie d'impôt sur 9 ans</strong> ainsi que votre
-      effort d'épargne mensuel.
+      estime une <strong>économie d'impôt sur 9 ans</strong> sous hypothèses constantes. En cas de déficit, le calcul fiscal nécessite une analyse complémentaire.
     </p>
 
     <div class="presets">
@@ -172,7 +171,7 @@ const jsonLd = [
       <p class="sr-only" role="status" id="r-status"></p>
       <div class="result-cards">
         <div class="result-card">
-          <p class="result-label">Amortissement déductible / an</p>
+          <p class="result-label">Amortissement théorique / an</p>
           <p class="result-value" id="r-annual">—</p>
           <p class="result-foot" id="r-rate">—</p>
         </div>
@@ -184,17 +183,17 @@ const jsonLd = [
         <div class="result-card accent">
           <p class="result-label">Économie sur 9 ans</p>
           <p class="result-value" id="r-save9">—</p>
-          <p class="result-foot">durée d'engagement</p>
+          <p class="result-foot">si les hypothèses restent constantes</p>
         </div>
         <div class="result-card">
           <p class="result-label">Effort d'épargne / mois</p>
           <p class="result-value" id="r-effort">—</p>
-          <p class="result-foot" id="r-effort-foot">crédit + charges − loyer − éco. d'impôt</p>
+          <p class="result-foot" id="r-effort-foot">crédit + charges + impôt estimé − loyer</p>
         </div>
       </div>
 
       <!-- Graphique comparatif -->
-      <div class="chart card">
+      <div class="chart card" id="tax-chart">
         <h2 class="chart-title">Impôt foncier annuel : avec vs sans dispositif</h2>
         <div id="chart" class="chart-area"></div>
         <p class="chart-note" id="chart-note"></p>
@@ -213,7 +212,7 @@ const jsonLd = [
               <tr><td>− Charges déductibles</td><td id="d-charges-1">—</td><td id="d-charges-2">—</td></tr>
               <tr><td>− Intérêts d'emprunt</td><td id="d-int-1">—</td><td id="d-int-2">—</td></tr>
               <tr><td>− Amortissement</td><td id="d-amort-1">—</td><td id="d-amort-2">—</td></tr>
-              <tr class="row-strong"><td>= Revenu foncier imposable</td><td id="d-base-1">—</td><td id="d-base-2">—</td></tr>
+              <tr class="row-strong"><td>= Résultat foncier estimé</td><td id="d-base-1">—</td><td id="d-base-2">—</td></tr>
               <tr><td>Impôt + prélèvements sociaux</td><td id="d-tax-1">—</td><td id="d-tax-2">—</td></tr>
             </tbody>
           </table>
@@ -224,24 +223,25 @@ const jsonLd = [
 
     <Callout title="Comment lire ce résultat ?">
       <p>
-        Le dispositif permet de déduire l'amortissement de vos revenus fonciers,
-        ce qui réduit votre base imposable. L'économie réelle dépend de votre TMI
-        et des prélèvements sociaux (17,2 %). Si l'amortissement dépasse le revenu
-        foncier imposable, l'excédent n'est pas perdu : il est <strong>reporté</strong>
-        sur les années suivantes. Le total sur 9 ans applique ce report année par
-        année ; l'économie annuelle affichée, elle, décrit la première année.
+        L'amortissement est une déduction des revenus fonciers. Les montants
+        fiscaux affichés supposent une année pleine, un seul bien, aucun déficit
+        antérieur et un taux d'imposition constant. Le total sur neuf ans répète
+        ces hypothèses : il ne constitue pas un échéancier personnalisé.
+        En cas de déficit, le simulateur ne chiffre pas l'économie fiscale :
+        son imputation dépend notamment de l'ensemble de votre situation.
       </p>
     </Callout>
 
     <Callout title="Estimation indicative — pas un conseil fiscal" tone="warning">
       <p>
         Calcul simplifié : il ne tient pas compte de toute votre situation (autres
-        revenus fonciers, déficit imputable sur le revenu global, plus-value à la
-        revente, plafonds spécifiques). Les taux et plafonds reflètent la version
+        revenus fonciers, déficits antérieurs, variation de taux d'imposition,
+        première année incomplète, plus-value à la revente, plafonds spécifiques). Les taux et plafonds reflètent la version
         issue de la loi de finances pour 2026 et peuvent évoluer. Ce simulateur
         ne vérifie ni votre éligibilité ni les plafonds de loyer applicables.
         Pour la méthode, voir
-        <a href={url('/guides/comment-fonctionne-statut-bailleur-prive')}> notre guide</a>.
+        <a href={url('/guides/comment-fonctionne-statut-bailleur-prive')}> notre guide</a> et la
+        <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F39735">fiche Service Public</a>.
       </p>
     </Callout>
     <Sources />
@@ -256,118 +256,73 @@ const jsonLd = [
   const get = (id) => document.getElementById(id);
   const num = (id) => Math.max(0, Number(get(id).value) || 0);
 
+
   function compute() {
     const price = num('price');
     const segment = form.querySelector('input[name="segment"]:checked').value;
-    const tierKey = get('tier').value;
+    const tier = tiersData.find((t) => t.key === get('tier').value);
+    if (!tier) return;
     const rent = num('rent');
     const charges = num('charges');
     const interests = num('interests');
     const mensualite = num('mensualite');
-    const tmi = Number(get('tmi').value) || 0;
-    const rate = tmi + SOCIAL;
-
-    const tier = tiersData.find((t) => t.key === tierKey);
-    if (!tier) return;
+    const rate = (Number(get('tmi').value) || 0) + SOCIAL;
     const aRate = segment === 'neuf' ? tier.rateNeuf : tier.rateAncien;
-
-    // Le champ travaux ne concerne que l'ancien.
-    const champTravaux = document.getElementById('field-travaux');
-    champTravaux.hidden = segment !== 'ancien';
+    get('field-travaux').hidden = segment !== 'ancien';
     const travaux = segment === 'ancien' ? num('travaux') : 0;
-
     const loyers = rent * 12;
-    // Assiette : prix d'acquisition net de frais, MAJORÉ des travaux dans
-    // l'ancien, puis 80 % (les 20 % restants représentent le foncier).
     const base = (price + travaux) * config.share;
-    const amortRaw = base * aRate;
-    // `tier.cap` est le plafond du FOYER FISCAL atteignable avec cette
-    // catégorie, pas un plafond attaché au logement : il est partagé entre tous
-    // les logements amortis du foyer. Le simulateur raisonne sur un seul bien.
-    const amort = Math.min(amortRaw, tier.cap);
-
-    // Sans dispositif
+    // Hypothèse : un seul logement Jeanbrun dans le foyer, année complète.
+    const amort = Math.min(base * aRate, tier.cap);
     const netSans = loyers - charges - interests;
-    const taxableSans = Math.max(0, netSans);
-    const taxSans = taxableSans * rate;
-
-    // Avec dispositif : l'amortissement s'impute sur le foncier (plancher 0, excédent reporté)
-    const amortUsed = Math.min(amort, taxableSans);
-    const netAvec = taxableSans - amortUsed;
-    const taxAvec = Math.max(0, netAvec) * rate;
-    const carried = amort - amortUsed;
-
+    const netAvec = netSans - amort;
+    const hasDeficit = netSans < 0 || netAvec < 0;
+    const taxSans = netSans * rate;
+    const taxAvec = netAvec * rate;
     const saveYear = taxSans - taxAvec;
+    const save9 = saveYear * config.years;
+    // La mensualité inclut déjà les intérêts : ne pas les compter deux fois.
+    const effortMonth = mensualite + charges / 12 + taxAvec / 12 - rent;
 
-    // Échéancier réel sur la durée d'engagement : l'amortissement non consommé
-    // une année s'ajoute au stock déductible de la suivante. Sans cette boucle,
-    // save9 = saveYear x 9 supposait neuf années identiques et sous-estimait le
-    // résultat dès que l'amortissement dépassait le revenu foncier — alors que
-    // l'encadré affirmait que le report était pris en compte.
-    let stock = 0;
-    let save9 = 0;
-    for (let y = 0; y < config.years; y++) {
-      const dispo = amort + stock;
-      const used = Math.min(dispo, taxableSans);
-      stock = dispo - used;
-      save9 += taxSans - Math.max(0, taxableSans - used) * rate;
-    }
-    const carriedEnd = stock;
-
-    // Effort d'épargne mensuel (si mensualité renseignée)
-    const effortMonth = mensualite + charges / 12 - rent - saveYear / 12;
-
-    // Cartes
     get('r-annual').textContent = eur.format(amort);
     get('r-rate').textContent = `${(aRate * 100).toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} % · base ${eur.format(base)}`;
+    get('d-rent-1').textContent = get('d-rent-2').textContent = eur.format(loyers);
+    get('d-charges-1').textContent = get('d-charges-2').textContent = '− ' + eur.format(charges);
+    get('d-int-1').textContent = get('d-int-2').textContent = '− ' + eur.format(interests);
+    get('d-amort-1').textContent = '—';
+    get('d-amort-2').textContent = '− ' + eur.format(amort);
+    get('d-base-1').textContent = eur.format(netSans);
+    get('d-base-2').textContent = eur.format(netAvec);
+    get('tax-chart').hidden = hasDeficit;
+
+    if (hasDeficit) {
+      get('r-save').textContent = '—';
+      get('r-save9').textContent = '—';
+      get('r-effort').textContent = '—';
+      get('r-save-foot').textContent = 'déficit : calcul personnalisé nécessaire';
+      get('r-effort-foot').textContent = 'calcul fiscal nécessaire';
+      get('d-tax-1').textContent = 'Non calculé';
+      get('d-tax-2').textContent = 'Non calculé';
+      get('chart').innerHTML = '';
+      get('chart-note').textContent = '';
+      get('narrative').textContent = `Le résultat foncier estimé est de ${eur.format(netSans)} sans dispositif et ${eur.format(netAvec)} après amortissement théorique. Un déficit apparaît : son imputation dépend de l'ensemble de vos revenus fonciers, de vos intérêts et de votre situation fiscale. L'économie d'impôt et l'effort d'épargne ne sont pas calculés ici.`;
+      get('r-status').textContent = `Amortissement théorique ${eur.format(amort)} par an. Déficit : économie d'impôt non calculée.`;
+      return;
+    }
+
     get('r-save').textContent = eur.format(saveYear);
     get('r-save9').textContent = eur.format(save9);
+    get('r-save-foot').textContent = 'estimation pour une année pleine';
     get('r-effort').textContent = mensualite > 0 ? eur.format(Math.max(0, effortMonth)) : '—';
     get('r-effort-foot').textContent = mensualite > 0
-      ? (effortMonth <= 0 ? 'autofinancé' : 'à financer chaque mois')
+      ? (effortMonth <= 0 ? 'aucun effort mensuel estimé' : 'à financer chaque mois')
       : 'renseignez la mensualité';
-
-    // Résumé unique pour les lecteurs d'écran : la zone entière annoncée à
-    // chaque frappe rendait le formulaire inutilisable.
-    get('r-status').textContent =
-      `Amortissement ${eur.format(amort)} par an, économie d'impôt ${eur.format(saveYear)} par an, ${eur.format(save9)} sur ${config.years} ans.`;
-
-    // Détail
-    get('d-rent-1').textContent = eur.format(loyers);
-    get('d-rent-2').textContent = eur.format(loyers);
-    get('d-charges-1').textContent = '− ' + eur.format(charges);
-    get('d-charges-2').textContent = '− ' + eur.format(charges);
-    get('d-int-1').textContent = '− ' + eur.format(interests);
-    get('d-int-2').textContent = '− ' + eur.format(interests);
-    get('d-amort-1').textContent = '—';
-    get('d-amort-2').textContent = '− ' + eur.format(amortUsed);
-    get('d-base-1').textContent = eur.format(taxableSans);
-    get('d-base-2').textContent = eur.format(Math.max(0, netAvec));
     get('d-tax-1').textContent = eur.format(taxSans);
     get('d-tax-2').textContent = eur.format(taxAvec);
-
-    // Narratif concret
-    let narrative = `Avec ce projet, vous percevez ${eur.format(loyers)} de loyers par an. `;
-    if (taxableSans <= 0) {
-      narrative += `Vos charges et intérêts absorbent déjà vos loyers : sans dispositif, votre revenu foncier imposable est nul. L'amortissement de ${eur.format(amort)} est alors intégralement reporté sur les années suivantes.`;
-    } else {
-      narrative += `Sans dispositif, votre revenu foncier imposable est de ${eur.format(taxableSans)}, soit ${eur.format(taxSans)} d'impôt et prélèvements. Avec le dispositif Jeanbrun, vous déduisez ${eur.format(amortUsed)} d'amortissement : votre base tombe à ${eur.format(Math.max(0, netAvec))}, et votre impôt à ${eur.format(taxAvec)}. Soit une économie de ${eur.format(saveYear)} par an, environ ${eur.format(save9)} sur les 9 ans d'engagement.`;
-    }
-    if (carried > 0) {
-      narrative += ` ${eur.format(carried)} d'amortissement ne trouvent pas de revenu foncier à absorber la première année et sont reportés.`;
-      narrative += carriedEnd > 0
-        ? ` Au terme des ${config.years} ans, il resterait ${eur.format(carriedEnd)} d'amortissement non consommé : à ce niveau de charges, le dispositif ne délivre pas tout son potentiel.`
-        : ` Le report est entièrement absorbé avant la fin de l'engagement.`;
-    }
-    get('narrative').textContent = narrative;
-
+    get('r-status').textContent = `Amortissement théorique ${eur.format(amort)} par an, économie estimée ${eur.format(saveYear)} pour une année pleine.`;
+    get('narrative').textContent = `Pour ${eur.format(loyers)} de loyers annuels, le résultat foncier estimé passe de ${eur.format(netSans)} à ${eur.format(netAvec)} après amortissement théorique. Avec le taux indiqué et 17,2 % de prélèvements sociaux, l'économie estimée est de ${eur.format(saveYear)} pour une année pleine. Le total de ${eur.format(save9)} sur ${config.years} ans suppose des revenus, charges, taux et règles inchangés.`;
     drawChart(taxSans, taxAvec);
-
-    const noteParts = [];
-    noteParts.push(`Économie annuelle : ${eur.format(saveYear)}.`);
-    if (carried > 0) noteParts.push(`Report la 1re année : ${eur.format(carried)}.`);
-    if (carriedEnd > 0) noteParts.push(`Non consommé après ${config.years} ans : ${eur.format(carriedEnd)}.`);
-    get('chart-note').textContent = noteParts.join(' ');
+    get('chart-note').textContent = `Économie estimée pour une année pleine : ${eur.format(saveYear)}.`;
   }
 
   // Graphique en barres (SVG) : impôt sans vs avec
